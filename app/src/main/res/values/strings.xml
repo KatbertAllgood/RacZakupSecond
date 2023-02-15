@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">RacZakupSecond</string>
+
+    <!-- fragment_login !-->
+    <string name="frag_login_welcome_back">С возвращением!</string>
+    <string name="frag_login_hint">Введите номер телефона,\n чтобы получить проверочный код</string>
+    <string name="frag_login_button">Войти</string>
+    <string name="frag_login_startPhone">+7</string>
+
+    <!-- fragment_check_code !-->
+    <string name="frag_check_checkCode">Проверочный код</string>
+    <string name="frag_check_typeCheckCode">Введите проверочный код из СМС</string>
+
+    <string name="toolbar_login">Вход</string>
+
+</resources>

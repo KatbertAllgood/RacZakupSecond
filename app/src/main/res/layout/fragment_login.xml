@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.auth.login.LoginFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_marginTop="35dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/toolbar_login"
+        android:fontFamily="@font/roboto"
+        android:textSize="20sp"
+        android:textColor="@color/login_text" />
+
+    <TextView
+        android:layout_marginTop="80dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/frag_login_welcome_back"
+        android:fontFamily="@font/roboto_bold_italic"
+        android:textSize="32sp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/frag_login_hint"
+        android:fontFamily="@font/roboto"
+        android:textSize="18sp"
+        android:textColor="@color/instructions_text"/>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/roboto"
+            android:textSize="20sp"
+            android:text="@string/frag_login_startPhone"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:background="@drawable/shape_loginfrag_start_phone_login"/>
+
+        <EditText
+            android:id="@+id/editText_loginNumber"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:maxLength="10"
+
+            android:inputType="phone"
+            android:importantForAutofill="no"
+            android:maxLines="1"
+
+            android:background="@drawable/shape_loginfrag_edit_phone_login"
+
+            android:textSize="20sp"
+            android:letterSpacing="0.01"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_login"
+
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+
+        android:background="@drawable/shape_loginfrag_button_login"
+        android:fontFamily="@font/roboto_bold_italic"
+        android:text="@string/frag_login_button"
+        android:textColor="@color/white"
+
+        android:textSize="17sp" />
+
+</LinearLayout>

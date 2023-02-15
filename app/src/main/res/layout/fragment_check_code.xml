@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.auth.checkcode.CheckCodeFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_marginTop="35dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/toolbar_login"
+        android:fontFamily="@font/roboto"
+        android:textSize="20sp"
+        android:textColor="@color/login_text" />
+
+    <TextView
+        android:layout_marginTop="80dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/frag_check_checkCode"
+        android:fontFamily="@font/roboto_bold_italic"
+        android:textSize="32sp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="@string/frag_check_typeCheckCode"
+        android:fontFamily="@font/roboto"
+        android:textSize="18sp"
+        android:textColor="@color/instructions_text"/>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editText_codeNum_1"
+            android:layout_height="match_parent"
+            android:layout_width="65dp"
+
+            android:background="@drawable/shape_checkcodefrag_edit_text_begin"
+
+            android:gravity="center"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="number"
+
+            android:fontFamily="@font/roboto_bold_italic"
+
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:layout_marginHorizontal="1dp"
+
+            android:id="@+id/editText_codeNum_2"
+            android:layout_height="match_parent"
+            android:layout_width="65dp"
+
+            android:background="@color/white"
+
+            android:gravity="center"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="number"
+
+            android:fontFamily="@font/roboto_bold_italic"
+
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:layout_marginEnd="1dp"
+
+            android:id="@+id/editText_codeNum_3"
+            android:layout_height="match_parent"
+            android:layout_width="65dp"
+
+            android:background="@color/white"
+
+            android:gravity="center"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="number"
+
+            android:fontFamily="@font/roboto_bold_italic"
+
+            android:importantForAutofill="no"/>
+
+        <EditText
+            android:id="@+id/editText_codeNum_4"
+            android:layout_height="match_parent"
+            android:layout_width="65dp"
+
+            android:background="@drawable/shape_loginfrag_edit_phone_login"
+
+            android:gravity="center"
+            android:maxLength="1"
+            android:maxLines="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:inputType="number"
+
+            android:fontFamily="@font/roboto_bold_italic"
+
+            android:importantForAutofill="no"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
