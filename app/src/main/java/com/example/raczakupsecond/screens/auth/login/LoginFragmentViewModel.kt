@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.PhoneResponseDomain
 import com.example.domain.models.PhoneDomain
-import com.example.domain.usecase.CheckPhoneUseCase
+import com.example.domain.usecase.auth.CheckPhoneUseCase
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver

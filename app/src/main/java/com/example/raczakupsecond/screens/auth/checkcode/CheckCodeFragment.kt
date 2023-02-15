@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentCheckCodeBinding
@@ -31,6 +32,35 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
         val code: MutableList<String> = MutableList(4) {""}
 
         with(binding) {
+
+            viewModel.getResponseSuccess().observe(viewLifecycleOwner) {
+                when (it) {
+                    true -> {
+
+                    }
+                    false -> {
+                        Toast.makeText(
+                            activity,
+                            "Неверный код",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        listOf(
+                            editTextCodeNum1,
+                            editTextCodeNum2,
+                            editTextCodeNum3,
+                            editTextCodeNum4
+                        ).forEach{
+                                editText ->
+                            editText.text.clear()
+                        }
+                        for (i in 0 until code.size) {
+                            code [i] = ""
+                        }
+                        editTextCodeNum1.requestFocus()
+                    }
+                }
+            }
+
             editTextCodeNum1.requestFocus()
             editTextCodeNum1.addTextChangedListener(object: TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -109,9 +139,6 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
             })
 
         }
-
-
-
     }
 
     companion object {
