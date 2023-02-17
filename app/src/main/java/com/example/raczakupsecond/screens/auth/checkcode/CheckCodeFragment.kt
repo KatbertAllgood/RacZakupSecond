@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentCheckCodeBinding
 
@@ -32,6 +34,21 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
         val code: MutableList<String> = MutableList(4) {""}
 
         with(binding) {
+
+            toolbarAuth.onClick {
+
+                requireActivity().onBackPressed()
+
+//                val callback = object : OnBackPressedCallback(true) {
+//                    override fun handleOnBackPressed() {
+//                        findNavController().navigate(R.id.action_checkCodeFragment_to_loginFragment)
+//                    }
+//                }
+//                requireActivity().onBackPressedDispatcher.addCallback(
+//                    viewLifecycleOwner,
+//                    callback
+//                )
+            }
 
             viewModel.getResponseSuccess().observe(viewLifecycleOwner) {
                 when (it) {

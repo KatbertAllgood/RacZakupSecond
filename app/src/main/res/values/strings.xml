@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RacZakupSecond</string>
+    <string name="app_name">RacZakup</string>
 
     <!-- fragment_login !-->
     <string name="frag_login_welcome_back">С возвращением!</string>
@@ -12,5 +12,7 @@
     <string name="frag_check_typeCheckCode">Введите проверочный код из СМС</string>
 
     <string name="toolbar_login">Вход</string>
+    <string name="fast_order">Быстрый заказ</string>
+
 
 </resources>

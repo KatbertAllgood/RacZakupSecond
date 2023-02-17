@@ -44,6 +44,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         with(binding){
 
+            toolbarAuth.onClick {
+                requireActivity().onBackPressed()
+            }
+
             editTextLoginNumber.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
