@@ -14,4 +14,6 @@
     <color name="instructions_text">#888888</color>
     <color name="phone_number">#EFFFE0</color>
     <color name="button_login">#7C3AFF</color>
+    
+    <color name="toolbar_auth_back_arrow">#027E2A</color>
 </resources>
