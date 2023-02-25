@@ -12,4 +12,6 @@ interface NetworkRepository {
     fun refresh(): Single<RefreshResponseDomain>
 
     fun currentUser(): Single<CurrentUserResponseDomain>
+
+    fun logout(): Single<LogoutResponseDomain>
 }

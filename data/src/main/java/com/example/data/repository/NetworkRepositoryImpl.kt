@@ -34,5 +34,11 @@ class NetworkRepositoryImpl : NetworkRepository{
         }
     }
 
+    override fun logout(): Single<LogoutResponseDomain> {
+        return NetworkService.retrofitService.logout().map {
+            return@map LogoutResponseToDomain(it).toDomain()
+        }
+    }
+
 
 }
