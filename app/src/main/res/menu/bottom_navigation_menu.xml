@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- ВСТАВИТЬ АЙДИ ФРАГМЕНТОВ, НА КОТОРЫЕ ОСУЩ ПЕРЕХОД -->
+    <item
+        android:id="@+id/categoriesShopFragment"
+        android:icon="@drawable/ic_bottom_navigation_main"
+        android:title="@string/bottom_navigation_main"
+        android:orderInCategory="1"
+        />
+
+    <item
+        android:id="@+id/menu_packs"
+        android:icon="@drawable/ic_bottom_navigation_packs"
+        android:title="@string/bottom_navigation_packs"
+        android:orderInCategory="2"
+        />
+
+    <item
+        android:id="@+id/menu_kart"
+        android:icon="@drawable/ic_bottom_navigation_kart"
+        android:title="@string/bottom_navigation_kart"
+        android:orderInCategory="3"
+        />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_bottom_navigation_profile"
+        android:title="@string/bottom_navigation_profile"
+        android:orderInCategory="4"
+        />
+</menu>
