@@ -10,7 +10,7 @@ interface NetworkRepository {
     fun checkCode(code: CodeDomain): Single<CodeResponseDomain>
 
     fun refresh(
-        accessToken: String,
-        refreshToken: String
+//        accessToken: String,
+//        refreshToken: String
     ): Single<RefreshResponseDomain>
 }

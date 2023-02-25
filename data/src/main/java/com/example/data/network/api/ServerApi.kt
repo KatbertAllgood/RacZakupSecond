@@ -14,8 +14,8 @@ interface ServerApi {
 
     @GET("auth/refresh")
     fun refresh(
-        @Header("Authorization") accessToken: String,
-        @Header("Cookie") refreshToken: String
+//        @Header("Authorization") accessToken: String,
+//        @Header("Cookie") refreshToken: String
     ): Single<RefreshResponseData>
 
 }

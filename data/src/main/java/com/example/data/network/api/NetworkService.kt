@@ -1,6 +1,6 @@
 package com.example.data.network.api
 
-import com.example.data.network.api.interceptors.RefreshInterceptor
+import com.example.data.network.api.interceptors.RequestInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -11,7 +11,7 @@ object NetworkService {
     private val okHttpClient = OkHttpClient()
         .newBuilder()
 //        .addInterceptor(CookieInterceptor())
-        .addInterceptor(RefreshInterceptor())
+        .addInterceptor(RequestInterceptor())
         .build()
 
     val retrofitService = Retrofit.Builder()

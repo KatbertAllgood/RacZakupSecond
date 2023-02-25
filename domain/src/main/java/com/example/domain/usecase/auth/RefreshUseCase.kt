@@ -6,7 +6,7 @@ class RefreshUseCase(
     private val networkRepository: NetworkRepository
 ) {
     fun invoke(
-        accessToken: String,
-        refreshToken: String
-    ) = networkRepository.refresh(accessToken, refreshToken)
+//        accessToken: String,
+//        refreshToken: String
+    ) = networkRepository.refresh()
 }
