@@ -13,8 +13,9 @@ import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import com.example.data.utils.InterceptorsPreferences
 
-class CheckCodeFragmentViewModel : ViewModel() {
+class CheckCodeFragmentVM : ViewModel() {
     private val networkRepository = App.getNetworkRepository()
     private val checkCodeUseCase = CheckCodeUseCase(networkRepository)
 
@@ -44,7 +45,7 @@ class CheckCodeFragmentViewModel : ViewModel() {
                         "UserInfo",
                         "${user.userId}\n${user.role}\n${user.authId}"
                     )
-                    setAccessToken(t)
+                    setTokens(t)
                     responseSuccess.value = true
                 }
                 override fun onError(e: Throwable) {
@@ -54,8 +55,13 @@ class CheckCodeFragmentViewModel : ViewModel() {
             })
     }
 
-    private fun setAccessToken(t: CodeResponseDomain) {
+    private fun setTokens(t: CodeResponseDomain) {
         val accessToken = t.accessToken
-        updatePreferenceUseCase.invoke(Constants.ACCESS_TOKEN, accessToken)
+        InterceptorsPreferences.setAccess = accessToken
+        Log.d("INTERCEPTORPREFFF", InterceptorsPreferences.setAccess ?: "non")
+//        updatePreferenceUseCase.invoke(Constants.ACCESS_TOKEN, accessToken)
+        val refreshToken = t.refreshToken
+        InterceptorsPreferences.setRefresh = refreshToken
+//        updatePreferenceUseCase.invoke(Constants.REFRESH_TOKEN, refreshToken)
     }
 }

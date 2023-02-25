@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.start.toauth
+package com.example.raczakupsecond.screens.start
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,16 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.raczakupsecond.R
-import com.example.raczakupsecond.databinding.FragmentToAuthBinding
+import com.example.raczakupsecond.databinding.FragmentStartBinding
 
-class ToAuthFragment : Fragment(R.layout.fragment_to_auth) {
-    lateinit var binding : FragmentToAuthBinding
+class StartFragment : Fragment(R.layout.fragment_start) {
+    lateinit var binding : FragmentStartBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentToAuthBinding.inflate(layoutInflater)
+        binding = FragmentStartBinding.inflate(layoutInflater)
         return binding.root
     }
 

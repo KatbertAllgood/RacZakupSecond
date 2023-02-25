@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class LoginFragmentViewModel : ViewModel() {
+class LoginFragmentVM : ViewModel() {
     private val networkRepository = App.getNetworkRepository()
     private val checkPhoneUseCase = CheckPhoneUseCase(networkRepository)
 
