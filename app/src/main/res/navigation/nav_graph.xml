@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/navigation_auth">
+
+    <navigation android:id="@+id/navigation_auth"
+        app:startDestination="@id/startFragment">
+        <fragment
+            android:id="@+id/startFragment"
+            android:name="com.example.raczakupsecond.screens.start.StartFragment"
+            android:label="fragment_to_auth"
+            tools:layout="@layout/fragment_start">
+            <action
+                android:id="@+id/action_toAuthFragment_to_loginFragment"
+                app:destination="@id/loginFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/checkCodeFragment"
+            android:name="com.example.raczakupsecond.screens.auth.checkcode.CheckCodeFragment"
+            android:label="fragment_check_code"
+            tools:layout="@layout/fragment_check_code" />
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.example.raczakupsecond.screens.auth.login.LoginFragment"
+            android:label="fragment_login"
+            tools:layout="@layout/fragment_login">
+            <action
+                android:id="@+id/action_loginFragment_to_checkCodeFragment"
+                app:destination="@id/checkCodeFragment" />
+        </fragment>
+    </navigation>
+    <navigation android:id="@+id/navigation_shop"
+        app:startDestination="@id/categoriesShopFragment">
+        <fragment
+            android:id="@+id/categoriesShopFragment"
+            android:name="com.example.raczakupsecond.screens.shop.categories.CategoriesShopFragment"
+            android:label="fragment_categories_shop"
+            tools:layout="@layout/fragment_categories_shop" />
+    </navigation>
+</navigation>
