@@ -9,6 +9,8 @@ class UserToDomain(
     fun toDomain() = UserDomain(
         userData.authId,
         userData.role,
-        userData.userId
+        userData.userId,
+        userData.iat,
+        userData.exp
     )
 }

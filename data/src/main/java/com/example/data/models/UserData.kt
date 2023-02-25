@@ -8,5 +8,9 @@ data class UserData(
     @SerializedName("role")
     val role: String = "",
     @SerializedName("userId")
-    val userId: String = ""
+    val userId: String = "",
+    @SerializedName("iat")
+    val iat: Int = 0,
+    @SerializedName("exp")
+    val exp: Int = 0
 )

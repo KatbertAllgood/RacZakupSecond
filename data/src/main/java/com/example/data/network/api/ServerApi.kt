@@ -13,9 +13,9 @@ interface ServerApi {
     fun checkCode(@Body code: CodeData): Single<CodeResponseData>
 
     @GET("auth/refresh")
-    fun refresh(
-//        @Header("Authorization") accessToken: String,
-//        @Header("Cookie") refreshToken: String
-    ): Single<RefreshResponseData>
+    fun refresh(): Single<RefreshResponseData>
+
+    @GET("auth/current-user")
+    fun currentUser(): Single<CurrentUserResponseData>
 
 }

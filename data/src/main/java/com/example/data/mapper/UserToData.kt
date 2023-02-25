@@ -9,6 +9,8 @@ class UserToData(
     fun toData() = UserData(
         userDomain.authId,
         userDomain.role,
-        userDomain.userId
+        userDomain.userId,
+        userDomain.iat,
+        userDomain.exp
     )
 }

@@ -23,13 +23,16 @@ class NetworkRepositoryImpl : NetworkRepository{
     }
 
     override fun refresh(): Single<RefreshResponseDomain> {
-//         return NetworkService.retrofitService.refresh(accessToken, refreshToken).map {
-//             return@map RefreshResponseToDomain(it).toDomain()
-//         }
-
         return NetworkService.retrofitService.refresh().map {
             return@map RefreshResponseToDomain(it).toDomain()
         }
     }
+
+    override fun currentUser(): Single<CurrentUserResponseDomain> {
+        return NetworkService.retrofitService.currentUser().map {
+            return@map CurrentUserResponseToDomain(it).toDomain()
+        }
+    }
+
 
 }
