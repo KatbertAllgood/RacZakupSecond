@@ -16,4 +16,20 @@
     <color name="button_login">#7C3AFF</color>
     
     <color name="toolbar_auth_back_arrow">#027E2A</color>
+    <color name="nav_bar_pressed">#6FBB76</color>
+
+    <color name="toolbar_shop_background">#FFC2FFAD</color>
+
+    <color name="bottom_navigation_bar">#F3F3F3</color>
+
+    <!-- КАТЕГОРИИ -->
+    <color name="search_bar">#F3F3F3</color>
+    <color name="category_milk">#b6fef3</color>
+    <color name="category_vegetables_fruits">#ddf8df</color>
+    <color name="category_grocery">#f5f5dc</color>
+    <color name="category_meat">#ffe4e1</color>
+    <color name="category_fish_seafood">#AEDCDC</color>
+    <color name="category_frozen">#b6f7fe</color>
+    <color name="category_drinks">#ffe5b4</color>
+    <color name="category_nuts_dried">#FFC0C0</color>
 </resources>

@@ -14,5 +14,23 @@
     <string name="toolbar_login">Вход</string>
     <string name="fast_order">Быстрый заказ</string>
 
+    <!-- bottom navigation !-->
+    <string name="bottom_navigation_main">Главная</string>
+    <string name="bottom_navigation_packs">Наборы</string>
+    <string name="bottom_navigation_kart">Корзина</string>
+    <string name="bottom_navigation_profile">Профиль</string>
+
+    <string name="search_hint">Поиск</string>
+
+    <!-- КАТЕГОРИИ -->
+    <string name="category_milk">Молочные\nпродукты</string>
+    <string name="category_vegetables">Овощи и\nфрукты</string>
+    <string name="category_grocery">Бакалея</string>
+    <string name="category_meat">Мясная\nгастрономия</string>
+    <string name="category_fish_seafood">Рыба и\nморепродукты</string>
+    <string name="category_frozen">Замороженные\nпродукты</string>
+    <string name="category_drinks">Напитки</string>
+    <string name="category_nuts_dried">Орехи и\nсухофрукты</string>
+
 
 </resources>
