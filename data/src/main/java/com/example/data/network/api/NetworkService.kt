@@ -1,5 +1,6 @@
 package com.example.data.network.api
 
+import com.example.data.network.api.authenticators.TokenAuthenticator
 import com.example.data.network.api.interceptors.RequestInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -12,6 +13,7 @@ object NetworkService {
         .newBuilder()
 //        .addInterceptor(CookieInterceptor())
         .addInterceptor(RequestInterceptor())
+        .authenticator(TokenAuthenticator())
         .build()
 
     val retrofitService = Retrofit.Builder()
