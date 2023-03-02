@@ -32,4 +32,8 @@
     <color name="category_frozen">#b6f7fe</color>
     <color name="category_drinks">#ffe5b4</color>
     <color name="category_nuts_dried">#FFC0C0</color>
+
+    <!-- ПРОФИЛЬ -->
+    <color name="gray_for_profile_holders">#ECECEC</color>
+    <color name="hint_color_edit_text">#898989</color>
 </resources>

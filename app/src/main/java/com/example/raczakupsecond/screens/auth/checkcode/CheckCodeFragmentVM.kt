@@ -4,16 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.CodeDomain
-import com.example.domain.models.CodeResponseDomain
+import com.example.domain.models.auth.CodeDomain
+import com.example.domain.models.auth.CodeResponseDomain
 import com.example.domain.usecase.auth.CheckCodeUseCase
 import com.example.domain.usecase.sharedpreferences.UpdatePreferenceUseCase
-import com.example.domain.utils.Constants
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import com.example.data.utils.InterceptorsPreferences
+import com.example.data.utils.ApplicationPreferences
 
 class CheckCodeFragmentVM : ViewModel() {
     private val networkRepository = App.getNetworkRepository()
@@ -57,11 +56,11 @@ class CheckCodeFragmentVM : ViewModel() {
 
     private fun setTokens(t: CodeResponseDomain) {
         val accessToken = t.accessToken
-        InterceptorsPreferences.setAccess = accessToken
-        Log.d("INTERCEPTORPREFFF", InterceptorsPreferences.setAccess ?: "non")
+        ApplicationPreferences.setAccess = accessToken
+        Log.d("INTERCEPTORPREFFF", ApplicationPreferences.setAccess ?: "non")
 //        updatePreferenceUseCase.invoke(Constants.ACCESS_TOKEN, accessToken)
         val refreshToken = t.refreshToken
-        InterceptorsPreferences.setRefresh = refreshToken
+        ApplicationPreferences.setRefresh = refreshToken
 //        updatePreferenceUseCase.invoke(Constants.REFRESH_TOKEN, refreshToken)
     }
 }

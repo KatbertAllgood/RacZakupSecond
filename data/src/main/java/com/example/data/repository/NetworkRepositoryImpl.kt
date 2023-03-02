@@ -2,7 +2,8 @@ package com.example.data.repository
 
 import com.example.data.mapper.*
 import com.example.data.network.api.NetworkService
-import com.example.domain.models.*
+import com.example.domain.models.auth.*
+import com.example.domain.models.families.FamilyDomain
 import com.example.domain.repository.NetworkRepository
 import io.reactivex.Single
 
@@ -40,5 +41,14 @@ class NetworkRepositoryImpl : NetworkRepository{
         }
     }
 
+    override fun getFamilies(): Single<List<FamilyDomain>> {
+        return NetworkService.retrofitService.getFamilies().map {
+            val mapResult: MutableList<FamilyDomain> = mutableListOf()
+            for (i in it) {
+                mapResult.add(FamilyToDomain(i).toDomain())
+            }
+            return@map mapResult
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.models.CodeResponseData
-import com.example.domain.models.CodeResponseDomain
+import com.example.data.models.auth.CodeResponseData
+import com.example.domain.models.auth.CodeResponseDomain
 
 class CodeResponseToDomain(
     private val codeResponseData: CodeResponseData

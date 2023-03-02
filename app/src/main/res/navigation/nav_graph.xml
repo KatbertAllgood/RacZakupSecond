@@ -39,4 +39,12 @@
             android:label="fragment_categories_shop"
             tools:layout="@layout/fragment_categories_shop" />
     </navigation>
+    <navigation android:id="@+id/navigation_profile"
+        app:startDestination="@id/profileFragment">
+        <fragment
+            android:id="@+id/profileFragment"
+            android:name="com.example.raczakupsecond.screens.profile.profilepage.ProfileFragment"
+            android:label="fragment_profile"
+            tools:layout="@layout/fragment_profile" />
+    </navigation>
 </navigation>

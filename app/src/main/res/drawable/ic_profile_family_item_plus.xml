@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="25dp"
+    android:height="25dp"
+    android:viewportWidth="25"
+    android:viewportHeight="25">
+    <path
+        android:fillColor="@color/toolbar_auth_back_arrow"
+        android:pathData="M12.5 0c1.18 0 2.15 0.9 2.26 2.05l0.01 0.22v7.96h7.96c1.25 0 2.27 1.01 2.27 2.27 0 1.18-0.9 2.15-2.05 2.26l-0.22 0.01h-7.96v7.96c0 1.25-1.01 2.27-2.27 2.27-1.18 0-2.15-0.9-2.26-2.05l-0.01-0.22v-7.96H2.27C1.02 14.77 0 13.76 0 12.5c0-1.18 0.9-2.15 2.05-2.26l0.22-0.01h7.96V2.27C10.23 1.02 11.24 0 12.5 0Z"/>
+</vector>

@@ -11,7 +11,6 @@ object NetworkService {
 
     private val okHttpClient = OkHttpClient()
         .newBuilder()
-//        .addInterceptor(CookieInterceptor())
         .addInterceptor(RequestInterceptor())
         .authenticator(TokenAuthenticator())
         .build()

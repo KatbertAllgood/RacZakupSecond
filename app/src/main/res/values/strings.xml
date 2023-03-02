@@ -32,5 +32,13 @@
     <string name="category_drinks">Напитки</string>
     <string name="category_nuts_dried">Орехи и\nсухофрукты</string>
 
+    <!-- ПРОФИЛЬ -->
+    <string name="profile_my_profile">Мой профиль</string>
+    <string name="profile_my_orders">Мои заказы</string>
+    <string name="profile_contacts">Контактные данные</string>
+    <string name="profile_prefs_params">Мои физические данные\nи предпочтения</string>
+    <string name="profile_groups">Группы</string>
+    <string name="group">Группа</string>
+
 
 </resources>

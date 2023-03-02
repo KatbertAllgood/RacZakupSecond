@@ -1,6 +1,7 @@
 package com.example.domain.repository
 
-import com.example.domain.models.*
+import com.example.domain.models.auth.*
+import com.example.domain.models.families.FamilyDomain
 import io.reactivex.Single
 
 interface NetworkRepository {
@@ -14,4 +15,6 @@ interface NetworkRepository {
     fun currentUser(): Single<CurrentUserResponseDomain>
 
     fun logout(): Single<LogoutResponseDomain>
+
+    fun getFamilies(): Single<List<FamilyDomain>>
 }

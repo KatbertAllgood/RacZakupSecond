@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.models.CurrentUserResponseData
-import com.example.domain.models.CurrentUserResponseDomain
+import com.example.data.models.auth.CurrentUserResponseData
+import com.example.domain.models.auth.CurrentUserResponseDomain
 
 class CurrentUserResponseToDomain(
     val currentUserResponseData: CurrentUserResponseData

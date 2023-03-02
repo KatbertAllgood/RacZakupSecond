@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.models.UserData
-import com.example.domain.models.UserDomain
+import com.example.data.models.auth.UserData
+import com.example.domain.models.auth.UserDomain
 
 class UserToData(
     private val userDomain: UserDomain

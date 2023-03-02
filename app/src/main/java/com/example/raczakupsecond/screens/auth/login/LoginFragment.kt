@@ -16,7 +16,7 @@ import com.example.raczakupsecond.screens.auth.checkcode.CheckCodeFragment
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding : FragmentLoginBinding
-    private val viewModel: LoginFragmentViewModel by viewModels()
+    private val viewModel: LoginFragmentVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         with(binding){
 
             toolbarAuth.onClick {
-                requireActivity().onBackPressed()
+                findNavController().popBackStack()
             }
 
             editTextLoginNumber.addTextChangedListener(object : TextWatcher {

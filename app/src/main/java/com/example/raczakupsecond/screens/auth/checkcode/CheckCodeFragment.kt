@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.raczakupsecond.R
@@ -17,7 +16,7 @@ import com.example.raczakupsecond.databinding.FragmentCheckCodeBinding
 
 class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
     private lateinit var binding : FragmentCheckCodeBinding
-    private val viewModel : CheckCodeFragmentViewModel by viewModels()
+    private val viewModel : CheckCodeFragmentVM by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,18 +35,7 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
         with(binding) {
 
             toolbarAuth.onClick {
-
-                requireActivity().onBackPressed()
-
-//                val callback = object : OnBackPressedCallback(true) {
-//                    override fun handleOnBackPressed() {
-//                        findNavController().navigate(R.id.action_checkCodeFragment_to_loginFragment)
-//                    }
-//                }
-//                requireActivity().onBackPressedDispatcher.addCallback(
-//                    viewLifecycleOwner,
-//                    callback
-//                )
+                findNavController().popBackStack()
             }
 
             viewModel.getResponseSuccess().observe(viewLifecycleOwner) {
@@ -150,6 +138,7 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
                             phoneNumber,
                             code.joinToString( separator = "" )
                         )
+                        findNavController().navigate(R.id.navigation_shop)
                     }
                 }
 

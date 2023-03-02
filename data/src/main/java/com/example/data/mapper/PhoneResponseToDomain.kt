@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.models.PhoneResponseData
-import com.example.domain.models.PhoneResponseDomain
+import com.example.data.models.auth.PhoneResponseData
+import com.example.domain.models.auth.PhoneResponseDomain
 
 class PhoneResponseToDomain(
     private val phoneResponseData: PhoneResponseData

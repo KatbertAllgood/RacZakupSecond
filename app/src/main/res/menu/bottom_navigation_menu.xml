@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- ВСТАВИТЬ АЙДИ ФРАГМЕНТОВ, НА КОТОРЫЕ ОСУЩ ПЕРЕХОД -->
     <item
-        android:id="@+id/categoriesShopFragment"
+        android:id="@id/navigation_shop"
         android:icon="@drawable/ic_bottom_navigation_main"
         android:title="@string/bottom_navigation_main"
         android:orderInCategory="1"
@@ -23,7 +23,7 @@
         />
 
     <item
-        android:id="@+id/menu_profile"
+        android:id="@id/navigation_profile"
         android:icon="@drawable/ic_bottom_navigation_profile"
         android:title="@string/bottom_navigation_profile"
         android:orderInCategory="4"

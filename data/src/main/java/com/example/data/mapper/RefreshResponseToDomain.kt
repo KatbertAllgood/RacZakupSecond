@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
-import com.example.data.models.RefreshResponseData
-import com.example.domain.models.RefreshResponseDomain
+import com.example.data.models.auth.RefreshResponseData
+import com.example.domain.models.auth.RefreshResponseDomain
 
 class RefreshResponseToDomain(
     private val refreshResponseData: RefreshResponseData
