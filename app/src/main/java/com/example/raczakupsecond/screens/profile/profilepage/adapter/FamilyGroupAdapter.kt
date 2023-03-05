@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.mapper.FamilyToDomain
 import com.example.domain.models.families.FamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
@@ -14,6 +15,8 @@ import com.example.raczakupsecond.databinding.ProfileFamilyItemBinding
 class FamilyGroupAdapter(
     private val familiesList: List<FamilyDomain>
 ) : RecyclerView.Adapter<FamilyGroupAdapter.FamilyGroupHolder>() {
+
+    var onItemClick : ((FamilyDomain) -> Unit)? = null
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ProfileFamilyItemBinding.bind(item)
@@ -176,6 +179,11 @@ class FamilyGroupAdapter(
 
     override fun onBindViewHolder(holder: FamilyGroupHolder, position: Int) {
         holder.bind(familiesList[position], position)
+
+        val family = familiesList[position]
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(family)
+        }
     }
 
 }
