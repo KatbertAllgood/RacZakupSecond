@@ -19,7 +19,7 @@ class TokenAuthenticator : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
 
-        if(!response.request.header("Authorization").equals(ApplicationPreferences.setAccess)) {
+        if(!response.request.header("Authorization").equals(ApplicationPreferences.getAccess)) {
             return null
         }
 
@@ -29,8 +29,8 @@ class TokenAuthenticator : Authenticator {
             .subscribe(object : DisposableSingleObserver<RefreshResponseDomain>() {
                 override fun onSuccess(t: RefreshResponseDomain) {
 
-                    ApplicationPreferences.setAccess = t.accessToken
-                    ApplicationPreferences.setRefresh = t.refreshToken
+                    ApplicationPreferences.getAccess = t.accessToken
+                    ApplicationPreferences.getRefresh = t.refreshToken
 
                     Log.d("AuthenticatorRefresh", "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
                 }
@@ -40,8 +40,8 @@ class TokenAuthenticator : Authenticator {
 
             })
 
-        val accessToken: String = ApplicationPreferences.setAccess ?: ""
-        val refreshToken: String = ApplicationPreferences.setRefresh ?: ""
+        val accessToken: String = ApplicationPreferences.getAccess ?: ""
+        val refreshToken: String = ApplicationPreferences.getRefresh ?: ""
 
         return response.request.newBuilder()
             .addHeader("Authorization", "Bearer $accessToken")

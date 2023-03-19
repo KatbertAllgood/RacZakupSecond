@@ -39,6 +39,63 @@
     <string name="profile_prefs_params">Мои физические данные\nи предпочтения</string>
     <string name="profile_groups">Группы</string>
     <string name="group">Группа</string>
+    <string name="button_add_group">Добавить группу</string>
+    <string name="profile_addresses">Адреса</string>
+    <string name="button_add_address">Добавить адрес</string>
+    <string name="phone_num">+7(%s%s%s)%s%s%s-%s%s-%s%s</string>
 
+
+    <!-- РЕДАКТИРОВАНИЕ ГРУППЫ -->
+    <string name="edit_group_toolbar">Редактирование\nгруппы</string>
+    <string name="add_member_toolbar">Добавление\nучастника</string>
+    <string name="add_group_toolbar">Добавление\nгруппы</string>
+    <string name="edit_group_groupTitle">Название</string>
+    <string name="edit_group_groupMembers">Участники</string>
+    <string name="edit_group_groupPacks">Наборы этой группы</string>
+    <string name="edit_group_buttonConfirm">Подтвердить\nизменения</string>
+    <string name="edit_group_buttonDelete">Удалить группу</string>
+    <string name="add_group">Создать группу</string>
+
+    <!-- РЕДАКТИРОВАНИЕ УЧАСТНИКА -->
+    <string name="edit_member_toolbar">Редактирование\nучастника</string>
+    <string name="member_name">Имя</string>
+    <string name="gender">Пол</string>
+    <string name="male_gender">Мужской</string>
+    <string name="female_gender">Женский</string>
+    <string name="age">Возраст</string>
+    <string name="height">Рост</string>
+    <string name="weight">Вес</string>
+    <string name="imt">ИМТ</string>
+    <string name="imt_normal">Обычный</string>
+    <string name="imt_bottom_normal">Дефицит</string>
+    <string name="imt_above_normal">Предожирение</string>
+    <string name="imt_above_predfat">Ожирение</string>
+    <string name="lvl_active">Уровень активности</string>
+    <string name="lvl_active_sitting">Сидячий</string>
+    <string name="lvl_active_active">Активный</string>
+    <string name="lvl_active_soActive">Очень активный</string>
+    <string name="preferences">Предпочтения</string>
+    <string name="less_milk">Поменьше молочных продуктов</string>
+    <string name="without_milk">Исключить молочные продукты</string>
+    <string name="without_meat">Исключить мясо</string>
+    <string name="allergens">Аллергены</string>
+    <string name="citruses">Цитрусы</string>
+    <string name="strawberry">Клубника</string>
+    <string name="nuts">Орехи</string>
+    <string name="honey">Мёд</string>
+    <string name="edit_member_buttonDelete">Удалить участника</string>
+
+    <string name="create_member_toolbar">Создание\nучастника</string>
+    <string name="add_member">Создать участника</string>
+
+    <string name="dialog_delete_member">Вы уверены, что хотите удалить участника?</string>
+    <string name="dialog_delete_group">Вы уверены, что хотите удалить группу?</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отменить</string>
+
+    <!-- HINTS -->
+    <string name="hint_set_title">Введите название…</string>
+    <string name="hint_set_name">Введите имя…</string>
+    <string name="hint_press">Нажмите</string>
 
 </resources>

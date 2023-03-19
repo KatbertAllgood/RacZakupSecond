@@ -18,11 +18,11 @@ class CookieInterceptor(
         val response = chain.proceed(request)
         if (response.headers("set-cookie").isNotEmpty()) {
 //            updatePreferenceUseCase.invoke(Constants.SET_COOKIE, response.headers("set-cookie"))
-            ApplicationPreferences.setCookie = response.headers("set-cookie").toString()
+            ApplicationPreferences.getCookie = response.headers("set-cookie").toString()
                 .replace("[", "")
                 .replace("]", "")
 
-            val _cookie: String = ApplicationPreferences.setCookie ?: ""
+            val _cookie: String = ApplicationPreferences.getCookie ?: ""
             Log.d("COOKIE", _cookie)
         }
         return response

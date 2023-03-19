@@ -56,11 +56,11 @@ class CheckCodeFragmentVM : ViewModel() {
 
     private fun setTokens(t: CodeResponseDomain) {
         val accessToken = t.accessToken
-        ApplicationPreferences.setAccess = accessToken
-        Log.d("INTERCEPTORPREFFF", ApplicationPreferences.setAccess ?: "non")
+        ApplicationPreferences.getAccess = accessToken
+        Log.d("INTERCEPTORPREFFF", ApplicationPreferences.getAccess ?: "non")
 //        updatePreferenceUseCase.invoke(Constants.ACCESS_TOKEN, accessToken)
         val refreshToken = t.refreshToken
-        ApplicationPreferences.setRefresh = refreshToken
+        ApplicationPreferences.getRefresh = refreshToken
 //        updatePreferenceUseCase.invoke(Constants.REFRESH_TOKEN, refreshToken)
     }
 }

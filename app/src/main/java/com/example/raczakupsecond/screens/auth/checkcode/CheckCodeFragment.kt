@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.data.utils.ApplicationPreferences
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentCheckCodeBinding
 
@@ -41,14 +43,19 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
             viewModel.getResponseSuccess().observe(viewLifecycleOwner) {
                 when (it) {
                     true -> {
-
+                        ApplicationPreferences.getPhoneNubmer = phoneNumber
+                        findNavController().navigate(R.id.navigation_shop)
                     }
                     false -> {
-                        Toast.makeText(
+
+                        val toast : Toast = Toast.makeText(
                             activity,
                             "Неверный код",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        )
+                        toast.setGravity(Gravity.TOP, 0, 270)
+                        toast.show()
+
                         listOf(
                             editTextCodeNum1,
                             editTextCodeNum2,
@@ -138,7 +145,6 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
                             phoneNumber,
                             code.joinToString( separator = "" )
                         )
-                        findNavController().navigate(R.id.navigation_shop)
                     }
                 }
 

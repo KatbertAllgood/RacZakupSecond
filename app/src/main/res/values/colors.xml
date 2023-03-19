@@ -36,4 +36,22 @@
     <!-- ПРОФИЛЬ -->
     <color name="gray_for_profile_holders">#ECECEC</color>
     <color name="hint_color_edit_text">#898989</color>
+    <color name="button_profile">#1CB522</color>
+
+    <!-- РЕДАКТИРОВАНИЕ ГРУППЫ -->
+    <color name="delete_button">#D32222</color>
+
+    <!-- РЕДАКТИРОВАНИЕ УЧАСТНИКА -->
+    <color name="delete_dialog_text">#BA3333</color>
+    <color name="delete_dialog_background">#FFFFFF</color>
+    <color name="selected">#6FBB76</color>
+    <color name="gray_text">#8D8D8D</color>
+    <color name="imt_bar_1">#92E899</color>
+    <color name="imt_bar_2">#1CB522</color>
+    <color name="imt_bar_3">#FFEB3B</color>
+    <color name="imt_bar_4">#F44336</color>
+    <color name="progress_bar_background">#F3F3F3</color>
+    <color name="focudes_activity_lvl">#C2FFAD</color>
+    <color name="active_lvl_text">#FF414141</color>
+
 </resources>

@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_family_item_name">
 
         <LinearLayout
-            android:visibility="visible"
+            android:visibility="gone"
 
             android:id="@+id/linear_item_holder1"
             android:layout_height="wrap_content"

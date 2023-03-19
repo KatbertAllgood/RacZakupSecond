@@ -1,25 +1,41 @@
-package com.example.raczakupsecond.screens.profile.editprofile.adapter
+package com.example.raczakupsecond.screens.profile.editgroup.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.models.families.MemberData
 import com.example.domain.models.families.MemberDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ProfileFamilyMemberItemBinding
+import com.example.raczakupsecond.utils.Utils
+import java.util.*
 
 class FamilyMembersAdapter(
     private val membersList: List<MemberDomain>
 ) : RecyclerView.Adapter<FamilyMembersAdapter.FamilyMembersHolder>() {
 
-    class FamilyMembersHolder(item: View) : RecyclerView.ViewHolder(item) {
+    var onItemClick : ((MemberDomain) -> Unit)? = null
+    var itemPosition : ((Int) -> Unit)? = null
+
+    inner class FamilyMembersHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ProfileFamilyMemberItemBinding.bind(item)
         fun bind(member: MemberDomain, position: Int) = with(binding) {
-            when(member.gender) {
-                Constants.MALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_man)
-                Constants.FEMALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_woman)
+            if (Utils().calculateAge(member.birthday) < 16) {
+                when(member.gender) {
+                    Constants.MALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_boy)
+                    Constants.FEMALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_girl)
+                }
+            } else if (Utils().calculateAge(member.birthday) >= 60) {
+                when(member.gender) {
+                    Constants.MALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_grandfather)
+                    Constants.FEMALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_grandmother)
+                }
+            } else {
+                when(member.gender) {
+                    Constants.MALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_man)
+                    Constants.FEMALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_woman)
+                }
             }
             tvFamilyMemberName.text = member.name
         }
@@ -41,6 +57,13 @@ class FamilyMembersAdapter(
 
     override fun onBindViewHolder(holder: FamilyMembersHolder, position: Int) {
         holder.bind(membersList[position], position)
+
+        val member = membersList[position]
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(member)
+            itemPosition?.invoke(position)
+        }
+
     }
 
 }

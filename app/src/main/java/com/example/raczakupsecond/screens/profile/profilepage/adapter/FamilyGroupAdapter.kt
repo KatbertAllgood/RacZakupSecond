@@ -1,16 +1,16 @@
 package com.example.raczakupsecond.screens.profile.profilepage.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.mapper.FamilyToDomain
 import com.example.domain.models.families.FamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ProfileFamilyItemBinding
+import com.example.raczakupsecond.utils.Utils
+import java.util.*
 
 class FamilyGroupAdapter(
     private val familiesList: List<FamilyDomain>
@@ -33,7 +33,10 @@ class FamilyGroupAdapter(
 
                     ivFamilyMember1
                         .setImageResource(
-                        genderCheck(familiesList[position].members[0].gender)
+                        genderCheckAndAge(
+                            familiesList[position].members[0].gender,
+                            familiesList[position].members[0].birthday
+                        )
                     )
 
                     tvFamilyGridMemberName1.text = familiesList[position].members[0].name
@@ -51,7 +54,10 @@ class FamilyGroupAdapter(
                         ivFamilyMember2
                     ).forEachIndexed { index, item ->
                         item.setImageResource(
-                            genderCheck(familiesList[position].members[index].gender)
+                            genderCheckAndAge(
+                                familiesList[position].members[index].gender,
+                                familiesList[position].members[index].birthday
+                            )
                         )
                     }
 
@@ -77,7 +83,10 @@ class FamilyGroupAdapter(
                         ivFamilyMember3
                     ).forEachIndexed { index, item ->
                         item.setImageResource(
-                            genderCheck(familiesList[position].members[index].gender)
+                            genderCheckAndAge(
+                                familiesList[position].members[index].gender,
+                                familiesList[position].members[index].birthday
+                            )
                         )
                     }
 
@@ -106,7 +115,10 @@ class FamilyGroupAdapter(
                         ivFamilyMember4
                     ).forEachIndexed { index, item ->
                         item.setImageResource(
-                            genderCheck(familiesList[position].members[index].gender)
+                            genderCheckAndAge(
+                                familiesList[position].members[index].gender,
+                                familiesList[position].members[index].birthday
+                            )
                         )
                     }
 
@@ -135,7 +147,10 @@ class FamilyGroupAdapter(
                         ivFamilyMember3
                     ).forEachIndexed { index, item ->
                         item.setImageResource(
-                            genderCheck(familiesList[position].members[index].gender)
+                            genderCheckAndAge(
+                                familiesList[position].members[index].gender,
+                                familiesList[position].members[index].birthday
+                            )
                         )
                     }
 
@@ -155,11 +170,28 @@ class FamilyGroupAdapter(
         }
     }
 
-    private fun genderCheck(gender: String): Int {
-        return when (gender) {
-            Constants.MALE -> R.drawable.ic_profile_man
-            Constants.FEMALE -> R.drawable.ic_profile_woman
-            else -> {-1}
+    private fun genderCheckAndAge(
+        gender: String,
+        birthDay: String
+    ): Int {
+        return if (Utils().calculateAge(birthDay) < 16) {
+            when (gender) {
+                Constants.MALE -> R.drawable.ic_profile_boy
+                Constants.FEMALE -> R.drawable.ic_profile_girl
+                else -> R.drawable.ic_profile_boy
+            }
+        } else if (Utils().calculateAge(birthDay) >= 60) {
+            when (gender) {
+                Constants.MALE -> R.drawable.ic_profile_grandfather
+                Constants.FEMALE -> R.drawable.ic_profile_grandmother
+                else -> R.drawable.ic_profile_grandfather
+            }
+        } else {
+            when (gender) {
+                Constants.MALE -> R.drawable.ic_profile_man
+                Constants.FEMALE -> R.drawable.ic_profile_woman
+                else -> R.drawable.ic_profile_man
+            }
         }
     }
 

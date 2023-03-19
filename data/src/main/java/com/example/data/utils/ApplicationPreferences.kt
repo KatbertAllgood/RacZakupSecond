@@ -20,20 +20,24 @@ object ApplicationPreferences {
         sharedPreferences = context.getSharedPreferences("cookie_table", MODE_PRIVATE)
     }
 
-    var setAccess: String?
+    var getAccess: String?
         get() = Key.ACCESS_TOKEN.getString()
         set(value) = Key.ACCESS_TOKEN.setString(value)
 
-    var setRefresh: String?
+    var getRefresh: String?
         get() = Key.REFRESH_TOKEN.getString()
         set(value) = Key.REFRESH_TOKEN.setString(value)
 
-    var setCookie: String?
+    var getCookie: String?
         get() = Key.SET_COOKIE.getString()
         set(value) = Key.SET_COOKIE.setString(value)
 
+    var getPhoneNubmer: String?
+        get() = Key. PHONE_NUMBER.getString()
+        set(value) = Key.PHONE_NUMBER.setString(value)
+
     private enum class Key {
-        ACCESS_TOKEN, REFRESH_TOKEN, SET_COOKIE;
+        ACCESS_TOKEN, REFRESH_TOKEN, SET_COOKIE, PHONE_NUMBER;
 
         fun getBoolean(): Boolean? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getBoolean(name, false) else null
         fun getFloat(): Float? = if (sharedPreferences!!.contains(name)) sharedPreferences!!.getFloat(name, 0f) else null

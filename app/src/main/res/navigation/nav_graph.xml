@@ -35,7 +35,7 @@
         app:startDestination="@id/categoriesShopFragment">
         <fragment
             android:id="@+id/categoriesShopFragment"
-            android:name="com.example.raczakupsecond.screens.shop.categories.CategoriesShopFragment"
+            android:name="com.example.raczakupsecond.screens.categories.CategoriesShopFragment"
             android:label="fragment_categories_shop"
             tools:layout="@layout/fragment_categories_shop" />
     </navigation>
@@ -45,6 +45,24 @@
             android:id="@+id/profileFragment"
             android:name="com.example.raczakupsecond.screens.profile.profilepage.ProfileFragment"
             android:label="fragment_profile"
-            tools:layout="@layout/fragment_profile" />
+            tools:layout="@layout/fragment_profile" >
+            <action
+                android:id="@+id/action_profileFragment_to_editGroupFragment"
+                app:destination="@id/editGroupFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editGroupFragment"
+            android:name="com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment"
+            android:label="fragment_edit_group"
+            tools:layout="@layout/fragment_edit_group" >
+            <action
+                android:id="@+id/action_editGroupFragment_to_editMemberFragment"
+                app:destination="@id/editMemberFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editMemberFragment"
+            android:name="com.example.raczakupsecond.screens.profile.editmember.EditMemberFragment"
+            android:label="fragment_edit_member"
+            tools:layout="@layout/fragment_edit_member" />
     </navigation>
 </navigation>

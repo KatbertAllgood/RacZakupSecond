@@ -8,18 +8,18 @@ data class MemberData(
     @SerializedName("isUser")
     val isUser: Boolean = false,
     @SerializedName("name")
-    val name: String = "",
+    var name: String = "",
     @SerializedName("height")
-    val height: Int = 0,
+    var height: Int = 0,
     @SerializedName("weight")
-    val weight: Double = 0.0,
+    var weight: Int = 0,
     @SerializedName("birthday")
-    val birthday: String = "",
+    var birthday: String = "",
     @SerializedName("gender")
-    val gender: String = "",
+    var gender: String = "",
 
     @SerializedName("age")
-    val age: Int = 0,
+    var age: Int = 0,
     @SerializedName("preferences")
     var preferences: List<Int> = listOf(),
     @SerializedName("position")

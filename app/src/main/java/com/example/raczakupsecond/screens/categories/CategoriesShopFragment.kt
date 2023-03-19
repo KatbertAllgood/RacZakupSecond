@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.shop.categories
+package com.example.raczakupsecond.screens.categories
 
 import android.os.Bundle
 import android.util.Log
@@ -50,8 +50,8 @@ class CategoriesShopFragment : Fragment(R.layout.fragment_categories_shop) {
                 .subscribe(object : DisposableSingleObserver<LogoutResponseDomain>() {
                     override fun onSuccess(t: LogoutResponseDomain) {
                         Log.d("LOGOUT: ", t.status)
-                        ApplicationPreferences.setRefresh = t.refreshToken
-                        ApplicationPreferences.setAccess = ""
+                        ApplicationPreferences.getRefresh = t.refreshToken
+                        ApplicationPreferences.getAccess = ""
                     }
 
                     override fun onError(e: Throwable) {

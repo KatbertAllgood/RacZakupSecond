@@ -7,8 +7,8 @@ import okhttp3.Response
 class RequestInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val accessToken: String = ApplicationPreferences.setAccess ?: ""
-        val refreshToken: String = ApplicationPreferences.setRefresh ?: ""
+        val accessToken: String = ApplicationPreferences.getAccess ?: ""
+        val refreshToken: String = ApplicationPreferences.getRefresh ?: ""
 
         val request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $accessToken")

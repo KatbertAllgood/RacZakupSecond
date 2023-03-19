@@ -27,7 +27,7 @@ class ProfileFragmentVM: ViewModel() {
         return allFamiliesLiveData
     }
 
-    private fun getFamilies() {
+    fun getFamilies() {
         getFamiliesUseCase
             .invoke()
             .subscribeOn(Schedulers.io())
@@ -35,6 +35,7 @@ class ProfileFragmentVM: ViewModel() {
             .subscribe(object: DisposableSingleObserver<List<FamilyDomain>>() {
                 override fun onSuccess(t: List<FamilyDomain>) {
                     allFamiliesLiveData.value = t
+                    Log.d("FAMILIES_REFRESH", "YES YES YES")
                 }
                 override fun onError(e: Throwable) {
                     Log.d("FAMILIES -----", e.message.toString())

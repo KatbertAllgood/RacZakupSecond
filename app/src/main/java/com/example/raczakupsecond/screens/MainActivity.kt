@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     binding.root.setBackgroundResource(R.color.white)
                     binding.bottomNavigationBar.visibility = View.VISIBLE
-                    binding.bottomNavigationBar.menu.getItem(0).isChecked = true
+//                    binding.bottomNavigationBar.menu.getItem(0).isChecked = true
                 }
             }
         }

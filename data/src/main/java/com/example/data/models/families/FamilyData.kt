@@ -6,9 +6,9 @@ data class FamilyData(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("name")
-    val name: String = "",
+    var name: String = "",
     @SerializedName("members")
-    val members: List<MemberData>
+    var members: List<MemberData> = listOf()
 
 //    @SerializedName("checked")
 //    var checked: Boolean = false //  ?????????

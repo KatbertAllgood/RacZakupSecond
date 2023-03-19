@@ -1,15 +1,19 @@
 package com.example.domain.models.families
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MemberDomain(
     val id: Int = 0,
     val isUser: Boolean = false,
-    val name: String = "",
-    val height: Int = 0,
-    val weight: Double = 0.0,
-    val birthday: String = "",
-    val gender: String = "",
+    var name: String = "",
+    var height: Int = 0,
+    var weight: Int = 0,
+    var birthday: String = "",
+    var gender: String = "",
 
-    val age: Int = 0,
+    var age: Int = 0,
     var preferences: List<Int> = listOf(),
     var position: Int = 0
-)
+) : Parcelable

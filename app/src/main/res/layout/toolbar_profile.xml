@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="32dp"
+    android:background="@drawable/shape_toolbar_shop_background">
+
+    <!-- marginStart 72, когда кнопка есть -->
+    <TextView
+        android:id="@+id/textView_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto_thin_italic"
+        android:gravity="start|center"
+        tools:text="@string/edit_group_toolbar"
+
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+    <ImageView
+        android:id="@+id/imageView_toolbar_buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+
+        android:src="@drawable/ic_toolbar_shop_arrow_back"
+
+        android:visibility="gone"
+
+        android:layout_marginStart="24dp"
+        />
+
+</RelativeLayout>

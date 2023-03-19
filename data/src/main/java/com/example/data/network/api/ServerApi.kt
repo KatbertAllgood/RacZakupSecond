@@ -4,6 +4,7 @@ import com.example.data.models.*
 import com.example.data.models.auth.*
 import com.example.data.models.families.FamilyData
 import com.example.data.models.families.MemberData
+import com.example.domain.models.ServerResponseDomain
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -33,9 +34,6 @@ interface ServerApi {
     @GET("families")
     fun getFamilies(): Single<List<FamilyData>>
 
-//    @GET("families")
-//    suspend fun getFamiliesTest(): List<FamilyData>
-
     @GET("families/{id}")
     fun getFamily(@Path("id") id: String): Single<FamilyData>
 
@@ -49,7 +47,7 @@ interface ServerApi {
     fun getPrefsAndAllergies() // что на выходе ??????????
 
     @POST("families")
-    fun createFamily(@Body family: FamilyData): Single<Any> // почему Any ????????????
+    fun createFamily(@Body family: FamilyData): Single<FamilyData>
 
     @POST("families/{familyId}/members")
     fun createMember(
@@ -61,23 +59,23 @@ interface ServerApi {
     fun updateFamily(
         @Path("familyId") familyId: String,
         @Body updatedFamily: FamilyData
-    ) // что на выходе ??????????
+    ) : Single<ServerResponseData>
 
     @PATCH("families/{familyId}/members/{memberId}")
     fun updateMember(
         @Path("familyId") familyId: String,
         @Path("memberId") memberId: String,
         @Body updatedMember: MemberData
-    ) // что на выходе ??????????
+    ) : Single<ServerResponseData>
 
     @DELETE("families/{familyId}")
-    fun deleteFamily(@Path("familyId") familyId: String) // что на выходе ??????????
+    fun deleteFamily(@Path("familyId") familyId: String) : Single<ServerResponseData>
 
     @DELETE("families/{familyId}/members/{memberId}")
     fun deleteMember(
         @Path("familyId") familyId: String,
         @Path("memberId") memberId: String
-    )  // что на выходе ?????????
+    )  : Single<ServerResponseData>
 
     //endregion
 }

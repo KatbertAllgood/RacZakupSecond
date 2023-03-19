@@ -1,0 +1,881 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screens.profile.editmember.EditMemberFragment">
+
+    <com.example.raczakupsecond.view.ToolbarViewProfile
+        android:id="@+id/toolbar_edit_member"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+
+                android:text="@string/member_name"
+                android:gravity="start|center"
+                android:textSize="28sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/editText_editMemberName"
+                android:layout_width="300dp"
+                android:layout_height="42dp"
+
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hint_set_name"
+
+                android:maxLines="1"
+                android:inputType="text"
+
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto"
+
+                android:background="@drawable/shape_edit_text_search" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+
+                android:text="@string/gender"
+                android:gravity="start|center"
+                android:textSize="28sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_profile_background_for_data_holders"
+                android:gravity="center">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/gender_selection_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+
+                        android:layout_margin="10dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+
+                            android:src="@drawable/ic_profile_man"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="5dp"
+
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/male_gender"/>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/gender_selection_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+
+                        android:layout_margin="10dp"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+
+                            android:src="@drawable/ic_profile_woman"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginTop="5dp"
+
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/female_gender"/>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/age"
+                        android:gravity="start|center"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/editText_edited_age"
+                        android:layout_width="100dp"
+                        android:layout_height="42dp"
+
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/hint_press"
+
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto"
+
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+
+                        android:background="@drawable/shape_edit_text_search"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/height"
+                        android:gravity="start|center"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/editText_edited_height"
+                        android:layout_width="100dp"
+                        android:layout_height="42dp"
+
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/hint_press"
+
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto"
+
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+
+                        android:maxLines="1"
+
+                        android:background="@drawable/shape_edit_text_search"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="@string/weight"
+                        android:gravity="start|center"
+                        android:textSize="24sp"
+                        android:fontFamily="@font/roboto"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/editText_edited_weight"
+                        android:layout_width="100dp"
+                        android:layout_height="42dp"
+
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:hint="@string/hint_press"
+
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto"
+
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+
+                        android:maxLines="1"
+
+                        android:background="@drawable/shape_edit_text_search"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="28dp">
+
+                <TextView
+                    android:id="@+id/tv_imt_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/imt"
+                    android:textSize="28sp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_imt_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    tools:text="22,2"
+
+                    android:textSize="22sp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/gray_text"
+
+                    android:layout_marginStart="12dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_imt_text"/>
+
+                <TextView
+                    android:id="@+id/tv_imt_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_horizontal"
+
+                    tools:text="Обычный"
+
+                    android:textSize="22sp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/gray_text"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_1"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progress_bar_imt_1"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginEnd="2dp"
+
+
+
+                    android:progress="0"/>
+
+                <ProgressBar
+                    android:visibility="gone"
+
+                    android:id="@+id/progress_bar_1_full"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progress_bar_imt_1_full"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginEnd="2dp"
+
+                    android:progress="100"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_2"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+
+                    android:progressDrawable="@drawable/progress_bar_imt_2"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginHorizontal="2dp"
+
+                    android:progress="0"/>
+
+                <ProgressBar
+                    android:visibility="gone"
+
+                    android:id="@+id/progress_bar_2_full"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+
+                    android:progressDrawable="@drawable/progress_bar_imt_2_full"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginHorizontal="2dp"
+
+                    android:progress="100"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_3"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+
+                    android:progressDrawable="@drawable/progress_bar_imt_3"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginHorizontal="2dp"
+
+                    android:progress="0"/>
+
+                <ProgressBar
+                    android:visibility="gone"
+
+                    android:id="@+id/progress_bar_3_full"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+
+                    android:progressDrawable="@drawable/progress_bar_imt_3_full"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginHorizontal="2dp"
+
+                    android:progress="100"/>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_4"
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+
+                    android:progressDrawable="@drawable/progress_bar_imt_4"
+
+                    android:layout_weight="1"
+
+                    android:layout_marginStart="2dp"
+
+                    android:progress="0"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+
+                android:text="@string/lvl_active"
+                android:gravity="start|center"
+                android:textSize="28sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="18dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editMember_activityLvl_sitting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/activity_lvl_background_sitting"
+                        android:layout_height="60dp"
+                        android:layout_width="60dp"
+
+                        android:src="@drawable/shape_circle_activity_lvl_background"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="38dp"
+
+                        android:src="@drawable/ic_activity_lvl_sitting"
+                        app:layout_constraintBottom_toBottomOf="@id/activity_lvl_background_sitting"
+                        app:layout_constraintEnd_toEndOf="@id/activity_lvl_background_sitting"
+                        app:layout_constraintStart_toStartOf="@id/activity_lvl_background_sitting"
+                        app:layout_constraintTop_toTopOf="@id/activity_lvl_background_sitting" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/lvl_active_sitting"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="24sp"
+
+                        android:layout_marginStart="24dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/activity_lvl_background_sitting"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editMember_activityLvl_active"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:id="@+id/activity_lvl_background_active"
+                        android:layout_height="60dp"
+                        android:layout_width="60dp"
+
+                        android:src="@drawable/shape_circle_activity_lvl_background"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="38dp"
+
+                        android:src="@drawable/ic_activity_lvl_active"
+                        app:layout_constraintBottom_toBottomOf="@id/activity_lvl_background_active"
+                        app:layout_constraintEnd_toEndOf="@id/activity_lvl_background_active"
+                        app:layout_constraintStart_toStartOf="@id/activity_lvl_background_active"
+                        app:layout_constraintTop_toTopOf="@id/activity_lvl_background_active" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/lvl_active_active"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="24sp"
+
+                        android:layout_marginStart="24dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/activity_lvl_background_active"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editMember_activityLvl_soactive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <ImageView
+                        android:id="@+id/activity_lvl_background_soactive"
+                        android:layout_height="60dp"
+                        android:layout_width="60dp"
+
+                        android:src="@drawable/shape_circle_activity_lvl_background"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="38dp"
+
+                        android:src="@drawable/ic_activity_lvl_soactive"
+                        app:layout_constraintBottom_toBottomOf="@id/activity_lvl_background_soactive"
+                        app:layout_constraintEnd_toEndOf="@id/activity_lvl_background_soactive"
+                        app:layout_constraintStart_toStartOf="@id/activity_lvl_background_soactive"
+                        app:layout_constraintTop_toTopOf="@id/activity_lvl_background_soactive" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/lvl_active_soActive"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="24sp"
+
+                        android:layout_marginStart="24dp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/activity_lvl_background_soactive"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+
+                android:text="@string/preferences"
+                android:gravity="start|center"
+                android:textSize="28sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/prefs_without_milk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/without_milk"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_without_milk"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/prefs_less_milk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/less_milk"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_less_milk"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/prefs_without_meat"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/without_meat"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_without_meat"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="24dp"
+
+                android:text="@string/allergens"
+                android:gravity="start|center"
+                android:textSize="28sp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/allergens_citruses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/citruses"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_citruses"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/allergens_strawberry"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/strawberry"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_strawberry"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/allergens_nuts"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/nuts"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_nuts"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/allergens_honey"
+                    android:layout_marginTop="12dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/honey"
+                        android:textColor="@color/active_lvl_text"
+                        android:textSize="18sp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switch_honey"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit_group_confirm"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="20dp"
+
+                android:text="@string/edit_group_buttonConfirm"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="14sp"
+
+                android:lineSpacingExtra="5sp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_profile_frag_button" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_edit_group_delete"
+                android:layout_width="200dp"
+                android:layout_height="38dp"
+
+                android:layout_marginTop="0dp"
+
+                android:text="@string/edit_member_buttonDelete"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="14sp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_red_button"
+
+                android:layout_marginBottom="32dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
