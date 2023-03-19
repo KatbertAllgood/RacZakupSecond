@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigationBar.visibility = View.GONE
                     binding.root.setBackgroundResource(R.drawable.background)
                 }
+                R.id.myPacksFragment -> {
+                    binding.root.setBackgroundResource(R.color.packs_background)
+                }
                 else -> {
                     binding.root.setBackgroundResource(R.color.white)
                     binding.bottomNavigationBar.visibility = View.VISIBLE

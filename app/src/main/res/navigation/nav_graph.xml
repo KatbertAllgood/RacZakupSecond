@@ -65,4 +65,12 @@
             android:label="fragment_edit_member"
             tools:layout="@layout/fragment_edit_member" />
     </navigation>
+    <navigation android:id="@+id/navigation_packs"
+        app:startDestination="@id/myPacksFragment">
+        <fragment
+            android:id="@+id/myPacksFragment"
+            android:name="com.example.raczakupsecond.screens.packs.mypacks.MyPacksFragment"
+            android:label="fragment_my_packs"
+            tools:layout="@layout/fragment_my_packs" />
+    </navigation>
 </navigation>

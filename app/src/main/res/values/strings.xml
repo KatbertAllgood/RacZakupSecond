@@ -93,9 +93,16 @@
     <string name="yes">Да</string>
     <string name="cancel">Отменить</string>
 
+    <!-- PACKS -->
+    <string name="my_packs">Мои наборы</string>
+    <string name="button_new_pack">Создать набор</string>
+    <string name="no_pack">Вы не создали ни\nодного набора</string>
+
     <!-- HINTS -->
     <string name="hint_set_title">Введите название…</string>
     <string name="hint_set_name">Введите имя…</string>
     <string name="hint_press">Нажмите</string>
+
+
 
 </resources>

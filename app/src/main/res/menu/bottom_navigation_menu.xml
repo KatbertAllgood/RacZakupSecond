@@ -9,7 +9,7 @@
         />
 
     <item
-        android:id="@+id/menu_packs"
+        android:id="@id/navigation_packs"
         android:icon="@drawable/ic_bottom_navigation_packs"
         android:title="@string/bottom_navigation_packs"
         android:orderInCategory="2"

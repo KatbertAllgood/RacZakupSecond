@@ -54,4 +54,7 @@
     <color name="focudes_activity_lvl">#C2FFAD</color>
     <color name="active_lvl_text">#FF414141</color>
 
+    <!-- НАБОРЫ -->
+    <color name="packs_background">#C2FFAD</color>
+
 </resources>
