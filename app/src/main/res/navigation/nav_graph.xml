@@ -71,6 +71,15 @@
             android:id="@+id/myPacksFragment"
             android:name="com.example.raczakupsecond.screens.packs.mypacks.MyPacksFragment"
             android:label="fragment_my_packs"
-            tools:layout="@layout/fragment_my_packs" />
+            tools:layout="@layout/fragment_my_packs" >
+            <action
+                android:id="@+id/action_myPacksFragment_to_editPackFragment"
+                app:destination="@id/editPackFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editPackFragment"
+            android:name="com.example.raczakupsecond.screens.packs.editpack.EditPackFragment"
+            android:label="fragment_edit_pack"
+            tools:layout="@layout/fragment_edit_pack" />
     </navigation>
 </navigation>
