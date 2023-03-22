@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/auth_nav_graph"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/navigation_auth">
 
     <navigation android:id="@+id/navigation_auth"
@@ -58,12 +58,19 @@
             <action
                 android:id="@+id/action_editGroupFragment_to_editMemberFragment"
                 app:destination="@id/editMemberFragment" />
+            <deepLink
+                android:id="@+id/deeplink_editGroupFragment"
+                app:uri="raczakup://internal_navigation_editGroupFragment" />
+            <argument
+                android:name="mode"
+                android:defaultValue="create_mode" />
         </fragment>
         <fragment
             android:id="@+id/editMemberFragment"
             android:name="com.example.raczakupsecond.screens.profile.editmember.EditMemberFragment"
             android:label="fragment_edit_member"
-            tools:layout="@layout/fragment_edit_member" />
+            tools:layout="@layout/fragment_edit_member">
+        </fragment>
     </navigation>
     <navigation android:id="@+id/navigation_packs"
         app:startDestination="@id/myPacksFragment">

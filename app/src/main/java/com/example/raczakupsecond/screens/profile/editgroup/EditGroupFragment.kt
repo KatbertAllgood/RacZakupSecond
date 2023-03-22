@@ -63,6 +63,11 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
         } else if (mode == Constants.EDIT_MODE) {
 
 //            Log.d("MODE", "EDIT")
+
+//            val params = binding.buttonEditGroupConfirm.layoutParams as ViewGroup.MarginLayoutParams
+//            params.setMargins(0, 24, 0, 20)
+//            binding.buttonEditGroupConfirm.layoutParams = params
+
             binding.toolbarEditGroup.setTitle(getString(R.string.edit_group_toolbar))
             familyId = requireArguments().getInt(FAMILY_ID).toString()
             Log.d("family_id = ", familyId)

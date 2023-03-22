@@ -843,7 +843,7 @@
                 android:layout_height="50dp"
 
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="72dp"
 
                 android:text="@string/edit_group_buttonConfirm"
                 android:textColor="@color/white"
@@ -861,7 +861,7 @@
                 android:layout_width="200dp"
                 android:layout_height="38dp"
 
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="-52dp"
 
                 android:text="@string/edit_member_buttonDelete"
                 android:textColor="@color/white"
@@ -872,7 +872,7 @@
 
                 android:background="@drawable/shape_red_button"
 
-                android:layout_marginBottom="32dp"/>
+                android:layout_marginBottom="72dp"/>
 
         </LinearLayout>
 

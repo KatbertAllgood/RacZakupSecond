@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.profile.profilepage.adapter
+package com.example.raczakupsecond.screens.packs.editpack.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -10,19 +10,23 @@ import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ProfileFamilyItemBinding
 import com.example.raczakupsecond.utils.Utils
-import java.util.*
 
-class FamilyGroupAdapter(
+class EditPackFamilyGroupAdapter(
     private val familiesList: List<FamilyDomain>
-) : RecyclerView.Adapter<FamilyGroupAdapter.FamilyGroupHolder>() {
+) : RecyclerView.Adapter<EditPackFamilyGroupAdapter.FamilyGroupHolder>() {
 
     var onItemClick : ((FamilyDomain) -> Unit)? = null
+    var selectedItemPosition = -1
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ProfileFamilyItemBinding.bind(item)
+
+        val root = binding.root
+
         @SuppressLint("SetTextI18n")
         fun bind(family: FamilyDomain, position: Int) = with(binding) {
 
+            root.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_10dp)
             tvFamilyItemName.text = family.name
             tvFamilyItemGroupNum.text = "Группа ${position + 1}."
 
@@ -33,11 +37,11 @@ class FamilyGroupAdapter(
 
                     ivFamilyMember1
                         .setImageResource(
-                        genderCheckAndAge(
-                            familiesList[position].members[0].gender,
-                            familiesList[position].members[0].birthday
+                            genderCheckAndAge(
+                                familiesList[position].members[0].gender,
+                                familiesList[position].members[0].birthday
+                            )
                         )
-                    )
 
                     tvFamilyGridMemberName1.text = familiesList[position].members[0].name
                 }
@@ -65,7 +69,7 @@ class FamilyGroupAdapter(
                         tvFamilyGridMemberName1,
                         tvFamilyGridMemberName2
                     ).forEachIndexed{ index, item ->
-                            item.text = familiesList[position].members[index].name
+                        item.text = familiesList[position].members[index].name
                     }
                 }
                 3 -> {
@@ -209,13 +213,22 @@ class FamilyGroupAdapter(
         return familiesList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: FamilyGroupHolder, position: Int) {
         holder.bind(familiesList[position], position)
 
         val family = familiesList[position]
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(family)
+            selectedItemPosition = position
+            notifyDataSetChanged()
         }
-    }
 
+        if(selectedItemPosition == position) {
+            holder.root.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_10dp_selected)
+        } else {
+            holder.root.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_10dp)
+        }
+
+    }
 }

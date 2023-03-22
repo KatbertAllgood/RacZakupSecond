@@ -26,6 +26,7 @@
 
                 <ImageView
                     android:id="@+id/iv_point_how_much_people"
+
                     android:layout_width="40dp"
                     android:layout_height="40dp"
 
@@ -36,6 +37,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_number_one"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -51,6 +54,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_how_much_people"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -68,22 +73,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_how_much_people"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_toolbar_shop_background"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp">
-
-                <ImageView
-                    android:id="@+id/iv_button_add_new_family"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_button_add"
-
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="28dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
                     android:id="@+id/tv_button_order_for_myself"
@@ -102,6 +98,8 @@
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
+                    android:visibility="gone"
+
                     android:id="@+id/tv_button_add_new_family_when_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,6 +115,35 @@
 
                     app:layout_constraintTop_toBottomOf="@id/tv_button_order_for_myself"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="visible"
+
+                    android:id="@+id/rcView_editPackFragment_groups"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="40dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_button_add_new_family"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_button_order_for_myself" />
+
+                <ImageView
+                    android:id="@+id/iv_button_add_new_family"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_button_add"
+
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="28dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -155,6 +182,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_number_two"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -170,6 +199,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_how_much_days"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -187,6 +218,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_how_much_days"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_toolbar_shop_background"
@@ -209,10 +242,12 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
+                        android:id="@+id/tv_button_editPack_day_count_one"
+
                         android:layout_width="53dp"
                         android:layout_height="58dp"
 
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
 
                         android:text="1"
                         android:gravity="center"
@@ -222,10 +257,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_button_editPack_day_count_three"
+
                         android:layout_width="53dp"
                         android:layout_height="58dp"
 
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
 
                         android:layout_marginStart="10dp"
 
@@ -237,10 +274,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_button_editPack_day_count_five"
+
                         android:layout_width="53dp"
                         android:layout_height="58dp"
 
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
 
                         android:layout_marginStart="10dp"
 
@@ -252,10 +291,12 @@
                         />
 
                     <TextView
+                        android:id="@+id/tv_button_editPack_day_count_seven"
+
                         android:layout_width="53dp"
                         android:layout_height="58dp"
 
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
 
                         android:layout_marginStart="10dp"
 
@@ -304,6 +345,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_number_three"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -319,6 +362,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_budget"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -336,6 +381,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_budget"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_toolbar_shop_background"
@@ -358,10 +405,12 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <LinearLayout
+                        android:id="@+id/ll_budget_eco"
+
                         android:layout_width="94dp"
                         android:layout_height="73dp"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_amount_of_days_background_unfocused">
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -392,10 +441,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_budget_standard"
+
                         android:layout_width="94dp"
                         android:layout_height="73dp"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
                         android:layout_marginStart="10dp">
 
                         <TextView
@@ -427,10 +478,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ll_budget_premium"
+
                         android:layout_width="94dp"
                         android:layout_height="73dp"
                         android:orientation="vertical"
-                        android:background="@drawable/shape_amount_of_days_background_unfocused"
+                        android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
                         android:layout_marginStart="10dp">
 
                         <TextView
@@ -499,6 +552,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_number_four"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -514,6 +569,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_address"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -531,6 +588,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_address"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_toolbar_shop_background"
@@ -554,7 +613,7 @@
 
                     android:layout_width="280dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/shape_amount_of_days_background_unfocused"
+                    android:background="@drawable/shape_rectangle_fafafa_rounded_5dp"
 
                     android:layout_marginVertical="18dp"
                     android:layout_marginStart="42dp"
@@ -597,11 +656,27 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_address_next"
+
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+
+                android:text="@string/next"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_profile_frag_button"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="14dp"
+                android:layout_marginBottom="72dp"
                 android:layout_marginHorizontal="16dp">
 
                 <ImageView
@@ -616,6 +691,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/tv_number_five"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -631,6 +708,8 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_shop"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -648,13 +727,15 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_shop"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="-64dp"
 
-                android:background="@drawable/shape_rectangle_rounded_10dp">
+                android:background="@drawable/shape_rectangle_green_rounded_10dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="wrap_content"
@@ -680,7 +761,7 @@
                 android:textColor="@color/white"
 
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="72dp"
                 android:layout_gravity="center"
 
                 android:background="@drawable/shape_profile_frag_button"/>

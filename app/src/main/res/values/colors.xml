@@ -59,5 +59,6 @@
     <color name="point_current">#6FBB76</color>
     <color name="point_not_current">#A5B789</color>
     <color name="background_for_amount_of_days">#FAFAFA</color>
+    <color name="checked_text">#80000000</color>
 
 </resources>

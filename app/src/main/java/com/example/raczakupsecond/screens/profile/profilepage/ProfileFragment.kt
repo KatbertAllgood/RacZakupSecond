@@ -6,23 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.data.utils.ApplicationPreferences
-import com.example.domain.usecase.families.GetFamiliesUseCase
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
-import com.example.raczakupsecond.app.App
 import com.example.raczakupsecond.databinding.FragmentProfileBinding
-import com.example.raczakupsecond.screens.auth.checkcode.CheckCodeFragment
-import com.example.raczakupsecond.screens.auth.checkcode.CheckCodeFragmentVM
 import com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment
-import com.example.raczakupsecond.screens.profile.profilepage.adapter.FamilyGroupAdapter
+import com.example.raczakupsecond.screens.profile.profilepage.adapter.ProfileFamilyGroupAdapter
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding : FragmentProfileBinding
@@ -71,7 +64,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.getFamilies()
 
         viewModel.getAllFamilies().observe(viewLifecycleOwner) {
-            val familyGroupAdapter = FamilyGroupAdapter(it)
+            val familyGroupAdapter = ProfileFamilyGroupAdapter(it)
 
             binding.apply{
                 rcViewGroups.layoutManager = LinearLayoutManager(requireContext())

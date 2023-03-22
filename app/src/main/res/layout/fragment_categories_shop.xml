@@ -558,7 +558,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
-                android:layout_height="16dp"
+                android:layout_height="72dp"
                 android:layout_width="match_parent"
 
                 app:layout_constraintTop_toBottomOf="@id/constLayout_category_nuts_dried"
