@@ -15,7 +15,7 @@ import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentProfileBinding
 import com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment
-import com.example.raczakupsecond.screens.profile.profilepage.adapter.ProfileFamilyGroupAdapter
+import com.example.raczakupsecond.screens.profile.profilepage.adapters.ProfileFamilyGroupAdapter
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding : FragmentProfileBinding

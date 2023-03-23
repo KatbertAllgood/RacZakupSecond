@@ -21,7 +21,7 @@ import com.example.domain.models.families.MemberDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentEditGroupBinding
-import com.example.raczakupsecond.screens.profile.editgroup.adapter.FamilyMembersAdapter
+import com.example.raczakupsecond.screens.profile.editgroup.adapters.EditGroupFamilyMembersAdapter
 import com.example.raczakupsecond.screens.profile.editmember.EditMemberFragment
 
 class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
@@ -205,7 +205,7 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
             binding.apply {
                 editTextEditGroupTitle.setText(it.name)
 
-                val membersAdapter = FamilyMembersAdapter(it.members)
+                val membersAdapter = EditGroupFamilyMembersAdapter(it.members)
                 rcViewMembers.layoutManager = GridLayoutManager(requireContext(), 4)
                 rcViewMembers.isNestedScrollingEnabled = false
 
@@ -228,7 +228,7 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
 
             binding.apply {
 
-                val membersAdapter = FamilyMembersAdapter(members)
+                val membersAdapter = EditGroupFamilyMembersAdapter(members)
                 rcViewMembers.layoutManager = GridLayoutManager(requireContext(), 4)
                 rcViewMembers.isNestedScrollingEnabled = false
 

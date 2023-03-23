@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.profile.profilepage.adapter
+package com.example.raczakupsecond.screens.profile.profilepage.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

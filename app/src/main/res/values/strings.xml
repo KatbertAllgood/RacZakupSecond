@@ -99,20 +99,23 @@
     <string name="no_pack">Вы не создали ни\nодного набора</string>
 
     <string name="how_many_people">На сколько человек закупка?</string>
-        <string name="for_me">Заказать для себя</string>
-        <string name="add_new_family">Добавить новую семью</string>
+    <string name="for_me">Заказать для себя</string>
+    <string name="add_new_family">Добавить новую семью</string>
     <string name="how_many_days">Количество дней</string>
     <string name="budget">Бюджет закупки</string>
-        <string name="budget_eco">Эконом</string>
-            <string name="eco_rub">₽</string>
-        <string name="budget_standard">Стандарт</string>
-            <string name="standard_rub">₽₽</string>
-        <string name="budget_premium">Премиум</string>
-            <string name="premium_rub">₽₽₽</string>
+    <string name="budget_eco">Эконом</string>
+    <string name="eco_rub">₽</string>
+    <string name="budget_standard">Стандарт</string>
+    <string name="standard_rub">₽₽</string>
+    <string name="budget_premium">Премиум</string>
+    <string name="premium_rub">₽₽₽</string>
     <string name="address_purchase">Адрес доставки</string>
-        <string name="add_address">Добавить адрес</string>
+    <string name="add_address">Добавить адрес</string>
     <string name="shop">Магазин</string>
     <string name="next">Далее</string>
+
+    <string name="people_amount">Количество человек</string>
+    <string name="check_pack">Проверьте выбранные параметры</string>
 
     <!-- HINTS -->
     <string name="hint_set_title">Введите название…</string>

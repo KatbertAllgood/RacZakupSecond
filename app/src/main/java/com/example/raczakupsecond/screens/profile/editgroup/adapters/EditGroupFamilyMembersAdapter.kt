@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.profile.editgroup.adapter
+package com.example.raczakupsecond.screens.profile.editgroup.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +9,10 @@ import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ProfileFamilyMemberItemBinding
 import com.example.raczakupsecond.utils.Utils
-import java.util.*
 
-class FamilyMembersAdapter(
+class EditGroupFamilyMembersAdapter(
     private val membersList: List<MemberDomain>
-) : RecyclerView.Adapter<FamilyMembersAdapter.FamilyMembersHolder>() {
+) : RecyclerView.Adapter<EditGroupFamilyMembersAdapter.FamilyMembersHolder>() {
 
     var onItemClick : ((MemberDomain) -> Unit)? = null
     var itemPosition : ((Int) -> Unit)? = null
