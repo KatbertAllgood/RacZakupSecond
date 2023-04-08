@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.families.FamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
-import com.example.raczakupsecond.databinding.ProfileFamilyItemBinding
+import com.example.raczakupsecond.databinding.ItemFamilyBinding
 import com.example.raczakupsecond.utils.Utils
 
 class EditPackFamilyGroupAdapter(
@@ -19,7 +19,7 @@ class EditPackFamilyGroupAdapter(
     var selectedItemPosition = -1
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = ProfileFamilyItemBinding.bind(item)
+        private val binding = ItemFamilyBinding.bind(item)
 
         val root = binding.root
 
@@ -202,7 +202,7 @@ class EditPackFamilyGroupAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FamilyGroupHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(
-                R.layout.profile_family_item,
+                R.layout.item_family,
                 parent,
                 false
             )

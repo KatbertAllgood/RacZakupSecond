@@ -1,22 +1,22 @@
 package com.example.data.network.api
 
+import com.example.data.network.OkHttpClient.UnsafeOkHttpClient
 import com.example.data.network.api.authenticators.TokenAuthenticator
 import com.example.data.network.api.interceptors.RequestInterceptor
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkService {
 
-    private val okHttpClient = OkHttpClient()
-        .newBuilder()
+
+    private val okHttpClient = UnsafeOkHttpClient.getUsafeOkHttpClient()
         .addInterceptor(RequestInterceptor())
         .authenticator(TokenAuthenticator())
         .build()
 
     val retrofitService = Retrofit.Builder()
-        .baseUrl("http://83.220.171.139/api/v1/")
+        .baseUrl("https://83.220.171.139/api/v1/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

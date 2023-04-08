@@ -113,13 +113,29 @@
     <string name="add_address">Добавить адрес</string>
     <string name="shop">Магазин</string>
     <string name="next">Далее</string>
+    <string name="address_in_item">ул. %s, %s\nкв. %s, этаж %s, подъезд %s</string>
 
     <string name="people_amount">Количество человек</string>
     <string name="check_pack">Проверьте выбранные параметры</string>
+    <string name="take_basket">Подобрать корзину</string>
+
+    <!-- ADDRESS -->
+    <string name="save">Сохранить</string>
+
+    <!-- SHOPS -->
+    <string name="pyaterochka">Пятёрочка</string>
+    <string name="perekrestok">Перекрёсток</string>
 
     <!-- HINTS -->
     <string name="hint_set_title">Введите название…</string>
     <string name="hint_set_name">Введите имя…</string>
     <string name="hint_press">Нажмите</string>
+    <string name="hint_street">Улица</string>
+    <string name="hint_entrance">Подъезд</string>
+    <string name="hint_floor">Этаж</string>
+    <string name="hint_flat">Квартира</string>
+    <string name="hint_address_title">Название (\"офис\", \"дом\" и т.п.)</string>
+
+
 
 </resources>

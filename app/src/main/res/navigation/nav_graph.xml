@@ -49,6 +49,9 @@
             <action
                 android:id="@+id/action_profileFragment_to_editGroupFragment"
                 app:destination="@id/editGroupFragment" />
+            <action
+                android:id="@+id/action_profileFragment_to_addressFragment"
+                app:destination="@id/addressFragment" />
         </fragment>
         <fragment
             android:id="@+id/editGroupFragment"
@@ -70,6 +73,15 @@
             android:name="com.example.raczakupsecond.screens.profile.editmember.EditMemberFragment"
             android:label="fragment_edit_member"
             tools:layout="@layout/fragment_edit_member">
+        </fragment>
+        <fragment
+            android:id="@+id/addressFragment"
+            android:name="com.example.raczakupsecond.screens.profile.address.AddressFragment"
+            android:label="fragment_address"
+            tools:layout="@layout/fragment_address">
+            <deepLink
+                android:id="@+id/deeplink_addressFragment"
+                app:uri="raczakup://internal_navigation_addressFragment" />
         </fragment>
     </navigation>
     <navigation android:id="@+id/navigation_packs"

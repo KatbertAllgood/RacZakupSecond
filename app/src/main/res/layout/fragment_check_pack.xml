@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.packs.checkpack.CheckPackFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:fontFamily="@font/roboto"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+
+        android:layout_marginTop="18dp"
+
+        android:text="@string/check_pack" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="32dp"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_point_how_much_people"
+
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/shape_oval_black_stroke"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="@id/iv_checkPack_point_how_much_people"
+                    app:layout_constraintTop_toTopOf="@id/iv_checkPack_point_how_much_people"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_checkPack_point_how_much_people"
+                    app:layout_constraintEnd_toEndOf="@id/iv_checkPack_point_how_much_people"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/people_amount"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginStart="10dp"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_point_how_much_people"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_amount_of_people"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/shape_rectangle_green_rounded_10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_checkPack_groupName"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        tools:text="Группа 1. Моя семья"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcView_checkPack_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_left_10dp"
+
+                    android:layout_marginStart="5dp"
+
+                    app:layout_constraintStart_toEndOf="@id/ll_amount_of_people"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="14dp"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_point_how_much_days"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/shape_oval_black_stroke"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="2"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="@id/iv_checkPack_point_how_much_days"
+                    app:layout_constraintTop_toTopOf="@id/iv_checkPack_point_how_much_days"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_checkPack_point_how_much_days"
+                    app:layout_constraintEnd_toEndOf="@id/iv_checkPack_point_how_much_days"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/how_many_days"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginStart="10dp"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_point_how_much_days"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_right_10dp"
+
+                    android:layout_marginEnd="5dp"
+
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_checkPack_days"/>
+
+                <TextView
+                    android:id="@+id/tv_checkPack_days"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+
+                    android:background="@drawable/shape_rectangle_green_rounded_10dp"
+                    tools:text="5"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:gravity="center"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="14dp"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_point_budget"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/shape_oval_black_stroke"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="3"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="@id/iv_checkPack_point_budget"
+                    app:layout_constraintTop_toTopOf="@id/iv_checkPack_point_budget"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_checkPack_point_budget"
+                    app:layout_constraintEnd_toEndOf="@id/iv_checkPack_point_budget"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/budget"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginStart="10dp"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_point_budget"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_checkPack_budget_rubs"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_10dp"
+
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="36sp"
+                    android:fontFamily="@font/roboto"
+                    tools:text="@string/standard_rub"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_checkPack_budget_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_left_10dp"
+
+                    android:layout_marginStart="5dp"
+
+                    tools:text="Стандарт"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintStart_toEndOf="@id/tv_checkPack_budget_rubs"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="14dp"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_point_address"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/shape_oval_black_stroke"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="4"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="@id/iv_checkPack_point_address"
+                    app:layout_constraintTop_toTopOf="@id/iv_checkPack_point_address"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_checkPack_point_address"
+                    app:layout_constraintEnd_toEndOf="@id/iv_checkPack_point_address"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/address_purchase"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginStart="10dp"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_point_address"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_checkPack_address_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_right_10dp"
+
+                    android:layout_marginEnd="10dp"
+
+                    tools:text="Дом"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_checkPack_address"/>
+
+                <TextView
+                    android:id="@+id/tv_checkPack_address"
+                    android:layout_width="162dp"
+                    android:layout_height="wrap_content"
+
+                    tools:text="г. Москва,\nул. Стромынка, 36\nкв. 1, этаж 1, подъезд 1"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:gravity="start"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="14dp"
+                android:layout_marginHorizontal="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_point_shop"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/shape_oval_black_stroke"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="5"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintStart_toStartOf="@id/iv_checkPack_point_shop"
+                    app:layout_constraintTop_toTopOf="@id/iv_checkPack_point_shop"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_checkPack_point_shop"
+                    app:layout_constraintEnd_toEndOf="@id/iv_checkPack_point_shop"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/shop"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    android:layout_marginStart="10dp"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_point_shop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_checkPack_shop_icon"
+                    android:layout_width="82dp"
+                    android:layout_height="82dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_10dp"
+
+                    android:gravity="center"
+                    android:src="@drawable/ic_shop_pyaterochka"
+                    android:padding="10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_checkPack_shop_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_left_10dp"
+
+                    android:layout_marginStart="5dp"
+
+                    tools:text="Пятёрочка"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintStart_toEndOf="@id/iv_checkPack_shop_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_checkPack_take_basket"
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="@string/take_basket"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="72dp"
+                android:layout_marginHorizontal="60dp"
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_profile_frag_button"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

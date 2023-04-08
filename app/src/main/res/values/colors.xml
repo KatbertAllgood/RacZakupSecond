@@ -61,4 +61,7 @@
     <color name="background_for_amount_of_days">#FAFAFA</color>
     <color name="checked_text">#80000000</color>
 
+    <!-- АДРЕС -->
+    <color name="f5f5f5">#F5F5F5</color>
+
 </resources>

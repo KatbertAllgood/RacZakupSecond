@@ -2,7 +2,8 @@ package com.example.domain.utils
 
 object Constants {
 
-    const val PHONE_NUMBER = "phone_number"
+    // ключ для использования MapKit
+    const val API_MAP_KEY = "d7c27ca8-30de-4c3e-ba18-e4efffce2ede"
 
     const val MALE = "man"
     const val FEMALE = "woman"
@@ -12,7 +13,5 @@ object Constants {
     const val NESTED_CREATE_MODE = "nested_create_mode"
     const val EDIT_MODE = "edit_mode"
     const val CREATED_NESTED_CREATE_MODE = "created_nested_create_mode"
-
-    const val MEMBER = "member"
 
 }

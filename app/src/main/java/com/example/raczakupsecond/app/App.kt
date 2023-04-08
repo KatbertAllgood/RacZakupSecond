@@ -3,6 +3,8 @@ package com.example.raczakupsecond.app
 import android.app.Application
 import com.example.data.repository.*
 import com.example.domain.repository.*
+import com.example.domain.utils.Constants
+import com.yandex.mapkit.MapKitFactory
 
 class App : Application() {
 
@@ -26,5 +28,6 @@ class App : Application() {
         val applicationContext = app.applicationContext
         networkRepository = NetworkRepositoryImpl()
         sharedPreferencesRepository = SharedPreferencesRepositoryImpl(applicationContext)
+        MapKitFactory.setApiKey(Constants.API_MAP_KEY)
     }
 }

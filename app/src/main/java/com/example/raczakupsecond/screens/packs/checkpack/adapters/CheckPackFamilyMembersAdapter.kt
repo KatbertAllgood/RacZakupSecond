@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.profile.editgroup.adapters
+package com.example.raczakupsecond.screens.packs.checkpack.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +10,12 @@ import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ItemFamilyMemberBinding
 import com.example.raczakupsecond.utils.Utils
 
-class EditGroupFamilyMembersAdapter(
+class CheckPackFamilyMembersAdapter(
     private val membersList: List<MemberDomain>
-) : RecyclerView.Adapter<EditGroupFamilyMembersAdapter.FamilyMembersHolder>() {
+) : RecyclerView.Adapter<CheckPackFamilyMembersAdapter.FamilyMembersHolder>() {
 
-    var onItemClick : ((MemberDomain) -> Unit)? = null
-    var itemPosition : ((Int) -> Unit)? = null
+//    var onItemClick : ((MemberDomain) -> Unit)? = null
+//    var itemPosition : ((Int) -> Unit)? = null
 
     inner class FamilyMembersHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFamilyMemberBinding.bind(item)
@@ -36,7 +36,7 @@ class EditGroupFamilyMembersAdapter(
                     Constants.FEMALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_woman)
                 }
             }
-            tvFamilyMemberName.text = member.name
+            tvFamilyMemberName.visibility = View.GONE
         }
     }
 
@@ -57,11 +57,11 @@ class EditGroupFamilyMembersAdapter(
     override fun onBindViewHolder(holder: FamilyMembersHolder, position: Int) {
         holder.bind(membersList[position], position)
 
-        val member = membersList[position]
-        holder.itemView.setOnClickListener {
-            onItemClick?.invoke(member)
-            itemPosition?.invoke(position)
-        }
+//        val member = membersList[position]
+//        holder.itemView.setOnClickListener {
+//            onItemClick?.invoke(member)
+//            itemPosition?.invoke(position)
+//        }
 
     }
 

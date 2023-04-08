@@ -590,25 +590,30 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_address"
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_toolbar_shop_background"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:visibility="gone"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcView_editPackFragment_addresses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                    android:id="@+id/iv_button_add_new_address"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_button_add"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="40dp"
 
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/iv_button_add_new_address"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <RelativeLayout
+                    android:visibility="gone"
+
                     android:id="@+id/rl_button_add_address_when_empty"
 
                     android:layout_width="280dp"
@@ -653,6 +658,19 @@
                         android:src="@drawable/ic_grey_plus"/>
 
                 </RelativeLayout>
+
+                <ImageView
+                    android:visibility="visible"
+
+                    android:id="@+id/iv_button_add_new_address"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_button_add"
+
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="28dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -738,10 +756,11 @@
                 android:background="@drawable/shape_rectangle_green_rounded_10dp">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/rcView_shops"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_margin="16dp"
+                    android:layout_margin="20dp"
 
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

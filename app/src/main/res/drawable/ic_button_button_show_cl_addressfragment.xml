@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="60dp"
+    android:height="36dp"
+    android:viewportWidth="60"
+    android:viewportHeight="36">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M0 15C0 6.72 6.72 0 15 0h45v36H0V15Z"/>
+    <path
+        android:fillColor="#FF1CB522"
+        android:pathData="M23 25.5c0-0.83 0.67-1.5 1.5-1.5h12c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-12c-0.83 0-1.5-0.67-1.5-1.5z"/>
+    <path
+        android:fillColor="#FF8D8D8D"
+        android:pathData="M15 20.5c0-0.83 0.67-1.5 1.5-1.5h27c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-27c-0.83 0-1.5-0.67-1.5-1.5z"/>
+    <path
+        android:fillColor="#FF8D8D8D"
+        android:pathData="M15 10.5c0-0.83 0.67-1.5 1.5-1.5h27c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-27c-0.83 0-1.5-0.67-1.5-1.5z"/>
+    <path
+        android:fillColor="#FF8D8D8D"
+        android:pathData="M15 15.5c0-0.83 0.67-1.5 1.5-1.5h5c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-5c-0.83 0-1.5-0.67-1.5-1.5z"/>
+    <path
+        android:fillColor="#FF8D8D8D"
+        android:pathData="M26 15.5c0-0.83 0.67-1.5 1.5-1.5h5c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-5c-0.83 0-1.5-0.67-1.5-1.5z"/>
+    <path
+        android:fillColor="#FF8D8D8D"
+        android:pathData="M37 15.5c0-0.83 0.67-1.5 1.5-1.5h5c0.83 0 1.5 0.67 1.5 1.5v0c0 0.83-0.67 1.5-1.5 1.5h-5c-0.83 0-1.5-0.67-1.5-1.5z"/>
+</vector>

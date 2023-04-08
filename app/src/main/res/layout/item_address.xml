@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_profile_background_for_data_holders"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/address_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+
+        android:layout_marginStart="18dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Дом" />
+
+    <TextView
+        android:id="@+id/address_item_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/gray_text"
+        android:textSize="13sp"
+
+        android:layout_marginVertical="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="18dp"
+
+        tools:text="г. Москва,\nул. Стромынка, 36\nкв. 1, этаж 1, подъезд 1"
+
+        app:layout_constraintStart_toEndOf="@id/address_item_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

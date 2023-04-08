@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.families.FamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
-import com.example.raczakupsecond.databinding.ProfileFamilyItemBinding
+import com.example.raczakupsecond.databinding.ItemFamilyBinding
 import com.example.raczakupsecond.utils.Utils
 import java.util.*
 
@@ -19,7 +19,7 @@ class ProfileFamilyGroupAdapter(
     var onItemClick : ((FamilyDomain) -> Unit)? = null
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = ProfileFamilyItemBinding.bind(item)
+        private val binding = ItemFamilyBinding.bind(item)
         @SuppressLint("SetTextI18n")
         fun bind(family: FamilyDomain, position: Int) = with(binding) {
 
@@ -198,7 +198,7 @@ class ProfileFamilyGroupAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FamilyGroupHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(
-                R.layout.profile_family_item,
+                R.layout.item_family,
                 parent,
                 false
             )

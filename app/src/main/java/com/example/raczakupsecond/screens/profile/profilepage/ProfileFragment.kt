@@ -33,12 +33,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
 
         val phoneNumber: String = ApplicationPreferences.getPhoneNubmer ?: ""
-//        binding.tvContactsPhone.text = "+7(${phoneNumber[2]}${phoneNumber[3]}${phoneNumber[4]})" +
-//                "${phoneNumber[5]}${phoneNumber[6]}${phoneNumber[7]}-${phoneNumber[8]}${phoneNumber[9]}-" +
-//                "${phoneNumber[10]}${phoneNumber[11]}"
-
-//        val numList: MutableList<Char> = phoneNumber.toMutableList()
-//        Log.d("PHONE", numList.joinToString())
 
         binding.tvContactsPhone.text = getString(R.string.phone_num,
             phoneNumber[2],

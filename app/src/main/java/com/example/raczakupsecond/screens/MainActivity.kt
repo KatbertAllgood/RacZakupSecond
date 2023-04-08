@@ -8,8 +8,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.data.utils.ApplicationPreferences
+import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ActivityMainBinding
+import com.yandex.mapkit.MapKitFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MapKitFactory.initialize(this)
 
         //для SharedPreferences
         ApplicationPreferences.setup(applicationContext)
@@ -45,6 +49,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.myPacksFragment -> {
                     binding.root.setBackgroundResource(R.color.packs_background)
+                }
+                R.id.addressFragment -> {
+                    binding.bottomNavigationBar.visibility = View.GONE
                 }
                 else -> {
                     binding.root.setBackgroundResource(R.color.white)

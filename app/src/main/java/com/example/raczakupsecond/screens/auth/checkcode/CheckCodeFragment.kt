@@ -47,7 +47,6 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
                         findNavController().navigate(R.id.navigation_shop)
                     }
                     false -> {
-
                         val toast : Toast = Toast.makeText(
                             activity,
                             "Неверный код",

@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.packs.HealthySetParamsDomain
 import com.example.domain.usecase.families.GetFamiliesUseCase
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
@@ -21,6 +22,8 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class EditPackFragmentVM : ViewModel() {
+
+    private var healthySetParamsDomain = HealthySetParamsDomain()
 
     private val networkRepository = App.getNetworkRepository()
 
@@ -45,6 +48,19 @@ class EditPackFragmentVM : ViewModel() {
 
             })
     }
+
+    fun changeHealthySet(param: String, value: Int) {
+        when (param) {
+            "addressId" -> healthySetParamsDomain.addressId = value
+            "familyId" -> healthySetParamsDomain.familyId = value
+            "budget" -> healthySetParamsDomain.budget = value
+            "days" -> healthySetParamsDomain.days = value
+            "shop" -> healthySetParamsDomain.shop = value
+            else -> Log.d("HEALTHY_SET_PARAM_MISS", param)
+        }
+    }
+
+    fun getHealthySet() : HealthySetParamsDomain = healthySetParamsDomain
 
     fun nextStep(
         currentButton: View,

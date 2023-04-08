@@ -15,14 +15,20 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.shop.ShopParamsDomain
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentEditPackBinding
+import com.example.raczakupsecond.screens.packs.checkpack.CheckPackFragment
+import com.example.raczakupsecond.screens.packs.editpack.adapters.EditPackAddressAdapter
 import com.example.raczakupsecond.screens.packs.editpack.adapters.EditPackFamilyGroupAdapter
+import com.example.raczakupsecond.screens.packs.editpack.adapters.EditPackShopAdapter
 
-class EditPackFragment : Fragment() {
+class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
     lateinit var binding : FragmentEditPackBinding
     private val viewModel : EditPackFragmentVM by viewModels()
 
@@ -104,6 +110,8 @@ class EditPackFragment : Fragment() {
             ).forEach {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
+
+            viewModel.changeHealthySet("days", 1)
         }
 
         binding.tvButtonEditPackDayCountThree.setOnClickListener {
@@ -119,6 +127,8 @@ class EditPackFragment : Fragment() {
             ).forEach {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
+
+            viewModel.changeHealthySet("days", 3)
         }
 
         binding.tvButtonEditPackDayCountFive.setOnClickListener {
@@ -134,6 +144,8 @@ class EditPackFragment : Fragment() {
             ).forEach {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
+
+            viewModel.changeHealthySet("days", 5)
         }
 
         binding.tvButtonEditPackDayCountSeven.setOnClickListener {
@@ -149,6 +161,8 @@ class EditPackFragment : Fragment() {
             ).forEach {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
+
+            viewModel.changeHealthySet("days", 7)
         }
 
         binding.buttonHowMuchDaysNext.setOnClickListener {
@@ -186,6 +200,8 @@ class EditPackFragment : Fragment() {
                 binding.llBudgetStandard,
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
+
+            viewModel.changeHealthySet("budget", 0)
         }
 
         binding.llBudgetStandard.setOnClickListener {
@@ -198,6 +214,8 @@ class EditPackFragment : Fragment() {
                 binding.llBudgetEco,
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
+
+            viewModel.changeHealthySet("budget", 1)
         }
 
         binding.llBudgetPremium.setOnClickListener {
@@ -210,6 +228,8 @@ class EditPackFragment : Fragment() {
                 binding.llBudgetStandard,
                 binding.llBudgetEco
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
+
+            viewModel.changeHealthySet("budget", 2)
         }
 
         binding.buttonBudgetNext.setOnClickListener {
@@ -235,6 +255,25 @@ class EditPackFragment : Fragment() {
 
         //region Адрес доставки
 
+//        binding.ivButtonAddNewAddress.setOnClickListener {
+//            routeToAddressFragment()
+//        }
+//
+//        binding.rlButtonAddAddressWhenEmpty.setOnClickListener {
+//            routeToAddressFragment()
+//        }
+
+        binding.apply {
+            listOf(
+                ivButtonAddNewAddress,
+                rlButtonAddAddressWhenEmpty
+            ).forEach {
+                it.setOnClickListener {
+                    routeToAddressFragment()
+                }
+            }
+        }
+
         binding.buttonAddressNext.setOnClickListener {
 
             binding.apply {
@@ -252,6 +291,24 @@ class EditPackFragment : Fragment() {
                 )
             }
 
+        }
+
+        //endregion
+
+        //region Магазины
+
+        binding.buttonShopNext.setOnClickListener {
+
+            findNavController().navigate(
+                R.id.action_editPackFragment_to_checkPackFragment,
+                bundleOf(
+                    "addressId" to viewModel.getHealthySet().addressId,
+                    "familyId" to viewModel.getHealthySet().familyId,
+                    "budget" to viewModel.getHealthySet().budget,
+                    "days" to viewModel.getHealthySet().days,
+                    "shop" to viewModel.getHealthySet().shop
+                )
+            )
         }
 
         //endregion
@@ -285,7 +342,7 @@ class EditPackFragment : Fragment() {
                     familyGroupAdapter.onItemClick = {item ->
                         Log.d("SELECTED_FAMILY_ID", item.id.toString())
                         buttonHowMuchPeopleNext.visibility = View.VISIBLE
-                        // TODO() { ТУТ ПЕРЕДАВАТЬ familyId }
+                        viewModel.changeHealthySet("familyId", item.id)
                     }
 
                     rcViewEditPackFragmentGroups.adapter = familyGroupAdapter
@@ -298,6 +355,75 @@ class EditPackFragment : Fragment() {
                 }
             }
         }
+
+        //endregion
+
+        //region Адрес доставки
+
+        // TODO(ТУТ ПРОСТО ТЕСТОВО. СДЕЛАТЬ ЧЕРЕЗ ОБЗЕРВЕР, КОГДА РОУТ ПОДНИМУТ )
+
+        val addressAdapter = EditPackAddressAdapter(
+            requireContext(),
+            listOf(
+                AddressParamsDomain(
+                    id = 0,
+                    name = "Дом",
+                    street = "Стромынка",
+                    building = 5,
+                    flat = 12,
+                    floor = 2,
+                    entrance = 1
+                ),
+                AddressParamsDomain(
+                    id = 1,
+                    name = "Офис",
+                    street = "Стромынка",
+                    building = 5,
+                    flat = 12,
+                    floor = 2,
+                    entrance = 1
+                )
+            )
+        )
+
+        binding.apply{
+            rcViewEditPackFragmentAddresses.layoutManager = LinearLayoutManager(requireContext())
+            rcViewEditPackFragmentAddresses.isNestedScrollingEnabled = false
+
+            addressAdapter.onItemClick = { item ->
+                buttonAddressNext.visibility = View.VISIBLE
+                viewModel.changeHealthySet("addressId", item.id)
+            }
+
+            rcViewEditPackFragmentAddresses.adapter = addressAdapter
+        }
+
+        //endregion
+
+        //region Магазины
+
+        // TODO(ТУТ ПРОСТО ТЕСТОВО)
+
+        val shopAdapter = EditPackShopAdapter(
+            requireContext(),
+            listOf(
+                ShopParamsDomain(0, R.drawable.ic_shop_pyaterochka, R.string.pyaterochka),
+                ShopParamsDomain(1,  R.drawable.ic_shop_perekrestok, R.string.perekrestok),
+            )
+        )
+
+        binding.apply{
+            rcViewShops.layoutManager = LinearLayoutManager(requireContext())
+            rcViewShops.isNestedScrollingEnabled = false
+
+            shopAdapter.onItemClick = { item ->
+                buttonShopNext.visibility = View.VISIBLE
+                viewModel.changeHealthySet("shop", item.id)
+            }
+
+            rcViewShops.adapter = shopAdapter
+        }
+
 
         //endregion
 
@@ -322,5 +448,10 @@ class EditPackFragment : Fragment() {
     private fun routeToEditGroupFragment() {
         val deeplinkEditMember = Uri.parse("raczakup://internal_navigation_editGroupFragment")
         findNavController().navigate(deeplinkEditMember)
+    }
+
+    private fun routeToAddressFragment() {
+        val addressFragmentDeeplink = Uri.parse("raczakup://internal_navigation_addressFragment")
+        findNavController().navigate(addressFragmentDeeplink)
     }
 }
