@@ -7,16 +7,16 @@ import android.view.View
 import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.ProgressBar
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.ServerResponseDomain
 import com.example.domain.models.families.MemberDomain
-import com.example.domain.repository.NetworkRepository
+import com.example.domain.models.families.NewMemberDomain
+import com.example.domain.models.families.NewMemberUpdateDomain
 import com.example.domain.usecase.families.CreateMemberUseCase
 import com.example.domain.usecase.families.DeleteMemberUseCase
-import com.example.domain.usecase.families.GetFamilyMemberUseCase
+import com.example.domain.usecase.families.GetFamilyMembersUseCase
 import com.example.domain.usecase.families.UpdateMemberUseCase
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
@@ -24,20 +24,19 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import java.math.RoundingMode
-import java.time.LocalDateTime
 import java.util.*
 
 class EditMemberFragmentVM : ViewModel() {
 
     private val networkRepository = App.getNetworkRepository()
 
-    private val getFamilyMemberUseCase = GetFamilyMemberUseCase(networkRepository)
+    private val getFamilyMembersUseCase = GetFamilyMembersUseCase(networkRepository)
     private val updateMemberUseCase = UpdateMemberUseCase(networkRepository)
     private val deleteMemberUseCase = DeleteMemberUseCase(networkRepository)
     private val createMemberUseCase = CreateMemberUseCase(networkRepository)
 
-    private val memberLiveData = MutableLiveData<MemberDomain>()
-    fun getMemberLiveData() : LiveData<MemberDomain> {
+    private val memberLiveData = MutableLiveData<NewMemberDomain>()
+    fun getMemberLiveData() : LiveData<NewMemberDomain> {
         return memberLiveData
     }
 
@@ -47,12 +46,16 @@ class EditMemberFragmentVM : ViewModel() {
     }
 
     fun getFamilyMember(familyId: String, memberId: String) {
-        getFamilyMemberUseCase.invoke(familyId, memberId)
+        getFamilyMembersUseCase.invoke(familyId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<MemberDomain>() {
-                override fun onSuccess(t: MemberDomain) {
-                    memberLiveData.value = t
+            .subscribe(object : DisposableSingleObserver<List<NewMemberDomain>>() {
+                override fun onSuccess(t: List<NewMemberDomain>) {
+                    for (i in t) {
+                        if (i.id == memberId.toInt()) {
+                            memberLiveData.value = i
+                        }
+                    }
                 }
 
                 override fun onError(e: Throwable) {
@@ -65,7 +68,7 @@ class EditMemberFragmentVM : ViewModel() {
     fun updateMember(
         familyId: String,
         memberId: String,
-        updatedMember: MemberDomain
+        updatedMember: NewMemberUpdateDomain
     ) {
         updateMemberUseCase.invoke(
             familyId,
@@ -74,9 +77,9 @@ class EditMemberFragmentVM : ViewModel() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<ServerResponseDomain>() {
-                override fun onSuccess(t: ServerResponseDomain) {
-                    Log.d("UPDATE_MEMBER", t.success.toString())
+            .subscribe(object : DisposableSingleObserver<NewMemberDomain>() {
+                override fun onSuccess(t: NewMemberDomain) {
+                    Log.d("UPDATE_MEMBER", t.name)
                 }
 
                 override fun onError(e: Throwable) {
@@ -98,7 +101,7 @@ class EditMemberFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<ServerResponseDomain>() {
                 override fun onSuccess(t: ServerResponseDomain) {
-                    Log.d("DELETE_MEMBER", t.message.toString())
+                    Log.d("DELETE_MEMBER", t.message)
                 }
 
                 override fun onError(e: Throwable) {
@@ -110,7 +113,7 @@ class EditMemberFragmentVM : ViewModel() {
 
     fun createMember(
         familyId: String,
-        newFamilyMember: MemberDomain
+        newFamilyMember: NewMemberUpdateDomain
     ) {
         createMemberUseCase.invoke(
             familyId,
@@ -118,8 +121,8 @@ class EditMemberFragmentVM : ViewModel() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<MemberDomain>() {
-                override fun onSuccess(t: MemberDomain) {
+            .subscribe(object : DisposableSingleObserver<NewMemberDomain>() {
+                override fun onSuccess(t: NewMemberDomain) {
                     Log.d("CREATE_MEMBER", t.id.toString())
                 }
 

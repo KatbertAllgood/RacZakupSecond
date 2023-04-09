@@ -22,6 +22,8 @@ import com.example.raczakupsecond.databinding.FragmentEditMemberBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.domain.models.families.MemberDomain
+import com.example.domain.models.families.NewMemberDomain
+import com.example.domain.models.families.NewMemberUpdateDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment
 
@@ -33,7 +35,7 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
 
     lateinit var familyId : String
     lateinit var memberId: String
-    lateinit var updatingMember : MemberDomain
+    lateinit var updatingMember : NewMemberUpdateDomain
 
     private var _name: String = ""
     private var _gender: String = ""
@@ -120,7 +122,13 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
 
         viewModel.getMemberLiveData().observe(viewLifecycleOwner) {
 
-            updatingMember = it
+            updatingMember = NewMemberUpdateDomain(
+                it.name,
+                it.height,
+                it.weight,
+                it.birthday,
+                it.gender
+            )
 
             viewModel.calculateImt(it.weight, it.height)
 
@@ -426,7 +434,7 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
                             updatingMember.height = editTextEditedHeight.text.toString().toInt()
                             updatingMember.weight = editTextEditedWeight.text.toString().toInt()
                             updatingMember.birthday = birthDay
-                            updatingMember.age = editTextEditedAge.text.toString().toInt()
+//                            updatingMember.age = editTextEditedAge.text.toString().toInt()
 
                             Log.d("birthday", updatingMember.birthday)
 
@@ -439,13 +447,13 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
                         Constants.CREATE_MODE -> {
                             viewModel.createMember(
                                 familyId,
-                                MemberDomain(
+                                NewMemberUpdateDomain(
                                     name = editTextEditMemberName.text.toString(),
                                     gender = gender,
                                     height = editTextEditedHeight.text.toString().toInt(),
                                     weight = editTextEditedWeight.text.toString().toInt(),
                                     birthday = birthDay,
-                                    age = editTextEditedAge.text.toString().toInt()
+//                                    age = editTextEditedAge.text.toString().toInt()
                                 )
                             )
                         }
@@ -453,13 +461,13 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
 //                        val navController = findNavController()
                             navController.previousBackStackEntry?.savedStateHandle?.set(
                                 "newMember",
-                                MemberDomain(
+                                NewMemberUpdateDomain(
                                     name = editTextEditMemberName.text.toString(),
                                     gender = gender,
                                     height = editTextEditedHeight.text.toString().toInt(),
                                     weight = editTextEditedWeight.text.toString().toInt(),
                                     birthday = birthDay,
-                                    age = editTextEditedAge.text.toString().toInt()
+//                                    age = editTextEditedAge.text.toString().toInt()
                                 )
                             )
                         }
@@ -467,13 +475,13 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
 //                        val navController = findNavController()
                             navController.previousBackStackEntry?.savedStateHandle?.set(
                                 "newMember",
-                                MemberDomain(
+                                NewMemberUpdateDomain(
                                     name = editTextEditMemberName.text.toString(),
                                     gender = gender,
                                     height = editTextEditedHeight.text.toString().toInt(),
                                     weight = editTextEditedWeight.text.toString().toInt(),
                                     birthday = birthDay,
-                                    age = editTextEditedAge.text.toString().toInt()
+//                                    age = editTextEditedAge.text.toString().toInt()
                                 )
                             )
                         }
@@ -536,13 +544,13 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
 
             findNavController().previousBackStackEntry?.savedStateHandle?.set(
                 "newMember",
-                MemberDomain(
+                NewMemberUpdateDomain(
                     name = _name,
                     gender = _gender,
                     height = _height,
                     weight = _weight,
                     birthday = _birthday,
-                    age = _age
+//                    age = _age
                 )
             )
 

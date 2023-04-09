@@ -8,5 +8,6 @@ data class NewMemberDomain(
     var birthday: String = "",
     var gender: String = "",
     val createdAt: String = "",
-    val updatedAt: String = ""
+    val updatedAt: String = "",
+    val family: NewFamilyDomain = NewFamilyDomain()
 )

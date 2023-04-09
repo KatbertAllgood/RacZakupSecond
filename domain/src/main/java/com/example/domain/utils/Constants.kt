@@ -5,8 +5,8 @@ object Constants {
     // ключ для использования MapKit
     const val API_MAP_KEY = "d7c27ca8-30de-4c3e-ba18-e4efffce2ede"
 
-    const val MALE = "man"
-    const val FEMALE = "woman"
+    const val MALE = "male"
+    const val FEMALE = "female"
 
     const val MODE = "mode"
     const val CREATE_MODE = "create_mode"

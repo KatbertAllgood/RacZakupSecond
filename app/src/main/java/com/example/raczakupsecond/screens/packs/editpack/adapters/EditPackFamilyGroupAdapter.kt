@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ItemFamilyBinding
 import com.example.raczakupsecond.utils.Utils
 
 class EditPackFamilyGroupAdapter(
-    private val familiesList: List<FamilyDomain>
+    private val familiesList: List<NewFamilyDomain>
 ) : RecyclerView.Adapter<EditPackFamilyGroupAdapter.FamilyGroupHolder>() {
 
-    var onItemClick : ((FamilyDomain) -> Unit)? = null
+    var onItemClick : ((NewFamilyDomain) -> Unit)? = null
     var selectedItemPosition = -1
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -24,7 +25,7 @@ class EditPackFamilyGroupAdapter(
         val root = binding.root
 
         @SuppressLint("SetTextI18n")
-        fun bind(family: FamilyDomain, position: Int) = with(binding) {
+        fun bind(family: NewFamilyDomain, position: Int) = with(binding) {
 
             root.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_10dp)
             tvFamilyItemName.text = family.name

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.families.MemberDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.models.families.NewMemberUpdateDomain
 import com.example.domain.utils.Constants
@@ -12,16 +11,16 @@ import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ItemFamilyMemberBinding
 import com.example.raczakupsecond.utils.Utils
 
-class EditGroupFamilyMembersAdapter(
-    private val membersList: List<NewMemberDomain>
-) : RecyclerView.Adapter<EditGroupFamilyMembersAdapter.FamilyMembersHolder>() {
+class EditGroupFamilyNewMembersAdapter(
+    private val membersList: List<NewMemberUpdateDomain>
+) : RecyclerView.Adapter<EditGroupFamilyNewMembersAdapter.FamilyMembersHolder>() {
 
-    var onItemClick : ((NewMemberDomain) -> Unit)? = null
+    var onItemClick : ((NewMemberUpdateDomain) -> Unit)? = null
     var itemPosition : ((Int) -> Unit)? = null
 
     inner class FamilyMembersHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFamilyMemberBinding.bind(item)
-        fun bind(member: NewMemberDomain, position: Int) = with(binding) {
+        fun bind(member: NewMemberUpdateDomain, position: Int) = with(binding) {
             if (Utils().calculateAge(member.birthday) < 16) {
                 when(member.gender) {
                     Constants.MALE -> ivFamilyMemberIcon.setImageResource(R.drawable.ic_profile_boy)

@@ -2,9 +2,7 @@ package com.example.data.models.families
 
 import com.google.gson.annotations.SerializedName
 
-data class NewMemberData(
-    @SerializedName("id")
-    val id: Int = 0,
+data class NewMemberUpdateData(
     @SerializedName("name")
     var name: String = "",
     @SerializedName("height")
@@ -15,10 +13,4 @@ data class NewMemberData(
     var birthday: String = "",
     @SerializedName("gender")
     var gender: String = "",
-    @SerializedName("createdAt")
-    val createdAt: String = "",
-    @SerializedName("updatedAt")
-    val updatedAt: String = "",
-    @SerializedName("family")
-    val family: NewFamilyData = NewFamilyData()
 )

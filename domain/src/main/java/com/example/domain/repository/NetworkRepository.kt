@@ -2,8 +2,7 @@ package com.example.domain.repository
 
 import com.example.domain.models.ServerResponseDomain
 import com.example.domain.models.auth.*
-import com.example.domain.models.families.FamilyDomain
-import com.example.domain.models.families.MemberDomain
+import com.example.domain.models.families.*
 import io.reactivex.Single
 
 interface NetworkRepository {
@@ -18,22 +17,24 @@ interface NetworkRepository {
 
     fun logout(): Single<LogoutResponseDomain>
 
-    fun getFamilies(): Single<List<FamilyDomain>>
+    fun getFamilies(): Single<AllFamiliesDomain>
 
-    fun getFamily(id: String): Single<FamilyDomain>
+    fun getFamily(id: String): Single<NewFamilyDomain>
 
-    fun getFamilyMember(familyId: String, memberId: String): Single<MemberDomain>
+    fun getFamilyMembers(
+        familyId: String
+    ) : Single<List<NewMemberDomain>>
 
     fun updateFamily(
         familyId: String,
-        updatedFamily: FamilyDomain
-    ) : Single<ServerResponseDomain>
+        updatedFamily: NewFamilyUpdateDomain
+    ) : Single<NewFamilyDomain>
 
     fun updateMember(
         familyId: String,
         memberId: String,
-        updatedMember: MemberDomain
-    ) : Single<ServerResponseDomain>
+        updatedMember: NewMemberUpdateDomain
+    ) : Single<NewMemberDomain>
 
     fun deleteFamily(familyId: String) : Single<ServerResponseDomain>
 
@@ -42,10 +43,10 @@ interface NetworkRepository {
         memberId: String
     ) : Single<ServerResponseDomain>
 
-    fun createFamily(family: FamilyDomain) : Single<FamilyDomain>
+    fun createFamily(family: NewFamilyUpdateDomain): Single<NewFamilyDomain>
 
     fun createMember(
         familyId: String,
-        newFamilyMember: MemberDomain
-    ) : Single<MemberDomain>
+        newFamilyMember: NewMemberUpdateDomain
+    ) : Single<NewMemberDomain>
 }

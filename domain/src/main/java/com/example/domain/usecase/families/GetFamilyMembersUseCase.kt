@@ -2,10 +2,9 @@ package com.example.domain.usecase.families
 
 import com.example.domain.repository.NetworkRepository
 
-class GetFamilyMemberUseCase(
+class GetFamilyMembersUseCase(
     private val networkRepository: NetworkRepository
 ) {
     fun invoke(
-        familyId: String,
-        memberId: String) = networkRepository.getFamilyMember(familyId, memberId)
+        familyId: String) = networkRepository.getFamilyMembers(familyId)
 }

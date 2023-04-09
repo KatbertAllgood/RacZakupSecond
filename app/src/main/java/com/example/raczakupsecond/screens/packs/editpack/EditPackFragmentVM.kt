@@ -12,9 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.families.AllFamiliesDomain
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.packs.HealthySetParamsDomain
 import com.example.domain.usecase.families.GetFamiliesUseCase
+import com.example.domain.usecase.families.GetFamilyUseCase
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,20 +29,24 @@ class EditPackFragmentVM : ViewModel() {
     private var healthySetParamsDomain = HealthySetParamsDomain()
 
     private val networkRepository = App.getNetworkRepository()
-
     private val getFamiliesUseCase = GetFamiliesUseCase(networkRepository)
+    private val getFamilyUseCase = GetFamilyUseCase(networkRepository)
 
-    private val allFamiliesLiveData = MutableLiveData<List<FamilyDomain>>()
-    fun getAllFamiliesLiveData() : LiveData<List<FamilyDomain>> = allFamiliesLiveData
+    private val allFamiliesLiveData = MutableLiveData<List<NewFamilyDomain>>()
+    fun getAllFamiliesLiveData() : LiveData<List<NewFamilyDomain>> = allFamiliesLiveData
+
+    private val families: MutableList<NewFamilyDomain> = mutableListOf()
 
     fun getFamilies() {
         getFamiliesUseCase
             .invoke()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object: DisposableSingleObserver<List<FamilyDomain>>() {
-                override fun onSuccess(t: List<FamilyDomain>) {
-                    allFamiliesLiveData.value = t
+            .subscribe(object: DisposableSingleObserver<AllFamiliesDomain>() {
+                override fun onSuccess(t: AllFamiliesDomain) {
+                    for (i in t.results) {
+                        getFamily(i.id)
+                    }
                 }
 
                 override fun onError(e: Throwable) {
@@ -47,6 +54,29 @@ class EditPackFragmentVM : ViewModel() {
                 }
 
             })
+    }
+
+    fun getFamily(
+        familyId: Int
+    ) {
+        getFamilyUseCase.invoke(familyId.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<NewFamilyDomain>() {
+                override fun onSuccess(t: NewFamilyDomain) {
+                    families.add(t)
+                    allFamiliesLiveData.value = families
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("FAMILY -----", e.message.toString())
+                }
+
+            })
+    }
+
+    fun clearFamilies() {
+        families.clear()
     }
 
     fun changeHealthySet(param: String, value: Int) {

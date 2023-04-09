@@ -16,12 +16,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.domain.models.families.FamilyDomain
-import com.example.domain.models.families.MemberDomain
+import com.example.domain.models.families.*
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentEditGroupBinding
 import com.example.raczakupsecond.screens.profile.editgroup.adapters.EditGroupFamilyMembersAdapter
+import com.example.raczakupsecond.screens.profile.editgroup.adapters.EditGroupFamilyNewMembersAdapter
 import com.example.raczakupsecond.screens.profile.editmember.EditMemberFragment
 
 class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
@@ -32,8 +32,8 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
 
     private lateinit var familyId: String
 
-    private lateinit var updatingFamily: FamilyDomain
-    private lateinit var members: List<MemberDomain>
+    private lateinit var updatingFamily: NewFamilyUpdateDomain
+    private lateinit var members: List<NewMemberUpdateDomain>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
 
         if (mode == Constants.CREATE_MODE) {
 
-            updatingFamily = FamilyDomain()
+            updatingFamily = NewFamilyUpdateDomain()
 
             with(binding) {
                 toolbarEditGroup.setTitle(getString(R.string.add_group_toolbar))
@@ -79,7 +79,7 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
         navController
             .currentBackStackEntry
             ?.savedStateHandle
-            ?.getLiveData<MemberDomain>("newMember")
+            ?.getLiveData<NewMemberUpdateDomain>("newMember")
             ?.observe(viewLifecycleOwner) {
                 if (it.name != "") {
                     viewModel.addMember(it)
@@ -150,10 +150,11 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
                         )
                     } else if (mode == Constants.CREATE_MODE) {
                         viewModel.createFamily(
-                            FamilyDomain(
+                            NewFamilyUpdateDomain(
                                 name = editTextEditGroupTitle.text.toString(),
-                                members = members
-                            )
+//                                members = members
+                            ),
+                            members
                         )
                     }
                     findNavController().popBackStack()
@@ -200,7 +201,9 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
 
         viewModel.getFamilyLiveData().observe(viewLifecycleOwner) {
 
-            updatingFamily = it
+            updatingFamily = NewFamilyUpdateDomain(
+                it.name
+            )
 
             binding.apply {
                 editTextEditGroupTitle.setText(it.name)
@@ -228,7 +231,7 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
 
             binding.apply {
 
-                val membersAdapter = EditGroupFamilyMembersAdapter(members)
+                val membersAdapter = EditGroupFamilyNewMembersAdapter(members)
                 rcViewMembers.layoutManager = GridLayoutManager(requireContext(), 4)
                 rcViewMembers.isNestedScrollingEnabled = false
 
@@ -242,7 +245,6 @@ class EditGroupFragment : Fragment(R.layout.fragment_edit_group) {
                             "height" to item.height,
                             "weight" to item.weight,
                             "birthday" to item.birthday,
-                            "age" to item.age
                         )
                     )
                 }

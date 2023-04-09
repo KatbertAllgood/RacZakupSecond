@@ -2,8 +2,7 @@ package com.example.data.network.api
 
 import com.example.data.models.*
 import com.example.data.models.auth.*
-import com.example.data.models.families.FamilyData
-import com.example.data.models.families.MemberData
+import com.example.data.models.families.*
 import com.example.data.models.packs.HealthySetParamsData
 import com.example.domain.models.ServerResponseDomain
 import io.reactivex.Single
@@ -33,41 +32,40 @@ interface ServerApi {
     //region family
 
     @GET("users/families")
-    fun getFamilies(): Single<List<FamilyData>>
+    fun getFamilies(): Single<AllFamiliesData>
 
     @GET("users/families/{id}")
-    fun getFamily(@Path("id") id: String): Single<FamilyData>
+    fun getFamily(@Path("id") id: String): Single<NewFamilyData>
 
-    @GET("users/families/{familyId}/members/{memberId}")
-    fun getFamilyMember(
-        @Path("familyId") familyId: String,
-        @Path("memberId") memberId: String
-    ) : Single<MemberData>
+    @GET("users/families/{familyId}/members")
+    fun getFamilyMembers(
+        @Path("familyId") familyId: String
+    ) : Single<List<NewMemberData>>
 
     @GET("users/families/members/prefs")
     fun getPrefsAndAllergies() // TODO()что на выходе ??????????
 
     @POST("users/families")
-    fun createFamily(@Body family: FamilyData): Single<FamilyData>
+    fun createFamily(@Body family: NewFamilyUpdateData): Single<NewFamilyData>
 
     @POST("users/families/{familyId}/members")
     fun createMember(
         @Path("familyId") familyId: String,
-        @Body newFamilyMember: MemberData
-    ) : Single<MemberData>
+        @Body newFamilyMember: NewMemberUpdateData
+    ) : Single<NewMemberData>
 
     @PATCH("users/families/{familyId}")
     fun updateFamily(
         @Path("familyId") familyId: String,
-        @Body updatedFamily: FamilyData
-    ) : Single<ServerResponseData>
+        @Body updatedFamily: NewFamilyUpdateData
+    ) : Single<NewFamilyData>
 
     @PATCH("users/families/{familyId}/members/{memberId}")
     fun updateMember(
         @Path("familyId") familyId: String,
         @Path("memberId") memberId: String,
-        @Body updatedMember: MemberData
-    ) : Single<ServerResponseData>
+        @Body updatedMember: NewMemberUpdateData
+    ) : Single<NewMemberData>
 
     @DELETE("users/families/{familyId}")
     fun deleteFamily(@Path("familyId") familyId: String) : Single<ServerResponseData>

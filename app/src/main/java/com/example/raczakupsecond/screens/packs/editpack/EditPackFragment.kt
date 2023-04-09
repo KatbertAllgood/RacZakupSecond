@@ -429,6 +429,11 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearFamilies()
+    }
+
     private fun start() = with(binding){
         listOf(
             buttonHowMuchPeopleNext,

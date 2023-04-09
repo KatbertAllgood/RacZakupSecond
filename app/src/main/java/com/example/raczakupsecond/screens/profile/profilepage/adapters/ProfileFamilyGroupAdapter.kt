@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.ItemFamilyBinding
@@ -13,15 +14,15 @@ import com.example.raczakupsecond.utils.Utils
 import java.util.*
 
 class ProfileFamilyGroupAdapter(
-    private val familiesList: List<FamilyDomain>
+    private val familiesList: List<NewFamilyDomain>
 ) : RecyclerView.Adapter<ProfileFamilyGroupAdapter.FamilyGroupHolder>() {
 
-    var onItemClick : ((FamilyDomain) -> Unit)? = null
+    var onItemClick : ((NewFamilyDomain) -> Unit)? = null
 
     inner class FamilyGroupHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemFamilyBinding.bind(item)
         @SuppressLint("SetTextI18n")
-        fun bind(family: FamilyDomain, position: Int) = with(binding) {
+        fun bind(family: NewFamilyDomain, position: Int) = with(binding) {
 
             tvFamilyItemName.text = family.name
             tvFamilyItemGroupNum.text = "Группа ${position + 1}."

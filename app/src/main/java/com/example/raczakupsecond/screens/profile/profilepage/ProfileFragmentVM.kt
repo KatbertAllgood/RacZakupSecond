@@ -4,8 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.families.AllFamiliesDomain
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.families.NewFamilyDomain
+import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.usecase.families.GetFamiliesUseCase
+import com.example.domain.usecase.families.GetFamilyMembersUseCase
+import com.example.domain.usecase.families.GetFamilyUseCase
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -15,33 +20,56 @@ class ProfileFragmentVM: ViewModel() {
 
     private val networkRepository = App.getNetworkRepository()
     private val getFamiliesUseCase = GetFamiliesUseCase(networkRepository)
+    private val getFamilyUseCase = GetFamilyUseCase(networkRepository)
 
-    private val allFamiliesLiveData = MutableLiveData<List<FamilyDomain>>()
-
-
-    init {
-        getFamilies()
-    }
-
-    fun getAllFamilies(): LiveData<List<FamilyDomain>> {
+    private val allFamiliesLiveData = MutableLiveData<List<NewFamilyDomain>>()
+    fun getAllFamilies(): LiveData<List<NewFamilyDomain>> {
         return allFamiliesLiveData
     }
+
+    private val families: MutableList<NewFamilyDomain> = mutableListOf()
 
     fun getFamilies() {
         getFamiliesUseCase
             .invoke()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object: DisposableSingleObserver<List<FamilyDomain>>() {
-                override fun onSuccess(t: List<FamilyDomain>) {
-                    allFamiliesLiveData.value = t
-                    Log.d("FAMILIES_REFRESH", "YES YES YES")
+            .subscribe(object: DisposableSingleObserver<AllFamiliesDomain>() {
+                override fun onSuccess(t: AllFamiliesDomain) {
+                    for (i in t.results) {
+                        getFamily(i.id)
+                    }
                 }
+
                 override fun onError(e: Throwable) {
                     Log.d("FAMILIES -----", e.message.toString())
                 }
 
             })
+    }
+
+    fun getFamily(
+        familyId: Int
+    ) {
+        getFamilyUseCase.invoke(familyId.toString())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<NewFamilyDomain>() {
+                override fun onSuccess(t: NewFamilyDomain) {
+                    Log.d("3", t.toString())
+                    families.add(t)
+                    allFamiliesLiveData.value = families
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("FAMILY -----", e.message.toString())
+                }
+
+            })
+    }
+
+    fun clearFamilies() {
+        families.clear()
     }
 
 }

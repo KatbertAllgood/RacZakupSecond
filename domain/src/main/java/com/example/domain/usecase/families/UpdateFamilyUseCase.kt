@@ -1,6 +1,8 @@
 package com.example.domain.usecase.families
 
 import com.example.domain.models.families.FamilyDomain
+import com.example.domain.models.families.NewFamilyDomain
+import com.example.domain.models.families.NewFamilyUpdateDomain
 import com.example.domain.repository.NetworkRepository
 
 class UpdateFamilyUseCase(
@@ -8,7 +10,7 @@ class UpdateFamilyUseCase(
 ) {
     fun invoke(
         familyId: String,
-        updatedFamily: FamilyDomain
+        updatedFamily: NewFamilyUpdateDomain
     ) = networkRepository.updateFamily(
         familyId,
         updatedFamily

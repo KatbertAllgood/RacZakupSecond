@@ -58,6 +58,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.getFamilies()
 
         viewModel.getAllFamilies().observe(viewLifecycleOwner) {
+
+            Log.d("TEST_OBSERVE", it.size.toString())
+
             val familyGroupAdapter = ProfileFamilyGroupAdapter(it)
 
             binding.apply{
@@ -76,5 +79,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.clearFamilies()
     }
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.families.FamilyDomain
 import com.example.domain.models.families.MemberDomain
+import com.example.domain.models.families.NewFamilyDomain
+import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.usecase.families.GetFamilyUseCase
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +24,7 @@ class CheckPackFragmentVM : ViewModel() {
     private val familyNameLiveData = MutableLiveData<String>()
     fun getFamilyNameLiveData() = familyNameLiveData
 
-    private val membersListLiveData = MutableLiveData<List<MemberDomain>>()
+    private val membersListLiveData = MutableLiveData<List<NewMemberDomain>>()
     fun getMembersListLiveData() = membersListLiveData
 
     fun getFamily(
@@ -34,8 +36,8 @@ class CheckPackFragmentVM : ViewModel() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<FamilyDomain>() {
-                override fun onSuccess(t: FamilyDomain) {
+            .subscribe(object : DisposableSingleObserver<NewFamilyDomain>() {
+                override fun onSuccess(t: NewFamilyDomain) {
                     familyNameLiveData.value = t.name
                     membersListLiveData.value = t.members
                 }
