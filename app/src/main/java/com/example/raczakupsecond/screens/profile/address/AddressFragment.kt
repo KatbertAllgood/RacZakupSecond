@@ -1,22 +1,16 @@
 package com.example.raczakupsecond.screens.profile.address
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.Animator.AnimatorListener
-import android.animation.AnimatorListenerAdapter
-import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.PointF
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.TranslateAnimation
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
-import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentAddressBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,20 +19,13 @@ import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
-import com.yandex.mapkit.layers.GeoObjectTapEvent
-import com.yandex.mapkit.layers.GeoObjectTapListener
 import com.yandex.mapkit.layers.ObjectEvent
-import com.yandex.mapkit.location.FilteringMode
-import com.yandex.mapkit.location.LocationListener
-import com.yandex.mapkit.location.LocationManager
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
-import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
-import kotlinx.coroutines.*
-import java.util.*
+import com.yandex.runtime.image.ImageProvider
 
 class AddressFragment : Fragment(R.layout.fragment_address),
     UserLocationObjectListener,
@@ -46,6 +33,9 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 {
     private lateinit var binding : FragmentAddressBinding
     private val viewModel : AddressFragmentVM by viewModels()
+
+    private lateinit var currentPosition: Point
+    private var currentZoom: Float = 0F
 
     private lateinit var userLocationLayer: UserLocationLayer
 
@@ -73,6 +63,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
                 binding.clAddressFragmentMapBottom.visibility = View.VISIBLE
 
+                //region анимация
+
 //                val params = binding.clAddressFragmentMapBottom.layoutParams
 ////                params.width = ViewGroup.LayoutParams.MATCH_PARENT
 //                params.height = clHeight
@@ -97,6 +89,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 //
 //                binding.clAddressFragmentMapBottom.startAnimation(animate)
 //
+                //endregion
+
                 isShowed = true
 
             } else if (isShowed) {
@@ -104,6 +98,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                 binding.ivAddressfragmentButtonShowOrHide.setImageResource(R.drawable.ic_button_button_show_cl_addressfragment)
 
                 binding.clAddressFragmentMapBottom.visibility = View.GONE
+
+                //region анимация
 
 //                val params = binding.clAddressFragmentMapBottom.layoutParams
 ////                params.width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -143,13 +139,42 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 //
 //                binding.clAddressFragmentMapBottom.startAnimation(animate)
 
+                //endregion
+
                 isShowed = false
 
             }
         }
 
-        binding.clAddressFragmentMapBottom.setOnClickListener {
-            Log.d("CL_CLICK", "TRUE")
+//        binding.clAddressFragmentMapBottom.setOnClickListener {
+//            Log.d("CL_CLICK", "TRUE")
+//        }
+
+        binding.mapviewButtonZoomPlus.setOnClickListener {
+            if ((currentZoom + 1.0F) <= 20.0F) {
+                currentZoom += 1.0F
+                binding.mapview.map.move(
+                    CameraPosition(currentPosition, currentZoom, 0.0f, 0.0f),
+                    Animation(Animation.Type.SMOOTH, 1F),
+                    null
+                )
+            }
+        }
+
+        binding.mapviewButtonZoomMinus.setOnClickListener {
+
+            if ((currentZoom - 1.0F) >= 5.0F) {
+                currentZoom -= 1.0F
+                binding.mapview.map.move(
+                    CameraPosition(currentPosition, currentZoom, 0.0f, 0.0f),
+                    Animation(Animation.Type.SMOOTH, 1F),
+                    null
+                )
+            }
+        }
+
+        binding.mapviewButtonShowCurrentLocation.setOnClickListener {
+            getCurrentUserLocation()
         }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -187,8 +212,44 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         super.onStop()
     }
 
-    override fun onObjectAdded(p0: UserLocationView) {
+    override fun onObjectAdded(userLocationView: UserLocationView) {
+//        userLocationLayer.setAnchor(
+//            PointF(
+//                (binding.mapview.width() * 0.5).toFloat(),
+//                (binding.mapview.height() * 0.5).toFloat()
+//            ),
+//            PointF(
+//                (binding.mapview.width() * 0.5).toFloat(),
+//                (binding.mapview.height() * 0.83).toFloat()
+//            )
+//        )
 
+        userLocationView.arrow.setIcon(
+            ImageProvider.fromResource(
+                requireContext(),
+                R.drawable.ic_mapkit_user_location
+            )
+        )
+
+        val picIcon = userLocationView.pin.useCompositeIcon()
+
+        picIcon.setIcon(
+            "icon",
+            ImageProvider.fromResource(
+                requireContext(),
+                R.drawable.ic_mapkit_pin
+            ),
+            IconStyle().setAnchor(PointF(0.5F, 0.5F))
+                .setRotationType(RotationType.ROTATE).setZIndex(1F).setScale(0.5F)
+        )
+
+//        picIcon.setIcon(
+//            "pin",
+//            ImageProvider.fromResource(
+//                requireContext(),
+//
+//            )
+//        )
     }
 
     override fun onObjectRemoved(p0: UserLocationView) {
@@ -199,6 +260,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
     }
 
+
+
     override fun onCameraPositionChanged(
         p0: Map,
         p1: CameraPosition,
@@ -206,28 +269,24 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         p3: Boolean
     ) {
         if (p3) {
+            val param = binding.mapviewAimPin.layoutParams as ViewGroup.MarginLayoutParams
+            param.setMargins(0, 0, 0, 0)
+            binding.mapviewAimPin.layoutParams = param
+
             Log.d("CAMERA_POSITION_latitude", p1.target.latitude.toString())
             Log.d("CAMERA_POSITION_longitude", p1.target.longitude.toString())
+            Log.d("CAMERA_POSITION_zoom", p1.zoom.toString())
+            currentPosition = Point(p1.target.latitude, p1.target.longitude)
+
             Log.d("CAMERA_UPDATE_REASON", p2.toString())
+        } else {
+            Log.d("CAMERA_UPDATING", "YES")
+
+            val param = binding.mapviewAimPin.layoutParams as ViewGroup.MarginLayoutParams
+            param.setMargins(0, 0, 0, 120)
+            binding.mapviewAimPin.layoutParams = param
         }
     }
-
-//    private fun cameraUserPosition() {
-//        if (userLocationLayer.cameraPosition() != null) {
-//            routeStartLocation = userLocationLayer.cameraPosition()!!.target
-//            binding.mapview.map.move(
-//                CameraPosition(routeStartLocation, 17.0f, 0.0f, 0.0f),
-//                Animation(Animation.Type.SMOOTH, 2F),
-//                null
-//            )
-//        } else {
-//            binding.mapview.map.move(
-//                CameraPosition(Point(55.742651, 37.612730), 17.0f, 0.0f, 0.0f),
-//                Animation(Animation.Type.SMOOTH, 2F),
-//                null
-//            )
-//        }
-//    }
 
     private fun getCurrentUserLocation() {
         if (ActivityCompat.checkSelfPermission(
@@ -242,10 +301,11 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 if (location != null) {
-                    val currentLocation = Point(location.latitude, location.longitude)
+                    currentPosition = Point(location.latitude, location.longitude)
+                    currentZoom = 17.0F
                     Log.d("CURRENT_LOCATION", "${location.latitude}, ${location.longitude}")
                     binding.mapview.map.move(
-                        CameraPosition(currentLocation, 17.0f, 0.0f, 0.0f),
+                        CameraPosition(currentPosition, currentZoom, 0.0f, 0.0f),
                         Animation(Animation.Type.SMOOTH, 2F),
                         null
                     )
