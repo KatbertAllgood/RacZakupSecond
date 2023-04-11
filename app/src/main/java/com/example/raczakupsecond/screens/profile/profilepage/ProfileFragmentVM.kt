@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.families.AllFamiliesDomain
-import com.example.domain.models.families.FamilyDomain
 import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.usecase.families.GetFamiliesUseCase
@@ -22,12 +21,13 @@ class ProfileFragmentVM: ViewModel() {
     private val getFamiliesUseCase = GetFamiliesUseCase(networkRepository)
     private val getFamilyUseCase = GetFamilyUseCase(networkRepository)
 
+    private val families: MutableList<NewFamilyDomain> = mutableListOf()
+    private var familiesCounting: Int = 0
+
     private val allFamiliesLiveData = MutableLiveData<List<NewFamilyDomain>>()
     fun getAllFamilies(): LiveData<List<NewFamilyDomain>> {
         return allFamiliesLiveData
     }
-
-    private val families: MutableList<NewFamilyDomain> = mutableListOf()
 
     fun getFamilies() {
         getFamiliesUseCase
@@ -36,6 +36,7 @@ class ProfileFragmentVM: ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object: DisposableSingleObserver<AllFamiliesDomain>() {
                 override fun onSuccess(t: AllFamiliesDomain) {
+                    familiesCounting = t.results.size
                     for (i in t.results) {
                         getFamily(i.id)
                     }
@@ -49,16 +50,19 @@ class ProfileFragmentVM: ViewModel() {
     }
 
     fun getFamily(
-        familyId: Int
+        familyId: Int,
     ) {
         getFamilyUseCase.invoke(familyId.toString())
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<NewFamilyDomain>() {
                 override fun onSuccess(t: NewFamilyDomain) {
-                    Log.d("3", t.toString())
+                    familiesCounting--
                     families.add(t)
-                    allFamiliesLiveData.value = families
+                    if(familiesCounting == 0) {
+                        allFamiliesLiveData.value = families
+                        Log.d("LiveDataChanged", "TRUE")
+                    }
                 }
 
                 override fun onError(e: Throwable) {

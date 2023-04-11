@@ -3,8 +3,6 @@ package com.example.raczakupsecond.screens.packs.checkpack
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.domain.models.families.FamilyDomain
-import com.example.domain.models.families.MemberDomain
 import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.usecase.families.GetFamilyUseCase

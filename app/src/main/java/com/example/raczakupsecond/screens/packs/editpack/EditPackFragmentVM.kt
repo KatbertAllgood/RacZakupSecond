@@ -13,7 +13,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.families.AllFamiliesDomain
-import com.example.domain.models.families.FamilyDomain
 import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.packs.HealthySetParamsDomain
 import com.example.domain.usecase.families.GetFamiliesUseCase
@@ -32,10 +31,11 @@ class EditPackFragmentVM : ViewModel() {
     private val getFamiliesUseCase = GetFamiliesUseCase(networkRepository)
     private val getFamilyUseCase = GetFamilyUseCase(networkRepository)
 
+    private val families: MutableList<NewFamilyDomain> = mutableListOf()
+    private var familiesCounting: Int = 0
+
     private val allFamiliesLiveData = MutableLiveData<List<NewFamilyDomain>>()
     fun getAllFamiliesLiveData() : LiveData<List<NewFamilyDomain>> = allFamiliesLiveData
-
-    private val families: MutableList<NewFamilyDomain> = mutableListOf()
 
     fun getFamilies() {
         getFamiliesUseCase
@@ -44,6 +44,7 @@ class EditPackFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object: DisposableSingleObserver<AllFamiliesDomain>() {
                 override fun onSuccess(t: AllFamiliesDomain) {
+                    familiesCounting = t.results.size
                     for (i in t.results) {
                         getFamily(i.id)
                     }
@@ -64,8 +65,12 @@ class EditPackFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<NewFamilyDomain>() {
                 override fun onSuccess(t: NewFamilyDomain) {
+                    familiesCounting--
                     families.add(t)
-                    allFamiliesLiveData.value = families
+                    if(familiesCounting == 0) {
+                        allFamiliesLiveData.value = families
+                        Log.d("LiveDataChanged", "TRUE")
+                    }
                 }
 
                 override fun onError(e: Throwable) {

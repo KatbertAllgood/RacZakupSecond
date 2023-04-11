@@ -21,7 +21,6 @@ import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentEditMemberBinding
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.domain.models.families.MemberDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.models.families.NewMemberUpdateDomain
 import com.example.domain.utils.Constants
@@ -436,7 +435,9 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
                             updatingMember.birthday = birthDay
 //                            updatingMember.age = editTextEditedAge.text.toString().toInt()
 
-                            Log.d("birthday", updatingMember.birthday)
+                            Log.d("FAMILY_ID", familyId)
+                            Log.d("MEMBER_ID", memberId)
+                            Log.d("UPDATING_MEMBER", updatingMember.toString())
 
                             viewModel.updateMember(
                                 familyId,

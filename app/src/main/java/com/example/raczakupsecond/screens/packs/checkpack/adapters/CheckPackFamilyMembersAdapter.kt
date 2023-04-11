@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.families.MemberDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R

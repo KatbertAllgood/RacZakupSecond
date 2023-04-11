@@ -93,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:background="@drawable/shape_rectangle_green_rounded_10dp"
+                    android:gravity="center"
 
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -105,13 +106,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
+                        android:layout_marginTop="12dp"
+                        android:layout_marginHorizontal="12dp"
+
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="16sp"
+
                         tools:text="Группа 1. Моя семья"
                         />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcView_checkPack_members"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="12dp"
+                        />
 
                 </LinearLayout>
 

@@ -11,7 +11,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.ServerResponseDomain
-import com.example.domain.models.families.MemberDomain
 import com.example.domain.models.families.NewMemberDomain
 import com.example.domain.models.families.NewMemberUpdateDomain
 import com.example.domain.usecase.families.CreateMemberUseCase
@@ -70,6 +69,7 @@ class EditMemberFragmentVM : ViewModel() {
         memberId: String,
         updatedMember: NewMemberUpdateDomain
     ) {
+//        Log.d("updateMember in VM", "familyId: $familyId\nmemberId: $memberId\n updatedMember: ${updatedMember}")
         updateMemberUseCase.invoke(
             familyId,
             memberId,
@@ -83,7 +83,7 @@ class EditMemberFragmentVM : ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("UPDATE_MEMBER", e.message.toString())
+                    Log.d("UPDATE_MEMBER_ERROR", e.message.toString())
                 }
 
             })
