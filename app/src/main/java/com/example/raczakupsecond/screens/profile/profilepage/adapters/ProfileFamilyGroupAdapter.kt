@@ -12,14 +12,6 @@ import com.example.raczakupsecond.databinding.ItemFamilyBinding
 import com.example.raczakupsecond.utils.Utils
 import java.util.*
 
-
-
-
-
-
-
-
-
 class ProfileFamilyGroupAdapter(
     private val familiesList: List<NewFamilyDomain>
 ) : RecyclerView.Adapter<ProfileFamilyGroupAdapter.FamilyGroupHolder>() {

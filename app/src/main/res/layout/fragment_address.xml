@@ -152,7 +152,9 @@
             android:textColorHint="@color/gray_text"
 
             android:maxLines="1"
+            android:inputType="text"
             android:paddingHorizontal="16dp"
+            android:imeOptions="actionSearch"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 

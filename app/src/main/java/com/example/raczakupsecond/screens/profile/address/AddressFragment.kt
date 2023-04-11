@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.example.raczakupsecond.R
@@ -16,20 +18,24 @@ import com.example.raczakupsecond.databinding.FragmentAddressBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.yandex.mapkit.Animation
-import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.layers.ObjectEvent
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
+import com.yandex.mapkit.search.*
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
+import com.yandex.runtime.Error
 import com.yandex.runtime.image.ImageProvider
+import com.yandex.runtime.network.NetworkError
+import com.yandex.runtime.network.RemoteError
 
 class AddressFragment : Fragment(R.layout.fragment_address),
     UserLocationObjectListener,
-    CameraListener
+    CameraListener,
+    Session.SearchListener
 {
     private lateinit var binding : FragmentAddressBinding
     private val viewModel : AddressFragmentVM by viewModels()
@@ -37,9 +43,30 @@ class AddressFragment : Fragment(R.layout.fragment_address),
     private lateinit var currentPosition: Point
     private var currentZoom: Float = 0F
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private lateinit var userLocationLayer: UserLocationLayer
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var searchManager: SearchManager
+    private lateinit var searchSession: Session
+
+    private fun searchText(toSearch: String) {
+        searchSession = searchManager!!.submit(
+            toSearch,
+            VisibleRegionUtils.toPolygon(binding.mapview.map.visibleRegion),
+            SearchOptions(),
+            this
+        )
+    }
+
+    private fun searchPoint(point: Point) {
+        searchSession = searchManager.submit(
+            point,
+            16,
+            SearchOptions(),
+            this
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -146,10 +173,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             }
         }
 
-//        binding.clAddressFragmentMapBottom.setOnClickListener {
-//            Log.d("CL_CLICK", "TRUE")
-//        }
-
         binding.mapviewButtonZoomPlus.setOnClickListener {
             if ((currentZoom + 1.0F) <= 20.0F) {
                 currentZoom += 1.0F
@@ -191,6 +214,15 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         userLocationLayer.setObjectListener(this)
 //        Log.d("USER_LOCATION", userLocationLayer.cameraPosition()!!.target.toString())
 
+        SearchFactory.initialize(requireContext())
+        searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
+
+        binding.etAddressfragmentStreet.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                searchText(binding.etAddressfragmentStreet.text.toString())
+            }
+            false
+        }
 
     }
 
@@ -213,16 +245,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
     }
 
     override fun onObjectAdded(userLocationView: UserLocationView) {
-//        userLocationLayer.setAnchor(
-//            PointF(
-//                (binding.mapview.width() * 0.5).toFloat(),
-//                (binding.mapview.height() * 0.5).toFloat()
-//            ),
-//            PointF(
-//                (binding.mapview.width() * 0.5).toFloat(),
-//                (binding.mapview.height() * 0.83).toFloat()
-//            )
-//        )
 
         userLocationView.arrow.setIcon(
             ImageProvider.fromResource(
@@ -243,13 +265,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                 .setRotationType(RotationType.ROTATE).setZIndex(1F).setScale(0.5F)
         )
 
-//        picIcon.setIcon(
-//            "pin",
-//            ImageProvider.fromResource(
-//                requireContext(),
-//
-//            )
-//        )
     }
 
     override fun onObjectRemoved(p0: UserLocationView) {
@@ -259,8 +274,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
     override fun onObjectUpdated(p0: UserLocationView, p1: ObjectEvent) {
 
     }
-
-
 
     override fun onCameraPositionChanged(
         p0: Map,
@@ -273,14 +286,16 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             param.setMargins(0, 0, 0, 0)
             binding.mapviewAimPin.layoutParams = param
 
-            Log.d("CAMERA_POSITION_latitude", p1.target.latitude.toString())
-            Log.d("CAMERA_POSITION_longitude", p1.target.longitude.toString())
-            Log.d("CAMERA_POSITION_zoom", p1.zoom.toString())
+//            Log.d("CAMERA_POSITION_latitude", p1.target.latitude.toString())
+//            Log.d("CAMERA_POSITION_longitude", p1.target.longitude.toString())
+//            Log.d("CAMERA_POSITION_zoom", p1.zoom.toString())
             currentPosition = Point(p1.target.latitude, p1.target.longitude)
 
-            Log.d("CAMERA_UPDATE_REASON", p2.toString())
+//            Log.d("CAMERA_UPDATE_REASON", p2.toString())
+
+            searchPoint(currentPosition)
         } else {
-            Log.d("CAMERA_UPDATING", "YES")
+//            Log.d("CAMERA_UPDATING", "YES")
 
             val param = binding.mapviewAimPin.layoutParams as ViewGroup.MarginLayoutParams
             param.setMargins(0, 0, 0, 120)
@@ -311,6 +326,103 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                     )
                 }
             }
+    }
+
+    override fun onSearchResponse(response: Response) {
+        val mapObject: MapObjectCollection = binding.mapview.map.mapObjects
+        mapObject.clear()
+
+
+        val city = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.LOCALITY) }
+            ?.name
+
+        val district = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.DISTRICT) }
+            ?.name
+
+        val province = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.PROVINCE) }
+            ?.name
+
+        Log.d("CITY", city ?: "null")
+
+        Log.d("PROVINCE", province ?: "null")
+
+        Log.d("DISTRICT", district ?: "null")
+
+        val street = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.STREET) }
+            ?.name
+
+        Log.d("STREET", street ?: "null")
+
+        val building = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.HOUSE) }
+            ?.name
+
+        Log.d("HOUSE", building ?: "null")
+
+        val entrance = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.ENTRANCE) }
+            ?.name
+
+        Log.d("ENTRANCE", entrance ?: "null")
+
+        val other = response.collection.children.firstOrNull()?.obj
+            ?.metadataContainer
+            ?.getItem(ToponymObjectMetadata::class.java)
+            ?.address
+            ?.components
+            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.OTHER) }
+            ?.name
+
+        Log.d("OTHER", other ?: "null")
+
+//        for(searchResult in response.collection.children) {
+//            val resultLocation = searchResult.obj!!.geometry[0].point!!
+//            if(response != null) {
+//                binding.mapview.map.move(
+//                    CameraPosition(resultLocation, currentZoom, 0.0f, 0.0f),
+//                    Animation(Animation.Type.SMOOTH, 2F),
+//                    null
+//                )
+//            }
+//        }
+    }
+
+    override fun onSearchError(error: Error) {
+        var errorMessage = "Неизвестная ошибка"
+        if (error is RemoteError) {
+            errorMessage = "Ошибка сети"
+        } else if (error is NetworkError) {
+            errorMessage = "Проблемы с интернетом"
+        }
+        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
     }
 
 }
