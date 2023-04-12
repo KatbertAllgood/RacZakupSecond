@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentAddressBinding
@@ -50,15 +53,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
     private lateinit var searchManager: SearchManager
     private lateinit var searchSession: Session
 
-    private fun searchText(toSearch: String) {
-        searchSession = searchManager!!.submit(
-            toSearch,
-            VisibleRegionUtils.toPolygon(binding.mapview.map.visibleRegion),
-            SearchOptions(),
-            this
-        )
-    }
-
     private fun searchPoint(point: Point) {
         searchSession = searchManager.submit(
             point,
@@ -80,7 +74,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         super.onViewCreated(view, savedInstanceState)
 
         var isShowed = true
-//        val clHeight = binding.clAddressFragmentMapBottom.layoutParams.height
 
         binding.ivAddressfragmentButtonShowOrHide.setOnClickListener {
 
@@ -90,34 +83,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
                 binding.clAddressFragmentMapBottom.visibility = View.VISIBLE
 
-                //region анимация
-
-//                val params = binding.clAddressFragmentMapBottom.layoutParams
-////                params.width = ViewGroup.LayoutParams.MATCH_PARENT
-//                params.height = clHeight
-//
-//                val animate = TranslateAnimation(
-//                    0F,
-//                    0F,
-//                    clHeight.toFloat(),
-//                    0F
-//                )
-//                animate.duration = 300
-//                animate.setAnimationListener(object : android.view.animation.Animation.AnimationListener {
-//                    override fun onAnimationStart(p0: android.view.animation.Animation?) {}
-//                    override fun onAnimationEnd(p0: android.view.animation.Animation?) {
-//                        binding.clAddressFragmentMapBottom.layoutParams = params
-//                    }
-//                    override fun onAnimationRepeat(p0: android.view.animation.Animation?) {}
-//
-//                })
-//                binding.clAddressFragmentMapBottom.visibility = View.VISIBLE
-//                animate.fillAfter = true
-//
-//                binding.clAddressFragmentMapBottom.startAnimation(animate)
-//
-                //endregion
-
                 isShowed = true
 
             } else if (isShowed) {
@@ -125,48 +90,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                 binding.ivAddressfragmentButtonShowOrHide.setImageResource(R.drawable.ic_button_button_show_cl_addressfragment)
 
                 binding.clAddressFragmentMapBottom.visibility = View.GONE
-
-                //region анимация
-
-//                val params = binding.clAddressFragmentMapBottom.layoutParams
-////                params.width = ViewGroup.LayoutParams.MATCH_PARENT
-//                params.height = 0
-//
-//                val animate = TranslateAnimation(
-//                    0F,
-//                    0F,
-//                    0F,
-//                    clHeight.toFloat()
-//                )
-//                animate.duration = 300
-//                animate.setAnimationListener(object : android.view.animation.Animation.AnimationListener {
-//                    override fun onAnimationStart(p0: android.view.animation.Animation?) {}
-//                    override fun onAnimationEnd(p0: android.view.animation.Animation?) {
-//
-//                        binding.clAddressFragmentMapBottom.layoutParams = params
-//
-//                        binding.apply {
-//                            listOf(
-//                                etAddressfragmentAddressTitle,
-//                                etAddressfragmentEntrance,
-//                                etAddressfragmentFlat,
-//                                etAddressfragmentFloor,
-//                                etAddressfragmentStreet,
-//                                buttonAddressfragmentSave
-//                            ).forEach {
-//                                it.layoutParams = params
-//                            }
-//                        }
-//                    }
-//
-//                    override fun onAnimationRepeat(p0: android.view.animation.Animation?) {}
-//
-//                })
-//                animate.fillAfter = true
-//
-//                binding.clAddressFragmentMapBottom.startAnimation(animate)
-
-                //endregion
 
                 isShowed = false
 
@@ -200,6 +123,59 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             getCurrentUserLocation()
         }
 
+        binding.clAddressFragmentMapBottom.setOnClickListener {
+
+        }
+
+        binding.buttonAddressfragmentNext.setOnClickListener {
+
+            binding.apply {
+
+                listOf(
+                    etAddressfragmentCity,
+                    etAddressfragmentStreet,
+                    etAddressfragmentBuilding,
+                    etAddressfragmentFloor,
+                    etAddressfragmentFlat,
+                    buttonAddressfragmentNext,
+                    mapviewButtonZoomPlus,
+                    mapviewButtonZoomMinus,
+                    mapviewButtonShowCurrentLocation
+                ).forEach {
+                    it.visibility = View.GONE
+                }
+
+                listOf(
+                    etAddressfragmentAddressTitle,
+                    etAddressfragmentAddressComment,
+                    buttonAddressfragmentSave
+                ).forEach {
+                    it.visibility = View.VISIBLE
+                }
+
+                mapview.map.isScrollGesturesEnabled = false
+                mapview.map.isRotateGesturesEnabled = false
+                mapview.map.isTiltGesturesEnabled = false
+                mapview.map.isZoomGesturesEnabled = false
+
+            }
+        }
+
+        //TODO(ТУТ ИНИЦИАЛИЗИРОВАТЬ ШАБЛОН ДЛЯ РЕКВЕСТА)
+
+        binding.apply {
+
+            etAddressfragmentCity.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+
+            })
+
+        }
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getCurrentUserLocation()
 
@@ -212,17 +188,9 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         userLocationLayer.isVisible = true
         userLocationLayer.isHeadingEnabled = false
         userLocationLayer.setObjectListener(this)
-//        Log.d("USER_LOCATION", userLocationLayer.cameraPosition()!!.target.toString())
 
         SearchFactory.initialize(requireContext())
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
-
-        binding.etAddressfragmentStreet.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEARCH){
-                searchText(binding.etAddressfragmentStreet.text.toString())
-            }
-            false
-        }
 
     }
 
@@ -235,6 +203,45 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
     override fun onResume() {
         super.onResume()
+
+        binding.apply {
+
+            viewModel.apply {
+
+                getCityLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentCity.setText(it)
+                }
+
+                getStreetLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentStreet.setText(it)
+                }
+
+                getBuildingLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentBuilding.setText(it)
+                }
+
+                getEntranceLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentEntrance.setText(it)
+                }
+
+                getFloorLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentFloor.setText(it)
+                }
+
+                getFlatLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentFlat.setText(it)
+                }
+
+                getTitleLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentAddressTitle.setText(it)
+                }
+
+                getCommentLiveData().observe(viewLifecycleOwner) {
+                    etAddressfragmentAddressComment.setText(it)
+                }
+            }
+
+        }
 
     }
 
@@ -286,16 +293,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             param.setMargins(0, 0, 0, 0)
             binding.mapviewAimPin.layoutParams = param
 
-//            Log.d("CAMERA_POSITION_latitude", p1.target.latitude.toString())
-//            Log.d("CAMERA_POSITION_longitude", p1.target.longitude.toString())
-//            Log.d("CAMERA_POSITION_zoom", p1.zoom.toString())
             currentPosition = Point(p1.target.latitude, p1.target.longitude)
-
-//            Log.d("CAMERA_UPDATE_REASON", p2.toString())
 
             searchPoint(currentPosition)
         } else {
-//            Log.d("CAMERA_UPDATING", "YES")
 
             val param = binding.mapviewAimPin.layoutParams as ViewGroup.MarginLayoutParams
             param.setMargins(0, 0, 0, 120)
@@ -341,6 +342,12 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             ?.firstOrNull { it.kinds.contains(Address.Component.Kind.LOCALITY) }
             ?.name
 
+        if (city != null) {
+            viewModel.setCityLiveData(city)
+        } else {
+            viewModel.setCityLiveData("")
+        }
+
         val district = response.collection.children.firstOrNull()?.obj
             ?.metadataContainer
             ?.getItem(ToponymObjectMetadata::class.java)
@@ -371,7 +378,11 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             ?.firstOrNull { it.kinds.contains(Address.Component.Kind.STREET) }
             ?.name
 
-        Log.d("STREET", street ?: "null")
+        if (street != null) {
+            viewModel.setStreetLiveData(street)
+        } else {
+            viewModel.setStreetLiveData("")
+        }
 
         val building = response.collection.children.firstOrNull()?.obj
             ?.metadataContainer
@@ -381,7 +392,11 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             ?.firstOrNull { it.kinds.contains(Address.Component.Kind.HOUSE) }
             ?.name
 
-        Log.d("HOUSE", building ?: "null")
+        if (building != null) {
+            viewModel.setBuildingLiveData(building)
+        } else {
+            viewModel.setBuildingLiveData("")
+        }
 
         val entrance = response.collection.children.firstOrNull()?.obj
             ?.metadataContainer
@@ -391,28 +406,22 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             ?.firstOrNull { it.kinds.contains(Address.Component.Kind.ENTRANCE) }
             ?.name
 
-        Log.d("ENTRANCE", entrance ?: "null")
+        if (entrance != null) {
+            viewModel.setEntranceLiveData(entrance)
+        } else {
+            viewModel.setEntranceLiveData("")
+        }
 
-        val other = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.OTHER) }
-            ?.name
+//        val other = response.collection.children.firstOrNull()?.obj
+//            ?.metadataContainer
+//            ?.getItem(ToponymObjectMetadata::class.java)
+//            ?.address
+//            ?.components
+//            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.OTHER) }
+//            ?.name
+//
+//        Log.d("OTHER", other ?: "null")
 
-        Log.d("OTHER", other ?: "null")
-
-//        for(searchResult in response.collection.children) {
-//            val resultLocation = searchResult.obj!!.geometry[0].point!!
-//            if(response != null) {
-//                binding.mapview.map.move(
-//                    CameraPosition(resultLocation, currentZoom, 0.0f, 0.0f),
-//                    Animation(Animation.Type.SMOOTH, 2F),
-//                    null
-//                )
-//            }
-//        }
     }
 
     override fun onSearchError(error: Error) {

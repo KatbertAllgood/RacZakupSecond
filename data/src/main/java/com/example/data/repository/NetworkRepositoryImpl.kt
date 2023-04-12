@@ -3,6 +3,7 @@ package com.example.data.repository
 import com.example.data.mapper.*
 import com.example.data.network.api.NetworkService
 import com.example.domain.models.ServerResponseDomain
+import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
 import com.example.domain.repository.NetworkRepository
@@ -125,87 +126,47 @@ class NetworkRepositoryImpl : NetworkRepository{
         }
     }
 
-}
+    override fun getAllAddresses(): Single<List<AddressParamsDomain>> {
+        return NetworkService.retrofitService.getAllAddresses().map {
+            val addresses: MutableList<AddressParamsDomain> = mutableListOf()
+            for (i in it) {
+                addresses.add(AddressParamsToDomain(i).toDomain())
+            }
+            return@map addresses
+        }
+    }
 
-//    override fun getFamilies(): Single<List<FamilyDomain>> {
-//        return NetworkService.retrofitService.getFamilies().map {
-//            val mapResult: MutableList<FamilyDomain> = mutableListOf()
-//            for (i in it) {
-//                mapResult.add(FamilyToDomain(i).toDomain())
-//            }
-//            return@map mapResult
-//        }
-//    }
-//
-//    override fun getFamily(id: String): Single<FamilyDomain> {
-//        return NetworkService.retrofitService.getFamily(id).map {
-//            return@map FamilyToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun getFamilyMember(familyId: String, memberId: String): Single<MemberDomain> {
-//        return NetworkService.retrofitService.getFamilyMember(familyId, memberId).map {
-//            return@map MemberToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun updateFamily(
-//        familyId: String,
-//        updatedFamily: FamilyDomain
-//    ): Single<ServerResponseDomain> {
-//        return NetworkService.retrofitService.updateFamily(
-//            familyId,
-//            FamilyToData(updatedFamily).toData()
-//        ).map {
-//            return@map ServerResponseToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun updateMember(
-//        familyId: String,
-//        memberId: String,
-//        updatedMember: MemberDomain
-//    ): Single<ServerResponseDomain> {
-//        return NetworkService.retrofitService.updateMember(
-//            familyId,
-//            memberId,
-//            MemberToData(updatedMember).toData()
-//        ).map {
-//            return@map ServerResponseToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun deleteFamily(familyId: String): Single<ServerResponseDomain> {
-//        return NetworkService.retrofitService.deleteFamily(familyId).map {
-//            return@map ServerResponseToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun deleteMember(familyId: String, memberId: String): Single<ServerResponseDomain> {
-//        return NetworkService.retrofitService.deleteMember(
-//            familyId,
-//            memberId
-//        ).map {
-//            return@map ServerResponseToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun createFamily(family: FamilyDomain): Single<FamilyDomain> {
-//        return NetworkService.retrofitService.createFamily(
-//            FamilyToData(family).toData()
-//        ).map {
-//            return@map FamilyToDomain(it).toDomain()
-//        }
-//    }
-//
-//    override fun createMember(
-//        familyId: String,
-//        newFamilyMember: MemberDomain
-//    ): Single<MemberDomain> {
-//        return NetworkService.retrofitService.createMember(
-//            familyId,
-//            MemberToData(newFamilyMember).toData()
-//        ).map {
-//            MemberToDomain(it).toDomain()
-//        }
-//    }
+    override fun getAddress(addressId: String): Single<AddressParamsDomain> {
+        return NetworkService.retrofitService.getAddress(addressId).map {
+            return@map AddressParamsToDomain(it).toDomain()
+        }
+    }
+
+    override fun createAddress(address: AddressParamsDomain): Single<AddressParamsDomain> {
+        return NetworkService.retrofitService.createAddress(
+            AddressParamsToData(address).toData()
+        ).map {
+            return@map AddressParamsToDomain(it).toDomain()
+        }
+    }
+
+    override fun updateAddress(
+        addressId: String,
+        address: AddressParamsDomain
+    ): Single<AddressParamsDomain> {
+        return NetworkService.retrofitService.updateAddress(
+            addressId,
+            AddressParamsToData(address).toData()
+        ).map {
+            return@map AddressParamsToDomain(it).toDomain()
+        }
+    }
+
+    override fun deleteAddress(addressId: String): Single<AddressParamsDomain> {
+        return NetworkService.retrofitService.deleteAddress(addressId).map {
+            return@map AddressParamsToDomain(it).toDomain()
+        }
+    }
+
+
+}

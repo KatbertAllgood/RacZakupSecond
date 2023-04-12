@@ -51,6 +51,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             findNavController().navigate(R.id.action_profileFragment_to_editGroupFragment,
                 bundleOf(Constants.MODE to Constants.CREATE_MODE))
         }
+
+        binding.buttonProfileFragmentAddAddress.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_addressFragment)
+        }
     }
 
     override fun onResume() {

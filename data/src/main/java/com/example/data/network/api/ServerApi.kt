@@ -1,6 +1,7 @@
 package com.example.data.network.api
 
 import com.example.data.models.*
+import com.example.data.models.addresses.AddressParamsData
 import com.example.data.models.auth.*
 import com.example.data.models.families.*
 import com.example.data.models.packs.HealthySetParamsData
@@ -112,7 +113,29 @@ interface ServerApi {
 
     //region addresses
 
+    @GET("users/address")
+    fun getAllAddresses() : Single<List<AddressParamsData>>
 
+    @GET("users/address/{addressId}")
+    fun getAddress(
+        @Path("addressId") addressId: String
+    ) : Single<AddressParamsData>
+
+    @POST("users/address")
+    fun createAddress(
+        @Body address: AddressParamsData
+    ) : Single<AddressParamsData>
+
+    @PATCH("users/address/{addressId}")
+    fun updateAddress(
+        @Path("addressId") addressId: String,
+        @Body address: AddressParamsData
+    ) : Single<AddressParamsData>
+
+    @DELETE("users/address/{addressId}")
+    fun deleteAddress(
+        @Path("addressId") addressId: String
+    ) : Single<AddressParamsData>
 
     //endregion
 }

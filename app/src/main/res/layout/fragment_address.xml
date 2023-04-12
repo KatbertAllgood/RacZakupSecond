@@ -138,12 +138,42 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
-            android:id="@+id/et_addressfragment_street"
+            android:visibility="visible"
+
+            android:id="@+id/et_addressfragment_city"
             android:layout_height="40dp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
 
             android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginStart="24dp"
+
+            android:textSize="14sp"
+            android:hint="@string/hint_city"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textColorHint="@color/gray_text"
+
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+
+            android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/et_addressfragment_street"/>
+
+        <EditText
+            android:visibility="visible"
+
+            android:id="@+id/et_addressfragment_street"
+            android:layout_height="40dp"
+            android:layout_width="0dp"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
 
             android:textSize="14sp"
             android:hint="@string/hint_street"
@@ -151,18 +181,47 @@
             android:fontFamily="@font/roboto"
             android:textColorHint="@color/gray_text"
 
+            android:imeOptions="actionDone"
             android:maxLines="1"
             android:inputType="text"
             android:paddingHorizontal="16dp"
-            android:imeOptions="actionSearch"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_addressfragment_city"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <EditText
+            android:visibility="visible"
+
+            android:id="@+id/et_addressfragment_building"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+
+            android:hint="@string/hint_building"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textColorHint="@color/gray_text"
+            android:textSize="14sp"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="24dp"
+
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+
+            android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
+
+            app:layout_constraintEnd_toStartOf="@id/et_addressfragment_entrance"
+            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_street"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <EditText
+            android:visibility="visible"
+
             android:id="@+id/et_addressfragment_entrance"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -174,17 +233,23 @@
             android:textSize="14sp"
 
             android:layout_marginTop="12dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="24dp"
 
             android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:paddingHorizontal="16dp"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_addressfragment_street"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toEndOf="@id/et_addressfragment_building"/>
 
         <EditText
+            android:visibility="visible"
+
             android:id="@+id/et_addressfragment_floor"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -196,17 +261,22 @@
             android:textColorHint="@color/gray_text"
 
             android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="24dp"
 
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:maxLines="1"
             android:paddingHorizontal="16dp"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 
-            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_street"
-            app:layout_constraintStart_toEndOf="@id/et_addressfragment_entrance"/>
+            app:layout_constraintEnd_toStartOf="@id/et_addressfragment_flat"
+            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_building"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <EditText
+            android:visibility="visible"
+
             android:id="@+id/et_addressfragment_flat"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -221,22 +291,27 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="24dp"
 
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:maxLines="1"
             android:paddingHorizontal="16dp"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 
-            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_street"
+            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_building"
             app:layout_constraintStart_toEndOf="@id/et_addressfragment_floor"
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <EditText
+            android:visibility="gone"
+
             android:id="@+id/et_addressfragment_address_title"
             android:layout_height="40dp"
             android:layout_width="match_parent"
 
             android:layout_marginTop="12dp"
-            android:layout_marginHorizontal="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
 
             android:textSize="14sp"
             android:hint="@string/hint_address_title"
@@ -244,16 +319,73 @@
             android:fontFamily="@font/roboto"
             android:textColorHint="@color/gray_text"
 
+            android:imeOptions="actionDone"
+            android:inputType="text"
             android:maxLines="1"
             android:paddingHorizontal="16dp"
 
             android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
 
-            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_entrance"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <EditText
+            android:visibility="gone"
+
+            android:id="@+id/et_addressfragment_address_comment"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp"
+
+            android:textSize="14sp"
+            android:hint="@string/hint_comment"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            android:textColorHint="@color/gray_text"
+
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+
+            android:gravity="top|start"
+
+            android:background="@drawable/shape_rectangle_f5f5f5_rounded_5dp"
+
+            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_address_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/button_addressfragment_save"/>
+
         <androidx.appcompat.widget.AppCompatButton
+            android:visibility="visible"
+
+            android:id="@+id/button_addressfragment_next"
+
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+
+            android:text="@string/next"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/white"
+
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="center"
+
+            android:background="@drawable/shape_profile_frag_button"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/et_addressfragment_floor"
+            app:layout_constraintEnd_toEndOf="@id/et_addressfragment_flat"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:visibility="gone"
+
             android:id="@+id/button_addressfragment_save"
 
             android:layout_width="120dp"
@@ -263,14 +395,14 @@
             android:fontFamily="@font/roboto_bold"
             android:textColor="@color/white"
 
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
             android:layout_gravity="center"
 
             android:background="@drawable/shape_profile_frag_button"
 
-            app:layout_constraintTop_toBottomOf="@id/et_addressfragment_address_title"
-            app:layout_constraintStart_toStartOf="@id/et_addressfragment_address_title"
-            app:layout_constraintEnd_toEndOf="@id/et_addressfragment_address_title"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/et_addressfragment_address_comment"
+            app:layout_constraintEnd_toEndOf="@id/et_addressfragment_address_comment"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

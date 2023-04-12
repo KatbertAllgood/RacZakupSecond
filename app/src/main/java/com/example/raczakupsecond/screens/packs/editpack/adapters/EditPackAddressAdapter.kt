@@ -30,8 +30,8 @@ class EditPackAddressAdapter(
 //            addressItemAddress.text = "${address.street}, ${address.building}\n"
             addressItemAddress.text = context.getString(R.string.address_in_item,
                 address.street,
-                address.building.toString(),
-                address.flat.toString(),
+                address.house_number.toString(),
+                address.apartment.toString(),
                 address.floor.toString(),
                 address.entrance.toString()
             )

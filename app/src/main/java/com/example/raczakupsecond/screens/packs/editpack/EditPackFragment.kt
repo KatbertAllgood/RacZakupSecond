@@ -362,41 +362,19 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
 
         // TODO(ТУТ ПРОСТО ТЕСТОВО. СДЕЛАТЬ ЧЕРЕЗ ОБЗЕРВЕР, КОГДА РОУТ ПОДНИМУТ )
 
-        val addressAdapter = EditPackAddressAdapter(
-            requireContext(),
-            listOf(
-                AddressParamsDomain(
-                    id = 0,
-                    name = "Дом",
-                    street = "Стромынка",
-                    building = 5,
-                    flat = 12,
-                    floor = 2,
-                    entrance = 1
-                ),
-                AddressParamsDomain(
-                    id = 1,
-                    name = "Офис",
-                    street = "Стромынка",
-                    building = 5,
-                    flat = 12,
-                    floor = 2,
-                    entrance = 1
-                )
-            )
-        )
 
-        binding.apply{
-            rcViewEditPackFragmentAddresses.layoutManager = LinearLayoutManager(requireContext())
-            rcViewEditPackFragmentAddresses.isNestedScrollingEnabled = false
 
-            addressAdapter.onItemClick = { item ->
-                buttonAddressNext.visibility = View.VISIBLE
-                viewModel.changeHealthySet("addressId", item.id)
-            }
-
-            rcViewEditPackFragmentAddresses.adapter = addressAdapter
-        }
+//        binding.apply{
+//            rcViewEditPackFragmentAddresses.layoutManager = LinearLayoutManager(requireContext())
+//            rcViewEditPackFragmentAddresses.isNestedScrollingEnabled = false
+//
+//            addressAdapter.onItemClick = { item ->
+//                buttonAddressNext.visibility = View.VISIBLE
+//                viewModel.changeHealthySet("addressId", item.id)
+//            }
+//
+//            rcViewEditPackFragmentAddresses.adapter = addressAdapter
+//        }
 
         //endregion
 

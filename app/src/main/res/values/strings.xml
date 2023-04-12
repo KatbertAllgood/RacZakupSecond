@@ -131,6 +131,9 @@
     <string name="hint_set_name">Введите имя…</string>
     <string name="hint_press">Нажмите</string>
     <string name="hint_street">Улица</string>
+    <string name="hint_city">Город</string>
+    <string name="hint_building">Дом</string>
+    <string name="hint_comment">Комментарий по желанию</string>
     <string name="hint_entrance">Подъезд</string>
     <string name="hint_floor">Этаж</string>
     <string name="hint_flat">Квартира</string>

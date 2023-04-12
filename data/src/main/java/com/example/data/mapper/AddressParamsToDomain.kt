@@ -9,12 +9,20 @@ class AddressParamsToDomain(
     fun toDomain() = AddressParamsDomain(
         addressParamsData.id,
         addressParamsData.name,
-        addressParamsData.latitude,
-        addressParamsData.longitude,
+        addressParamsData.country,
+        addressParamsData.region,
+        addressParamsData.district,
+        addressParamsData.city,
+        addressParamsData.locality,
         addressParamsData.street,
-        addressParamsData.building,
-        addressParamsData.flat,
+        addressParamsData.house_number,
+        addressParamsData.corpus,
+        addressParamsData.apartment,
+        addressParamsData.entrance,
         addressParamsData.floor,
-        addressParamsData.entrance
+        addressParamsData.comment,
+        addressParamsData.postal_code,
+        addressParamsData.lat,
+        addressParamsData.lon,
     )
 }
