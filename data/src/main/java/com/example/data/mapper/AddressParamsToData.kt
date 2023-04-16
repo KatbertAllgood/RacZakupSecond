@@ -8,6 +8,7 @@ class AddressParamsToData(
 ) {
     fun toData() = AddressParamsData(
         addressParamsDomain.id,
+        addressParamsDomain.user_id,
         addressParamsDomain.name,
         addressParamsDomain.country,
         addressParamsDomain.region,
@@ -22,7 +23,9 @@ class AddressParamsToData(
         addressParamsDomain.floor,
         addressParamsDomain.comment,
         addressParamsDomain.postal_code,
-        addressParamsDomain.lat,
-        addressParamsDomain.lon,
+        LocationParamsToData(addressParamsDomain.location).toData(),
+        addressParamsDomain.createdDate,
+        addressParamsDomain.updatedDate,
+        addressParamsDomain.version
     )
 }

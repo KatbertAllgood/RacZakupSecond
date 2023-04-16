@@ -6,37 +6,48 @@ data class AddressParamsData(
 
     @SerializedName("id")
     val id: Int = 0,
+    @SerializedName("user_id")
+    val user_id: String? = "",
     @SerializedName("name")
-    var name: String = "",
+    var name: String? = "",
     @SerializedName("country")
-    var country: String = "",
+    var country: String? = "",
     @SerializedName("region")
-    var region: String = "",
+    var region: String? = "",
     @SerializedName("district")
-    var district: String = "",
+    var district: String? = "",
     @SerializedName("city")
-    var city: String = "",
+    var city: String? = "",
     @SerializedName("locality")
-    var locality: String = "",
+    var locality: String? = "",
     @SerializedName("street")
-    var street: String = "",
+    var street: String? = "",
     @SerializedName("house_number")
-    var house_number: String = "",
+    var house_number: String? = "",
     @SerializedName("corpus")
-    var corpus: String = "",
+    var corpus: String? = "",
     @SerializedName("apartment")
-    var apartment: String = "",
+    var apartment: String? = "",
     @SerializedName("entrance")
-    var entrance: String = "",
+    var entrance: String? = "",
     @SerializedName("floor")
-    var floor: String = "",
+    var floor: String? = "",
     @SerializedName("comment")
-    var comment: String = "",
+    var comment: String? = "",
     @SerializedName("postal_code")
-    var postal_code: String = "",
-    @SerializedName("lat")
-    var lat: Float = 0F,
-    @SerializedName("lon")
-    var lon: Float = 0F,
+    var postal_code: String? = "",
+    @SerializedName("location")
+    val location: LocationParamsData = LocationParamsData(),
+    @SerializedName("createdDate")
+    val createdDate: String? = "",
+    @SerializedName("updatedDate")
+    val updatedDate: String? = "",
+    @SerializedName("version")
+    val version: Int = 0
+
+//    @SerializedName("lat")
+//    var lat: Double = 0.0,
+//    @SerializedName("lon")
+//    var lon: Double = 0.0,
 
 )

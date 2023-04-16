@@ -4,6 +4,7 @@ import com.example.data.mapper.*
 import com.example.data.network.api.NetworkService
 import com.example.domain.models.ServerResponseDomain
 import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
 import com.example.domain.repository.NetworkRepository
@@ -142,9 +143,9 @@ class NetworkRepositoryImpl : NetworkRepository{
         }
     }
 
-    override fun createAddress(address: AddressParamsDomain): Single<AddressParamsDomain> {
+    override fun createAddress(address: AddressParamsRequestDomain): Single<AddressParamsDomain> {
         return NetworkService.retrofitService.createAddress(
-            AddressParamsToData(address).toData()
+            AddressParamsRequestToData(address).toData()
         ).map {
             return@map AddressParamsToDomain(it).toDomain()
         }
@@ -152,11 +153,11 @@ class NetworkRepositoryImpl : NetworkRepository{
 
     override fun updateAddress(
         addressId: String,
-        address: AddressParamsDomain
+        address: AddressParamsRequestDomain
     ): Single<AddressParamsDomain> {
         return NetworkService.retrofitService.updateAddress(
             addressId,
-            AddressParamsToData(address).toData()
+            AddressParamsRequestToData(address).toData()
         ).map {
             return@map AddressParamsToDomain(it).toDomain()
         }

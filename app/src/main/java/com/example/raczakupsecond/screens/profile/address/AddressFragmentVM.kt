@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.domain.usecase.address.CreateAddressUseCase
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -75,7 +76,7 @@ class AddressFragmentVM : ViewModel() {
     }
 
     fun createAddress(
-        address: AddressParamsDomain
+        address: AddressParamsRequestDomain
     ) {
         createAddressUseCase.invoke(address)
             .subscribeOn(Schedulers.io())

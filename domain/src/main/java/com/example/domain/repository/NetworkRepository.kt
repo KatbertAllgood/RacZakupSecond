@@ -2,6 +2,7 @@ package com.example.domain.repository
 
 import com.example.domain.models.ServerResponseDomain
 import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
 import io.reactivex.Single
@@ -58,12 +59,12 @@ interface NetworkRepository {
     ) : Single<AddressParamsDomain>
 
     fun createAddress(
-        address: AddressParamsDomain
+        address: AddressParamsRequestDomain
     ) : Single<AddressParamsDomain>
 
     fun updateAddress(
         addressId: String,
-        address: AddressParamsDomain
+        address: AddressParamsRequestDomain
     ) : Single<AddressParamsDomain>
 
     fun deleteAddress(

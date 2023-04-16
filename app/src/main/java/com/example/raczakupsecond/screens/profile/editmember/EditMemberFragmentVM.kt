@@ -128,6 +128,7 @@ class EditMemberFragmentVM : ViewModel() {
 
                 override fun onError(e: Throwable) {
                     Log.d("CREATE_MEMBER", e.message.toString())
+                    Log.d("CREATE_MEMBER_body", e.cause.toString())
                 }
 
             })

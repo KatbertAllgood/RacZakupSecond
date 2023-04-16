@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object NetworkService {
 
 
-    private val okHttpClient = UnsafeOkHttpClient.getUsafeOkHttpClient()
+    private val okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient()
         .addInterceptor(RequestInterceptor())
         .authenticator(TokenAuthenticator())
         .build()

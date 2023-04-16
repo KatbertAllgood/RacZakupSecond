@@ -10,7 +10,7 @@ import javax.net.ssl.X509TrustManager
 class UnsafeOkHttpClient {
 
     companion object {
-        fun getUsafeOkHttpClient(): OkHttpClient.Builder {
+        fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
             try {
                 val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
                     override fun checkClientTrusted(p0: Array<out X509Certificate>?, p1: String?) {

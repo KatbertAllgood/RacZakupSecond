@@ -1,6 +1,7 @@
 package com.example.domain.usecase.address
 
 import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.domain.repository.NetworkRepository
 
 class UpdateAddressUseCase(
@@ -8,6 +9,6 @@ class UpdateAddressUseCase(
 ) {
     fun invoke(
         addressId: String,
-        address: AddressParamsDomain
+        address: AddressParamsRequestDomain
     ) = networkRepository.updateAddress(addressId, address)
 }

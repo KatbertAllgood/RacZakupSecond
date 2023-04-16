@@ -2,6 +2,7 @@ package com.example.data.network.api
 
 import com.example.data.models.*
 import com.example.data.models.addresses.AddressParamsData
+import com.example.data.models.addresses.AddressParamsRequestData
 import com.example.data.models.auth.*
 import com.example.data.models.families.*
 import com.example.data.models.packs.HealthySetParamsData
@@ -123,13 +124,13 @@ interface ServerApi {
 
     @POST("users/address")
     fun createAddress(
-        @Body address: AddressParamsData
+        @Body address: AddressParamsRequestData
     ) : Single<AddressParamsData>
 
     @PATCH("users/address/{addressId}")
     fun updateAddress(
         @Path("addressId") addressId: String,
-        @Body address: AddressParamsData
+        @Body address: AddressParamsRequestData
     ) : Single<AddressParamsData>
 
     @DELETE("users/address/{addressId}")

@@ -16,6 +16,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import com.example.domain.models.addresses.AddressParamsDomain
+import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentAddressBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -161,20 +163,51 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             }
         }
 
-        //TODO(ТУТ ИНИЦИАЛИЗИРОВАТЬ ШАБЛОН ДЛЯ РЕКВЕСТА)
+        binding.buttonAddressfragmentSave.setOnClickListener {
 
-        binding.apply {
+            binding.apply {
 
-            etAddressfragmentCity.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-                override fun afterTextChanged(p0: Editable?) {
+                val addressParams = AddressParamsRequestDomain(
+                    name = etAddressfragmentAddressTitle.text.toString(),
+                    country = "",
+                    region = "",
+                    district = "",
+                    city = etAddressfragmentCity.text.toString(),
+                    locality = "",
+                    street = etAddressfragmentStreet.text.toString(),
+                    house_number = etAddressfragmentBuilding.text.toString(),
+                    corpus = "",
+                    apartment = etAddressfragmentFlat.text.toString(),
+                    entrance = etAddressfragmentEntrance.text.toString(),
+                    floor = etAddressfragmentFloor.text.toString(),
+                    comment = etAddressfragmentAddressComment.text.toString(),
+                    postal_code = "1111",
+                    lat = currentPosition.latitude,
+                    lon = currentPosition.longitude
+                )
 
-                }
+                Log.d("ADDRESS_PARAMS", addressParams.toString())
 
-            })
-
+                viewModel.createAddress(addressParams)
+            }
         }
+
+//        //TODO(ТУТ ИНИЦИАЛИЗИРОВАТЬ ШАБЛОН ДЛЯ РЕКВЕСТА)
+//
+//        binding.apply {
+//
+//            etAddressfragmentCity.addTextChangedListener(object : TextWatcher {
+//                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//                override fun afterTextChanged(p0: Editable?) {
+//
+//                }
+//
+//            })
+//
+//        }
+
+        //region Mapkit
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         getCurrentUserLocation()
@@ -191,6 +224,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
         SearchFactory.initialize(requireContext())
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
+
+        //endregion
 
     }
 
