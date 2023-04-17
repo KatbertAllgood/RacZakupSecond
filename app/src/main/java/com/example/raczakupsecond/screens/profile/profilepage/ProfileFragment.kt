@@ -14,6 +14,7 @@ import com.example.data.utils.ApplicationPreferences
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentProfileBinding
+import com.example.raczakupsecond.screens.profile.address.adapters.AddressFragmentAddressesAdapter
 import com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment
 import com.example.raczakupsecond.screens.profile.profilepage.adapters.ProfileFamilyGroupAdapter
 
@@ -60,10 +61,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onResume() {
         super.onResume()
         viewModel.getFamilies()
+        viewModel.getAllAddresses()
 
         viewModel.getAllFamilies().observe(viewLifecycleOwner) {
 
-            Log.d("TEST_OBSERVE", it.size.toString())
+//            Log.d("TEST_OBSERVE", it.size.toString())
 
             val familyGroupAdapter = ProfileFamilyGroupAdapter(it)
 
@@ -80,6 +82,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
 
                 rcViewGroups.adapter = familyGroupAdapter
+            }
+        }
+
+        viewModel.getAllAddressesLiveData().observe(viewLifecycleOwner) {
+//            Log.d("ADDRESSES", it.toString())
+
+            val addressAdapter = AddressFragmentAddressesAdapter(it, requireContext())
+
+            binding.apply {
+                rcViewAddresses.layoutManager = LinearLayoutManager(requireContext())
+                rcViewAddresses.isNestedScrollingEnabled = false
+
+                addressAdapter.onItemClick = { item ->
+                    Log.d("ADDRESS_ITEM_ID", item.id.toString())
+                }
+
+                rcViewAddresses.adapter = addressAdapter
             }
         }
 

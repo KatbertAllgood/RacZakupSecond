@@ -121,6 +121,8 @@
 
     <!-- ADDRESS -->
     <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="change">Изменить</string>
 
     <!-- SHOPS -->
     <string name="pyaterochka">Пятёрочка</string>

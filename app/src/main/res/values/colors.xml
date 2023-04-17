@@ -63,5 +63,7 @@
 
     <!-- АДРЕС -->
     <color name="f5f5f5">#F5F5F5</color>
+    <color name="gray_for_address_item">#8E8E93</color>
+
 
 </resources>
