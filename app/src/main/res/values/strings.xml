@@ -113,7 +113,7 @@
     <string name="add_address">Добавить адрес</string>
     <string name="shop">Магазин</string>
     <string name="next">Далее</string>
-    <string name="address_in_item">ул. %s, %s\nкв. %s, этаж %s, подъезд %s</string>
+    <string name="address_in_item">г. %s,\nул. %s,\nдом %s, подъезд %s, этаж %s, квартира %s</string>
 
     <string name="people_amount">Количество человек</string>
     <string name="check_pack">Проверьте выбранные параметры</string>

@@ -16,26 +16,61 @@ class AddressFragmentAddressesAdapter(
     private val context: Context
 ) : RecyclerView.Adapter<AddressFragmentAddressesAdapter.AddressHolder>() {
 
+
     var onItemClick : ((AddressParamsDomain) -> Unit)? = null
     var selectedItemPosition = -1
 
     inner class AddressHolder(item: View) : RecyclerView.ViewHolder(item) {
-        val binding = ItemAddressBinding.bind(item)
+        private val binding = ItemAddressBinding.bind(item)
 
         val deleteButton = binding.addressItemDelete
         val updateButton = binding.addressItemUpdate
+        val hiddenAddress = binding.addressItemHiddenAddress
+        val baseAddress = binding.addressItemAddress
         val title = binding.addressItemTitle
+        val hiddenTitle = binding.addressItemTitleHidden
+        val closeHidden = binding.addressItemCloseHidden
 
         fun bind(address: AddressParamsDomain) = with(binding) {
 
             addressItemTitle.text = address.name
+            addressItemTitleHidden.text = address.name
             addressItemAddress.text = context.resources.getString(R.string.address_in_item,
+                address.city,
                 address.street,
                 address.house_number,
-                address.apartment,
+                address.entrance,
                 address.floor,
-                address.entrance
+                address.apartment
             )
+            addressItemHiddenAddress.text = context.resources.getString(R.string.address_in_item,
+                address.city,
+                address.street,
+                address.house_number,
+                address.entrance,
+                address.floor,
+                address.apartment
+            )
+
+            closeHidden.setOnClickListener {
+
+                listOf(
+                    addressItemTitle,
+                    addressItemAddress
+                ).forEach {
+                    it.visibility = View.VISIBLE
+                }
+
+                listOf(
+                    addressItemCloseHidden,
+                    addressItemDelete,
+                    addressItemUpdate,
+                    addressItemTitleHidden,
+                    addressItemHiddenAddress,
+                ).forEach {
+                    it.visibility = View.GONE
+                }
+            }
 
             deleteButton.setOnClickListener {
 
@@ -71,22 +106,32 @@ class AddressFragmentAddressesAdapter(
         }
 
         if(selectedItemPosition == position) {
+
             listOf(
                 holder.deleteButton,
-                holder.updateButton
+                holder.updateButton,
+                holder.hiddenAddress,
+                holder.closeHidden,
+                holder.hiddenTitle
             ).forEach {
                 it.visibility = View.VISIBLE
             }
 
-            holder.title.visibility = View.GONE
+            holder.baseAddress.visibility = View.INVISIBLE
+            holder.title.visibility = View.INVISIBLE
+
         } else {
             listOf(
                 holder.deleteButton,
-                holder.updateButton
+                holder.updateButton,
+                holder.hiddenAddress,
+                holder.closeHidden,
+                holder.hiddenTitle
             ).forEach {
                 it.visibility = View.GONE
             }
 
+            holder.baseAddress.visibility = View.VISIBLE
             holder.title.visibility = View.VISIBLE
         }
     }
