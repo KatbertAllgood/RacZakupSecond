@@ -8,6 +8,7 @@ import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.families.AllFamiliesDomain
 import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.families.NewMemberDomain
+import com.example.domain.usecase.address.DeleteAddressUseCase
 import com.example.domain.usecase.address.GetAllAddressesUseCase
 import com.example.domain.usecase.families.GetFamiliesUseCase
 import com.example.domain.usecase.families.GetFamilyMembersUseCase
@@ -23,6 +24,7 @@ class ProfileFragmentVM: ViewModel() {
     private val getFamiliesUseCase = GetFamiliesUseCase(networkRepository)
     private val getFamilyUseCase = GetFamilyUseCase(networkRepository)
     private val getAllAddressesUseCase = GetAllAddressesUseCase(networkRepository)
+    private val deleteAddressUseCase = DeleteAddressUseCase(networkRepository)
 
     private val families: MutableList<NewFamilyDomain> = mutableListOf()
     private var familiesCounting: Int = 0
@@ -90,6 +92,26 @@ class ProfileFragmentVM: ViewModel() {
 
                 override fun onError(e: Throwable) {
                     Log.d("GET_ADD_ADDRESSES_ERROR", e.message.toString())
+                }
+
+            })
+    }
+
+    fun deleteAddress(addressId: String) {
+        deleteAddressUseCase.invoke(addressId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<AddressParamsDomain>() {
+                override fun onSuccess(t: AddressParamsDomain) {
+                    Log.d("DELETE_ADDRESS", t.id.toString())
+
+                    getAllAddresses()
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("DELETE_ADDRESS_ERROR", e.message.toString())
+
+                    getAllAddresses()
                 }
 
             })

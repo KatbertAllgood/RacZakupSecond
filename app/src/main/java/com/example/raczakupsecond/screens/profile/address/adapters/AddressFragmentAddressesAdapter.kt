@@ -18,6 +18,8 @@ class AddressFragmentAddressesAdapter(
 
 
     var onItemClick : ((AddressParamsDomain) -> Unit)? = null
+    var onDeleteClick : ((Int) -> Unit)? = null
+    var onEditClick : ((Int) -> Unit)? = null
     var selectedItemPosition = -1
 
     inner class AddressHolder(item: View) : RecyclerView.ViewHolder(item) {
@@ -72,9 +74,20 @@ class AddressFragmentAddressesAdapter(
                 }
             }
 
+            listOf(
+                updateButton,
+                hiddenAddress
+            ).forEach {
+                it.setOnClickListener {
+
+                    onEditClick?.invoke(address.id)
+
+                }
+            }
+
             deleteButton.setOnClickListener {
 
-                Log.d("DELETE_BUTTON", "TRUE")
+                onDeleteClick?.invoke(address.id)
 
             }
         }

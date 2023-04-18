@@ -97,6 +97,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 addressAdapter.onItemClick = { item ->
                     Log.d("ADDRESS_ITEM_ID", item.id.toString())
                 }
+                addressAdapter.onDeleteClick = { item ->
+
+                    viewModel.deleteAddress(item.toString())
+                }
+                addressAdapter.onEditClick = { item ->
+                    Log.d("EDIT_ID", item.toString())
+                }
 
                 rcViewAddresses.adapter = addressAdapter
             }
