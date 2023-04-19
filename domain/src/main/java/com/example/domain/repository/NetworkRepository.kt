@@ -5,6 +5,11 @@ import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.addresses.AddressParamsRequestDomain
 import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
+import com.example.domain.models.geo.RequestCoordinatesDomain
+import com.example.domain.models.geo.RequestQueryDomain
+import com.example.domain.models.geo.ResponseGeoDomain
+import com.example.domain.models.packs.HealthySetParamsRequestDomain
+import com.example.domain.models.packs.HealthySetParamsResponseDomain
 import io.reactivex.Single
 
 interface NetworkRepository {
@@ -70,4 +75,16 @@ interface NetworkRepository {
     fun deleteAddress(
         addressId: String
     ) : Single<AddressParamsDomain>
+
+    fun resolveCoordinates(
+        coordinates: RequestCoordinatesDomain
+    ) : Single<ResponseGeoDomain>
+
+    fun resolveQuery(
+        query: RequestQueryDomain
+    ) : Single<ResponseGeoDomain>
+
+    fun createHealthySetParams(
+        healthySetParams: HealthySetParamsRequestDomain
+    ) : Single<HealthySetParamsResponseDomain>
 }
