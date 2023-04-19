@@ -26,14 +26,15 @@ class EditPackAddressAdapter(
         fun bind(address: AddressParamsDomain) = with(binding) {
 
             root.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_10dp)
+
             addressItemTitle.text = address.name
-//            addressItemAddress.text = "${address.street}, ${address.building}\n"
             addressItemAddress.text = context.getString(R.string.address_in_item,
+                address.city,
                 address.street,
-                address.house_number.toString(),
-                address.apartment.toString(),
-                address.floor.toString(),
-                address.entrance.toString()
+                address.house_number,
+                address.entrance,
+                address.floor,
+                address.apartment
             )
 
         }

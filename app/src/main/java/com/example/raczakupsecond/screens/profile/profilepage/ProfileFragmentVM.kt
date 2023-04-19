@@ -51,7 +51,7 @@ class ProfileFragmentVM: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("FAMILIES -----", e.message.toString())
+                    Log.d("GET_FAMILIES_ERROR", e.message.toString())
                 }
 
             })
@@ -74,7 +74,7 @@ class ProfileFragmentVM: ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("FAMILY -----", e.message.toString())
+                    Log.d("GET_FAMILY_ERROR", e.message.toString())
                 }
 
             })

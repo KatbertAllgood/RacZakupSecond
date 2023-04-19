@@ -14,7 +14,8 @@ import com.example.data.utils.ApplicationPreferences
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentProfileBinding
-import com.example.raczakupsecond.screens.profile.address.adapters.AddressFragmentAddressesAdapter
+import com.example.raczakupsecond.screens.profile.address.AddressFragment
+import com.example.raczakupsecond.screens.profile.profilepage.adapters.ProfileFragmentAddressesAdapter
 import com.example.raczakupsecond.screens.profile.editgroup.EditGroupFragment
 import com.example.raczakupsecond.screens.profile.profilepage.adapters.ProfileFamilyGroupAdapter
 
@@ -54,7 +55,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.buttonProfileFragmentAddAddress.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_addressFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_addressFragment,
+                bundleOf(Constants.MODE to Constants.CREATE_MODE))
         }
     }
 
@@ -88,7 +90,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         viewModel.getAllAddressesLiveData().observe(viewLifecycleOwner) {
 //            Log.d("ADDRESSES", it.toString())
 
-            val addressAdapter = AddressFragmentAddressesAdapter(it, requireContext())
+            val addressAdapter = ProfileFragmentAddressesAdapter(it, requireContext())
 
             binding.apply {
                 rcViewAddresses.layoutManager = LinearLayoutManager(requireContext())
@@ -102,7 +104,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     viewModel.deleteAddress(item.toString())
                 }
                 addressAdapter.onEditClick = { item ->
-                    Log.d("EDIT_ID", item.toString())
+                    Log.d("EDIT_ID", item.id.toString())
+
+                    findNavController().navigate(R.id.action_profileFragment_to_addressFragment,
+                        bundleOf(
+                            Constants.MODE to Constants.EDIT_MODE,
+                            AddressFragment.ADDRESS_ID to item.id.toString()
+                        ))
+
                 }
 
                 rcViewAddresses.adapter = addressAdapter

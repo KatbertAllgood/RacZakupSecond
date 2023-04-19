@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -56,9 +57,9 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
 
         //region подчеркивание кнопки "заказать для себя"
 
-        val spannableOrderForMyself = SpannableString(getString(R.string.for_me))
-        spannableOrderForMyself.setSpan(UnderlineSpan(), 0, spannableOrderForMyself.length, 0)
-        binding.tvButtonOrderForMyself.text = spannableOrderForMyself
+//        val spannableOrderForMyself = SpannableString(getString(R.string.for_me))
+//        spannableOrderForMyself.setSpan(UnderlineSpan(), 0, spannableOrderForMyself.length, 0)
+//        binding.tvButtonOrderForMyself.text = spannableOrderForMyself
 
         //endregion
 
@@ -111,7 +112,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
 
-            viewModel.changeHealthySet("days", 1)
+            viewModel.changeHealthySetDays(1)
         }
 
         binding.tvButtonEditPackDayCountThree.setOnClickListener {
@@ -128,7 +129,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
 
-            viewModel.changeHealthySet("days", 3)
+            viewModel.changeHealthySetDays(3)
         }
 
         binding.tvButtonEditPackDayCountFive.setOnClickListener {
@@ -145,7 +146,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
 
-            viewModel.changeHealthySet("days", 5)
+            viewModel.changeHealthySetDays(5)
         }
 
         binding.tvButtonEditPackDayCountSeven.setOnClickListener {
@@ -162,7 +163,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp)
             }
 
-            viewModel.changeHealthySet("days", 7)
+            viewModel.changeHealthySetDays(7)
         }
 
         binding.buttonHowMuchDaysNext.setOnClickListener {
@@ -201,7 +202,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySet("budget", 0)
+            viewModel.changeHealthySetBudget("eco")
         }
 
         binding.llBudgetStandard.setOnClickListener {
@@ -215,7 +216,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySet("budget", 1)
+            viewModel.changeHealthySetBudget("standart")
         }
 
         binding.llBudgetPremium.setOnClickListener {
@@ -229,7 +230,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetEco
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySet("budget", 2)
+            viewModel.changeHealthySetBudget("premium")
         }
 
         binding.buttonBudgetNext.setOnClickListener {
@@ -342,7 +343,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                     familyGroupAdapter.onItemClick = {item ->
                         Log.d("SELECTED_FAMILY_ID", item.id.toString())
                         buttonHowMuchPeopleNext.visibility = View.VISIBLE
-                        viewModel.changeHealthySet("familyId", item.id)
+                        viewModel.changeHealthySetFamilyId(item.id)
                     }
 
                     rcViewEditPackFragmentGroups.adapter = familyGroupAdapter
@@ -360,21 +361,26 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
 
         //region Адрес доставки
 
-        // TODO(ТУТ ПРОСТО ТЕСТОВО. СДЕЛАТЬ ЧЕРЕЗ ОБЗЕРВЕР, КОГДА РОУТ ПОДНИМУТ )
+        viewModel.getAllAddresses()
 
+        viewModel.getAllAddressesLiveData().observe(viewLifecycleOwner) {
 
+            val addressAdapter = EditPackAddressAdapter(requireContext(), it)
 
-//        binding.apply{
-//            rcViewEditPackFragmentAddresses.layoutManager = LinearLayoutManager(requireContext())
-//            rcViewEditPackFragmentAddresses.isNestedScrollingEnabled = false
-//
-//            addressAdapter.onItemClick = { item ->
-//                buttonAddressNext.visibility = View.VISIBLE
-//                viewModel.changeHealthySet("addressId", item.id)
-//            }
-//
-//            rcViewEditPackFragmentAddresses.adapter = addressAdapter
-//        }
+            binding.apply {
+                rcViewEditPackFragmentAddresses.layoutManager = LinearLayoutManager(requireContext())
+                rcViewEditPackFragmentAddresses.isNestedScrollingEnabled = false
+
+                addressAdapter.onItemClick = { item ->
+                    Log.d("ADDRESS_ITEM_ID", item.id.toString())
+                    buttonAddressNext.visibility = View.VISIBLE
+                    viewModel.changeHealthySetAddressId(item.id)
+                }
+
+                rcViewEditPackFragmentAddresses.adapter = addressAdapter
+            }
+
+        }
 
         //endregion
 
@@ -396,7 +402,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
 
             shopAdapter.onItemClick = { item ->
                 buttonShopNext.visibility = View.VISIBLE
-                viewModel.changeHealthySet("shop", item.id)
+                viewModel.changeHealthySetShopId(item.id)
             }
 
             rcViewShops.adapter = shopAdapter
