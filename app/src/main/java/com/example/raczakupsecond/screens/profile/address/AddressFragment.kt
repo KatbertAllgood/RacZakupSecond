@@ -16,8 +16,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.addresses.AddressParamsRequestDomain
+import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentAddressBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -44,6 +46,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 {
     private lateinit var binding : FragmentAddressBinding
     private val viewModel : AddressFragmentVM by viewModels()
+
+    private lateinit var mode: String
+
+    private var autoFillAddressEnable: Boolean = false
 
     private lateinit var currentPosition: Point
     private var currentZoom: Float = 0F
@@ -74,6 +80,14 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mode = requireArguments().getString(Constants.MODE).toString()
+
+        if (mode == Constants.EDIT_MODE) {
+
+            viewModel.editingAddressId = requireArguments().getString(ADDRESS_ID).toString()
+            viewModel.getAddress()
+        }
 
         var isShowed = true
 
@@ -188,29 +202,25 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
                 Log.d("ADDRESS_PARAMS", addressParams.toString())
 
-                viewModel.createAddress(addressParams)
+                if (mode == Constants.CREATE_MODE) {
+
+                    viewModel.createAddress(addressParams)
+
+                } else if (mode == Constants.EDIT_MODE) {
+
+                    viewModel.updateAddress(
+                        viewModel.editingAddressId,
+                        addressParams
+                    )
+                }
+
+                findNavController().popBackStack()
             }
         }
-
-//        //TODO(ТУТ ИНИЦИАЛИЗИРОВАТЬ ШАБЛОН ДЛЯ РЕКВЕСТА)
-//
-//        binding.apply {
-//
-//            etAddressfragmentCity.addTextChangedListener(object : TextWatcher {
-//                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//                override fun afterTextChanged(p0: Editable?) {
-//
-//                }
-//
-//            })
-//
-//        }
 
         //region Mapkit
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        getCurrentUserLocation()
 
         binding.mapview.map.addCameraListener(this)
 
@@ -226,6 +236,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
 
         //endregion
+
+        if (mode == Constants.CREATE_MODE) {
+            getCurrentUserLocation()
+        }
 
     }
 
@@ -273,6 +287,22 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
                 getCommentLiveData().observe(viewLifecycleOwner) {
                     etAddressfragmentAddressComment.setText(it)
+                }
+
+                if (mode == Constants.EDIT_MODE) {
+
+                    getEditingPointLiveData().observe(viewLifecycleOwner) {
+
+                        currentPosition = it
+                        currentZoom = 17.0F
+//                        Log.d("CURRENT_LOCATION", "${location.latitude}, ${location.longitude}")
+                        binding.mapview.map.move(
+                            CameraPosition(currentPosition, currentZoom, 0.0f, 0.0f),
+                            Animation(Animation.Type.SMOOTH, 2F),
+                            null
+                        )
+
+                    }
                 }
             }
 
@@ -368,84 +398,87 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         val mapObject: MapObjectCollection = binding.mapview.map.mapObjects
         mapObject.clear()
 
-
-        val city = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.LOCALITY) }
-            ?.name
-
-        if (city != null) {
-            viewModel.setCityLiveData(city)
+        if (mode == Constants.EDIT_MODE && !autoFillAddressEnable) {
+            autoFillAddressEnable = true
         } else {
-            viewModel.setCityLiveData("")
-        }
 
-        val district = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.DISTRICT) }
-            ?.name
+            val city = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.LOCALITY) }
+                ?.name
 
-        val province = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.PROVINCE) }
-            ?.name
+            if (city != null) {
+                viewModel.setCityLiveData(city)
+            } else {
+                viewModel.setCityLiveData("")
+            }
 
-        Log.d("CITY", city ?: "null")
+            val district = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.DISTRICT) }
+                ?.name
 
-        Log.d("PROVINCE", province ?: "null")
+            val province = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.PROVINCE) }
+                ?.name
 
-        Log.d("DISTRICT", district ?: "null")
+            Log.d("CITY", city ?: "null")
 
-        val street = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.STREET) }
-            ?.name
+            Log.d("PROVINCE", province ?: "null")
 
-        if (street != null) {
-            viewModel.setStreetLiveData(street)
-        } else {
-            viewModel.setStreetLiveData("")
-        }
+            Log.d("DISTRICT", district ?: "null")
 
-        val building = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.HOUSE) }
-            ?.name
+            val street = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.STREET) }
+                ?.name
 
-        if (building != null) {
-            viewModel.setBuildingLiveData(building)
-        } else {
-            viewModel.setBuildingLiveData("")
-        }
+            if (street != null) {
+                viewModel.setStreetLiveData(street)
+            } else {
+                viewModel.setStreetLiveData("")
+            }
 
-        val entrance = response.collection.children.firstOrNull()?.obj
-            ?.metadataContainer
-            ?.getItem(ToponymObjectMetadata::class.java)
-            ?.address
-            ?.components
-            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.ENTRANCE) }
-            ?.name
+            val building = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.HOUSE) }
+                ?.name
 
-        if (entrance != null) {
-            viewModel.setEntranceLiveData(entrance)
-        } else {
-            viewModel.setEntranceLiveData("")
-        }
+            if (building != null) {
+                viewModel.setBuildingLiveData(building)
+            } else {
+                viewModel.setBuildingLiveData("")
+            }
+
+            val entrance = response.collection.children.firstOrNull()?.obj
+                ?.metadataContainer
+                ?.getItem(ToponymObjectMetadata::class.java)
+                ?.address
+                ?.components
+                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.ENTRANCE) }
+                ?.name
+
+            if (entrance != null) {
+                viewModel.setEntranceLiveData(entrance)
+            } else {
+                viewModel.setEntranceLiveData("")
+            }
 
 //        val other = response.collection.children.firstOrNull()?.obj
 //            ?.metadataContainer
@@ -457,6 +490,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 //
 //        Log.d("OTHER", other ?: "null")
 
+        }
+
     }
 
     override fun onSearchError(error: Error) {
@@ -467,6 +502,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             errorMessage = "Проблемы с интернетом"
         }
         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        const val ADDRESS_ID = "address_id"
     }
 
 }
