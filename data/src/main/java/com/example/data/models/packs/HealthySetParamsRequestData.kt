@@ -11,6 +11,6 @@ data class HealthySetParamsRequestData(
     var budget: String = "",
     @SerializedName("days")
     var days: Int = 0,
-    @SerializedName("shop")
-    var shop: Int = 0
+//    @SerializedName("shop")
+//    var shop: Int = 0
 )

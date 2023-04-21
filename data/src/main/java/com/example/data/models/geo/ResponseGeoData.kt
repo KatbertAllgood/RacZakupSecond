@@ -4,42 +4,42 @@ import com.example.data.mapper.ServerResponseToData
 import com.google.gson.annotations.SerializedName
 
 data class ResponseGeoData(
-    @SerializedName("lat")
+    @SerializedName("geo_lat")
     val lat: Double = 0.0,
-    @SerializedName("lon")
+    @SerializedName("geo_lon")
     val lon: Double = 0.0,
     @SerializedName("result")
-    val result: String = "",
+    val result: String? = "",
     @SerializedName("postal_code")
-    val postal_code: String = "",
+    val postal_code: String? = "",
     @SerializedName("country")
-    val country: String = "",
+    val country: String? = "",
     @SerializedName("federal_district")
-    val federal_district: String = "",
+    val federal_district: String? = "",
     @SerializedName("region_type_full")
-    val region_type_full: String = "",
+    val region_type_full: String? = "",
     @SerializedName("region")
-    val region: String = "",
+    val region: String? = "",
     @SerializedName("area")
-    val area: String = "",
+    val area: String? = "",
     @SerializedName("city")
-    val city: String = "",
+    val city: String? = "",
     @SerializedName("city_area")
-    val city_area: String = "",
+    val city_area: String? = "",
     @SerializedName("city_district")
-    val city_district: String = "",
+    val city_district: String? = "",
     @SerializedName("settlement_type_full")
-    val settlement_type_full: String = "",
+    val settlement_type_full: String? = "",
     @SerializedName("settlement")
-    val settlement: String = "",
+    val settlement: String? = "",
     @SerializedName("street")
-    val street: String = "",
+    val street: String? = "",
     @SerializedName("stead_type_full")
-    val stead_type_full: String = "",
+    val stead_type_full: String? = "",
     @SerializedName("stead")
-    val stead: String = "",
+    val stead: String? = "",
     @SerializedName("house")
-    val house: String = "",
+    val house: String? = "",
     @SerializedName("block")
-    val block: String = ""
+    val block: String? = ""
 )

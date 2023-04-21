@@ -7,6 +7,7 @@ import com.example.data.models.auth.*
 import com.example.data.models.families.*
 import com.example.data.models.geo.RequestCoordinatesData
 import com.example.data.models.geo.RequestQueryData
+import com.example.data.models.geo.ResponseGeoCoordinatesData
 import com.example.data.models.geo.ResponseGeoData
 import com.example.data.models.packs.HealthySetParamsRequestData
 import com.example.data.models.packs.HealthySetParamsResponseData
@@ -85,31 +86,10 @@ interface ServerApi {
 
     //region packs
 
-//    @GET("healthy-sets/info")
-//    fun getHealthySetParams() : Single<HealthySetParamsData>
-//
-//    @GET("healthysets/params")
-//    fun getAllHealthySetParams() : Single<List<HealthySetParamsData>>
-
     @POST("products/healthy-sets/params")
     fun createHealthySetParams(
         @Body healthySetParams: HealthySetParamsRequestData
     ) : Single<HealthySetParamsResponseData>
-
-//    @PATCH("healthySetParams")
-//    fun updateHealthySetParams(
-//        @Body healthySetParams: HealthySetParamsData
-//    ) : Single<String>
-//
-//    @PATCH("healthysets/{id}/replaceproduct")
-//    fun regenerateProduct(
-//        @Path("id") id: String
-//    ) : Single<String>
-//
-//    @DELETE("healthySetParams/{id}")
-//    fun removeHealthySetParams(
-//        @Path("id") id: String
-//    ) : Single<String>
 
     //endregion
 
@@ -146,7 +126,7 @@ interface ServerApi {
     @POST("users/geo/coordinates")
     fun resolveCoordinates(
         @Body coordinates: RequestCoordinatesData
-    ) : Single<ResponseGeoData>
+    ) : Single<List<ResponseGeoCoordinatesData>>
 
     @POST("users/geo/query")
     fun resolveQuery(

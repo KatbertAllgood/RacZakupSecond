@@ -5,16 +5,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
-import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.addresses.AddressParamsRequestDomain
+import com.example.domain.models.geo.RequestCoordinatesDomain
+import com.example.domain.models.geo.RequestQueryDomain
+import com.example.domain.models.geo.ResponseGeoCoordinatesDomain
+import com.example.domain.models.geo.ResponseGeoDomain
 import com.example.domain.usecase.address.CreateAddressUseCase
 import com.example.domain.usecase.address.GetAddressUseCase
 import com.example.domain.usecase.address.UpdateAddressUseCase
+import com.example.domain.usecase.geo.ResolveCoordinatesUseCase
+import com.example.domain.usecase.geo.ResolveQueryUseCase
 import com.example.raczakupsecond.app.App
 import com.yandex.mapkit.geometry.Point
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,6 +33,8 @@ class AddressFragmentVM : ViewModel() {
     private val createAddressUseCase = CreateAddressUseCase(networkRepository)
     private val updateAddressUseCase = UpdateAddressUseCase(networkRepository)
     private val getAddressUseCase = GetAddressUseCase(networkRepository)
+    private val resolveQueryUseCase = ResolveQueryUseCase(networkRepository)
+    private val resolveCoordinatesUseCase = ResolveCoordinatesUseCase(networkRepository)
 
     var editingAddressId: String = ""
 
@@ -84,6 +91,13 @@ class AddressFragmentVM : ViewModel() {
     fun setCommentLiveData(comment: String) {
         commentLiveData.value = comment
     }
+
+    private val queryResponseResultLiveData = MutableLiveData<String>()
+    fun getQueryResponseResultLiveData() : LiveData<String> = queryResponseResultLiveData
+
+//    private val coordinatesResponseLiveData = MutableLiveData<List<ResponseGeoCoordinatesDomain>>()
+//    fun getCoordinatesResponse() : LiveData<List<ResponseGeoCoordinatesDomain>> =
+//        coordinatesResponseLiveData
 
     fun getAddress() {
         getAddressUseCase.invoke(editingAddressId)
@@ -152,6 +166,101 @@ class AddressFragmentVM : ViewModel() {
 
                 override fun onError(e: Throwable) {
                     Log.d("UPDATE_ADDRESS_ERROR", e.message.toString())
+                }
+
+            })
+    }
+
+    fun resolveCoordinates(
+        coordinates: RequestCoordinatesDomain
+    ) {
+        resolveCoordinatesUseCase
+            .invoke(coordinates)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<List<ResponseGeoCoordinatesDomain>>() {
+                override fun onSuccess(t: List<ResponseGeoCoordinatesDomain>) {
+                    Log.d("RESOLVE_COORDINATES", "SUCCESS")
+
+                    Log.d("RESOLVE_COORDINATES_TEST", t[0].data.toString())
+                    if (t[0].data.city == null
+                        && t[0].data.region_type_full.toString() == "город") {
+                        setCityLiveData(t[0].data.region.toString())
+                    } else {
+                        setCityLiveData(t[0].data.city.toString())
+                    }
+
+                    if (t[0].data.street == null
+                        && t[0].data.settlement != null) {
+                        setStreetLiveData(t[0].data.settlement.toString())
+                    } else {
+                        setStreetLiveData(t[0].data.street.toString())
+                    }
+
+                    if (t[0].data.block != null) {
+                        val building =
+                            "${t[0].data.house.toString()}к${t[0].data.block.toString()}"
+
+                        setBuildingLiveData(building)
+                    } else if (t[0].data.house != null) {
+                        setBuildingLiveData(t[0].data.house.toString())
+                    }
+
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("RESOLVE_COORDINATES_ERROR", e.message.toString())
+                }
+
+            })
+    }
+
+    fun resolveQuery(
+        query: RequestQueryDomain
+    ) {
+        resolveQueryUseCase
+            .invoke(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<ResponseGeoDomain>() {
+                override fun onSuccess(t: ResponseGeoDomain) {
+                    Log.d("RESOLVE_QUERY", t.toString())
+
+                    if (t.city == null
+                        && t.region_type_full.toString() == "город") {
+                        setCityLiveData(t.region.toString())
+                    } else {
+                        setCityLiveData(t.city.toString())
+                    }
+
+                    if (t.street == null
+                        && t.settlement != null) {
+                        setStreetLiveData(t.settlement.toString())
+                    } else {
+                        setStreetLiveData(t.street.toString())
+                    }
+
+                    if (t.block != null) {
+                        val building =
+                            "${t.house.toString()}к${t.block.toString()}"
+
+                        setBuildingLiveData(building)
+                    } else {
+                        setBuildingLiveData(t.house.toString())
+                    }
+
+                    editingPointLiveData.value = Point(
+                        t.lat,
+                        t.lon
+                    )
+
+                    if(t.result.toString() != null && t.result.toString() != "") {
+                        queryResponseResultLiveData.value = t.result.toString()
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("RESOLVE_QUERY_ERROR", e.message.toString())
                 }
 
             })

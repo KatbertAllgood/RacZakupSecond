@@ -134,7 +134,7 @@ class EditPackFragmentVM : ViewModel() {
     }
 
     fun changeHealthySetShopId(value: Int) {
-        healthySetParamsRequestDomain.shop = value
+//        healthySetParamsRequestDomain.shop = value
     }
 
     fun getHealthySet() : HealthySetParamsRequestDomain = healthySetParamsRequestDomain

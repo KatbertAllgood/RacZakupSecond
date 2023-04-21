@@ -9,6 +9,7 @@ import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
 import com.example.domain.models.geo.RequestCoordinatesDomain
 import com.example.domain.models.geo.RequestQueryDomain
+import com.example.domain.models.geo.ResponseGeoCoordinatesDomain
 import com.example.domain.models.geo.ResponseGeoDomain
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
 import com.example.domain.models.packs.HealthySetParamsResponseDomain
@@ -174,11 +175,17 @@ class NetworkRepositoryImpl : NetworkRepository{
         }
     }
 
-    override fun resolveCoordinates(coordinates: RequestCoordinatesDomain): Single<ResponseGeoDomain> {
+    override fun resolveCoordinates(
+        coordinates: RequestCoordinatesDomain
+    ): Single<List<ResponseGeoCoordinatesDomain>> {
         return NetworkService.retrofitService.resolveCoordinates(
             RequestCoordinatesToData(coordinates).toData()
         ).map {
-            return@map ResponseGeoToDomain(it).toDomain()
+            val result: MutableList<ResponseGeoCoordinatesDomain> = mutableListOf()
+            for (i in it) {
+                result.add(ResponseGeoCoordinatesToDomain(i).toDomain())
+            }
+            return@map result
         }
     }
 

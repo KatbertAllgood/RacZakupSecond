@@ -1,10 +1,14 @@
 package com.example.raczakupsecond.app
 
 import android.app.Application
+import android.util.Log
 import com.example.data.repository.*
 import com.example.domain.repository.*
 import com.example.domain.utils.Constants
 import com.yandex.mapkit.MapKitFactory
+import io.reactivex.Completable
+import io.reactivex.exceptions.UndeliverableException
+import io.reactivex.plugins.RxJavaPlugins
 
 class App : Application() {
 
@@ -29,5 +33,15 @@ class App : Application() {
         networkRepository = NetworkRepositoryImpl()
         sharedPreferencesRepository = SharedPreferencesRepositoryImpl(applicationContext)
         MapKitFactory.setApiKey(Constants.API_MAP_KEY)
+
+        RxJavaPlugins.setErrorHandler { e ->
+            if (e is UndeliverableException) {
+//                Log.d("RxJavaPlugins_ERROR_HANDLER", e.message.toString())
+            } else {
+                Thread.currentThread().also { thread ->
+                    thread.uncaughtExceptionHandler?.uncaughtException(thread, e)
+                }
+            }
+        }
     }
 }

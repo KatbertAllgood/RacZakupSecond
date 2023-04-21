@@ -7,6 +7,7 @@ import com.example.domain.models.auth.*
 import com.example.domain.models.families.*
 import com.example.domain.models.geo.RequestCoordinatesDomain
 import com.example.domain.models.geo.RequestQueryDomain
+import com.example.domain.models.geo.ResponseGeoCoordinatesDomain
 import com.example.domain.models.geo.ResponseGeoDomain
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
 import com.example.domain.models.packs.HealthySetParamsResponseDomain
@@ -78,7 +79,7 @@ interface NetworkRepository {
 
     fun resolveCoordinates(
         coordinates: RequestCoordinatesDomain
-    ) : Single<ResponseGeoDomain>
+    ) : Single<List<ResponseGeoCoordinatesDomain>>
 
     fun resolveQuery(
         query: RequestQueryDomain

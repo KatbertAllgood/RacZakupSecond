@@ -1,6 +1,7 @@
 package com.example.raczakupsecond.screens.profile.address
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.PointF
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
@@ -19,6 +21,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.addresses.AddressParamsRequestDomain
+import com.example.domain.models.geo.RequestCoordinatesDomain
+import com.example.domain.models.geo.RequestQueryDomain
 import com.example.domain.utils.Constants
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentAddressBinding
@@ -41,15 +45,12 @@ import com.yandex.runtime.network.RemoteError
 
 class AddressFragment : Fragment(R.layout.fragment_address),
     UserLocationObjectListener,
-    CameraListener,
-    Session.SearchListener
+    CameraListener
 {
     private lateinit var binding : FragmentAddressBinding
     private val viewModel : AddressFragmentVM by viewModels()
 
     private lateinit var mode: String
-
-    private var autoFillAddressEnable: Boolean = false
 
     private lateinit var currentPosition: Point
     private var currentZoom: Float = 0F
@@ -58,17 +59,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
     private lateinit var userLocationLayer: UserLocationLayer
 
-    private lateinit var searchManager: SearchManager
-    private lateinit var searchSession: Session
-
-    private fun searchPoint(point: Point) {
-        searchSession = searchManager.submit(
-            point,
-            16,
-            SearchOptions(),
-            this
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,6 +80,7 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         }
 
         var isShowed = true
+        var isEmpty = false
 
         binding.ivAddressfragmentButtonShowOrHide.setOnClickListener {
 
@@ -143,9 +134,43 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
         }
 
+        binding.editTextAddressFragmentSearch.setOnEditorActionListener {
+                editText, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.resolveQuery(
+                    RequestQueryDomain(binding.editTextAddressFragmentSearch.text.toString())
+                )
+                editText.clearFocus()
+                val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editText.windowToken, 0)
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
         binding.buttonAddressfragmentNext.setOnClickListener {
 
+            // TODO(ПРОВЕРКА ВВЕДЕНИЯ ДАННЫХ. НЕ ЗНАЮ, ПОЧЕМУ НЕ ПОЛУЧАЕТСЯ)
+
             binding.apply {
+
+                val listOfEt = listOf(
+                    etAddressfragmentCity,
+                    etAddressfragmentStreet,
+                    etAddressfragmentBuilding,
+                    etAddressfragmentFloor,
+                    etAddressfragmentFlat,
+                    etAddressfragmentEntrance
+                )
+
+                for (i in listOfEt) {
+                    if (i.text.toString().trim().isNullOrBlank()) {
+                        i.error = "Необходимо заполнить"
+                        isEmpty = true
+                    } else {
+                        isEmpty = false
+                    }
+                }
 
                 listOf(
                     etAddressfragmentCity,
@@ -153,33 +178,90 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                     etAddressfragmentBuilding,
                     etAddressfragmentFloor,
                     etAddressfragmentFlat,
+                    etAddressfragmentEntrance
+                ).forEach {
+                    Log.d("CHECK_EDIT_TEXT", it.text.toString())
+//                    if (it.text == null || it.text.toString() == "" || it.text.isEmpty()) {
+//                        it.error = "Необходимо заполнить"
+//                        isEmpty = true
+//                    } else isEmpty = false
+                }
+
+                Log.d("IS_EMPTY", isEmpty.toString())
+
+                if (!isEmpty) {
+
+                    listOf(
+                        etAddressfragmentCity,
+                        etAddressfragmentStreet,
+                        etAddressfragmentBuilding,
+                        addressFragmentLl3,
+                        buttonAddressfragmentNext,
+                        mapviewButtonZoomPlus,
+                        mapviewButtonZoomMinus,
+                        mapviewButtonShowCurrentLocation
+                    ).forEach {
+                        it.visibility = View.GONE
+                    }
+
+                    listOf(
+                        etAddressfragmentAddressTitle,
+                        etAddressfragmentAddressComment,
+                        buttonAddressfragmentSave,
+                        buttonAddressfragmentBack
+                    ).forEach {
+                        it.visibility = View.VISIBLE
+                    }
+
+                    mapview.map.isScrollGesturesEnabled = false
+                    mapview.map.isRotateGesturesEnabled = false
+                    mapview.map.isTiltGesturesEnabled = false
+                    mapview.map.isZoomGesturesEnabled = false
+
+                }
+
+            }
+        }
+
+        binding.buttonAddressfragmentBack.setOnClickListener {
+
+            binding.apply {
+
+                listOf(
+                    etAddressfragmentCity,
+                    etAddressfragmentStreet,
+                    etAddressfragmentBuilding,
+                    addressFragmentLl3,
                     buttonAddressfragmentNext,
                     mapviewButtonZoomPlus,
                     mapviewButtonZoomMinus,
                     mapviewButtonShowCurrentLocation
                 ).forEach {
-                    it.visibility = View.GONE
+                    it.visibility = View.VISIBLE
                 }
 
                 listOf(
                     etAddressfragmentAddressTitle,
                     etAddressfragmentAddressComment,
-                    buttonAddressfragmentSave
+                    buttonAddressfragmentSave,
+                    buttonAddressfragmentBack
                 ).forEach {
-                    it.visibility = View.VISIBLE
+                    it.visibility = View.GONE
                 }
 
-                mapview.map.isScrollGesturesEnabled = false
-                mapview.map.isRotateGesturesEnabled = false
-                mapview.map.isTiltGesturesEnabled = false
-                mapview.map.isZoomGesturesEnabled = false
+                mapview.map.isScrollGesturesEnabled = true
+                mapview.map.isRotateGesturesEnabled = true
+                mapview.map.isTiltGesturesEnabled = true
+                mapview.map.isZoomGesturesEnabled = true
 
             }
+
         }
 
         binding.buttonAddressfragmentSave.setOnClickListener {
 
             binding.apply {
+
 
                 val addressParams = AddressParamsRequestDomain(
                     name = etAddressfragmentAddressTitle.text.toString(),
@@ -218,6 +300,14 @@ class AddressFragment : Fragment(R.layout.fragment_address),
             }
         }
 
+        binding.apply {
+
+            etAddressfragmentCity.setOnClickListener {
+                etAddressfragmentCity.error = null
+            }
+
+        }
+
         //region Mapkit
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
@@ -231,9 +321,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
         userLocationLayer.isVisible = true
         userLocationLayer.isHeadingEnabled = false
         userLocationLayer.setObjectListener(this)
-
-        SearchFactory.initialize(requireContext())
-        searchManager = SearchFactory.getInstance().createSearchManager(SearchManagerType.COMBINED)
 
         //endregion
 
@@ -289,7 +376,11 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                     etAddressfragmentAddressComment.setText(it)
                 }
 
-                if (mode == Constants.EDIT_MODE) {
+                getQueryResponseResultLiveData().observe(viewLifecycleOwner) {
+                    editTextAddressFragmentSearch.setText(it)
+                }
+
+//                if (mode == Constants.EDIT_MODE) {
 
                     getEditingPointLiveData().observe(viewLifecycleOwner) {
 
@@ -302,7 +393,7 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                             null
                         )
 
-                    }
+//                    }
                 }
             }
 
@@ -360,7 +451,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
             currentPosition = Point(p1.target.latitude, p1.target.longitude)
 
-            searchPoint(currentPosition)
+            viewModel.resolveCoordinates(RequestCoordinatesDomain(
+                currentPosition.latitude,
+                currentPosition.longitude
+            ))
         } else {
 
             val param = binding.mapviewAimPin.layoutParams as ViewGroup.MarginLayoutParams
@@ -392,116 +486,6 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                     )
                 }
             }
-    }
-
-    override fun onSearchResponse(response: Response) {
-        val mapObject: MapObjectCollection = binding.mapview.map.mapObjects
-        mapObject.clear()
-
-        if (mode == Constants.EDIT_MODE && !autoFillAddressEnable) {
-            autoFillAddressEnable = true
-        } else {
-
-            val city = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.LOCALITY) }
-                ?.name
-
-            if (city != null) {
-                viewModel.setCityLiveData(city)
-            } else {
-                viewModel.setCityLiveData("")
-            }
-
-            val district = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.DISTRICT) }
-                ?.name
-
-            val province = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.PROVINCE) }
-                ?.name
-
-            Log.d("CITY", city ?: "null")
-
-            Log.d("PROVINCE", province ?: "null")
-
-            Log.d("DISTRICT", district ?: "null")
-
-            val street = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.STREET) }
-                ?.name
-
-            if (street != null) {
-                viewModel.setStreetLiveData(street)
-            } else {
-                viewModel.setStreetLiveData("")
-            }
-
-            val building = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.HOUSE) }
-                ?.name
-
-            if (building != null) {
-                viewModel.setBuildingLiveData(building)
-            } else {
-                viewModel.setBuildingLiveData("")
-            }
-
-            val entrance = response.collection.children.firstOrNull()?.obj
-                ?.metadataContainer
-                ?.getItem(ToponymObjectMetadata::class.java)
-                ?.address
-                ?.components
-                ?.firstOrNull { it.kinds.contains(Address.Component.Kind.ENTRANCE) }
-                ?.name
-
-            if (entrance != null) {
-                viewModel.setEntranceLiveData(entrance)
-            } else {
-                viewModel.setEntranceLiveData("")
-            }
-
-//        val other = response.collection.children.firstOrNull()?.obj
-//            ?.metadataContainer
-//            ?.getItem(ToponymObjectMetadata::class.java)
-//            ?.address
-//            ?.components
-//            ?.firstOrNull { it.kinds.contains(Address.Component.Kind.OTHER) }
-//            ?.name
-//
-//        Log.d("OTHER", other ?: "null")
-
-        }
-
-    }
-
-    override fun onSearchError(error: Error) {
-        var errorMessage = "Неизвестная ошибка"
-        if (error is RemoteError) {
-            errorMessage = "Ошибка сети"
-        } else if (error is NetworkError) {
-            errorMessage = "Проблемы с интернетом"
-        }
-        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

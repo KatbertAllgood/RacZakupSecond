@@ -11,6 +11,6 @@ class HealthySetParamsRequestToDomain(
         healthySetParamsRequestData.familyId,
         healthySetParamsRequestData.budget,
         healthySetParamsRequestData.days,
-        healthySetParamsRequestData.shop
+//        healthySetParamsRequestData.shop
     )
 }

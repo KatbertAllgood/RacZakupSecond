@@ -123,6 +123,7 @@
     <string name="save">Сохранить</string>
     <string name="delete">Удалить</string>
     <string name="change">Изменить</string>
+    <string name="back">Назад</string>
 
     <!-- SHOPS -->
     <string name="pyaterochka">Пятёрочка</string>

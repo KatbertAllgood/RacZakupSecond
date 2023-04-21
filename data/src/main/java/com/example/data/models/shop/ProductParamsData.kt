@@ -6,7 +6,7 @@ data class ProductParamsData(
     @SerializedName("title")
     val title: String = "",
     @SerializedName("price")
-    val price: Int = 0,
+    val price: Double = 0.0,
     @SerializedName("categoryId")
     val categoryId: Int = 0,
     @SerializedName("manufacturer")
@@ -20,17 +20,17 @@ data class ProductParamsData(
     @SerializedName("weigh")
     val weigh: String = "",
     @SerializedName("pricePerKgMl")
-    val pricePerKgMl: Int = 0,
+    val pricePerKgMl: Double = 0.0,
     @SerializedName("composition")
     val composition: String = "",
     @SerializedName("energyValue")
-    val energyValue: Int = 0,
+    val energyValue: Double = 0.0,
     @SerializedName("fats")
-    val fats: Int = 0,
+    val fats: Double = 0.0,
     @SerializedName("proteins")
-    val proteins: Int = 0,
+    val proteins: Double = 0.0,
     @SerializedName("carbohydrates")
-    val carbohydrates: Int = 0,
+    val carbohydrates: Double = 0.0,
     @SerializedName("storageConditions")
     val storageConditions: String = "",
     @SerializedName("storageTemperatureMin")
@@ -44,7 +44,7 @@ data class ProductParamsData(
     @SerializedName("image")
     val image: String = "",
     @SerializedName("racCoefficientBenefit")
-    val racCoefficientBenefit: Int = 0,
+    val racCoefficientBenefit: Double = 0.0,
     @SerializedName("racCategoryBenefit")
     val racCategoryBenefit: String = "",
     @SerializedName("shopId")

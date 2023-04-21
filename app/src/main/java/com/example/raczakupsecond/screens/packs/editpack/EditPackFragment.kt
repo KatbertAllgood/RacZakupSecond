@@ -307,7 +307,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                     "familyId" to viewModel.getHealthySet().familyId,
                     "budget" to viewModel.getHealthySet().budget,
                     "days" to viewModel.getHealthySet().days,
-                    "shop" to viewModel.getHealthySet().shop
+//                    "shop" to viewModel.getHealthySet().shop
                 )
             )
         }
