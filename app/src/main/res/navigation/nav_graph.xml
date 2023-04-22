@@ -35,9 +35,20 @@
         app:startDestination="@id/categoriesShopFragment">
         <fragment
             android:id="@+id/categoriesShopFragment"
-            android:name="com.example.raczakupsecond.screens.categories.CategoriesShopFragment"
+            android:name="com.example.raczakupsecond.screens.shop.categories.CategoriesShopFragment"
             android:label="fragment_categories_shop"
             tools:layout="@layout/fragment_categories_shop" />
+        <fragment
+            android:id="@+id/productCardFragment"
+            android:name="com.example.raczakupsecond.screens.shop.productcard.ProductCardFragment"
+            android:label="fragment_product_card"
+            tools:layout="@layout/fragment_product_card">
+
+            <deepLink
+                android:id="@+id/deeplink_productCardFragment"
+                app:uri="raczakup://internal_navigation_productCardFragment" />
+
+        </fragment>
     </navigation>
     <navigation android:id="@+id/navigation_profile"
         app:startDestination="@id/profileFragment">
@@ -108,6 +119,15 @@
             android:id="@+id/checkPackFragment"
             android:name="com.example.raczakupsecond.screens.packs.checkpack.CheckPackFragment"
             android:label="fragment_check_pack"
-            tools:layout="@layout/fragment_check_pack" />
+            tools:layout="@layout/fragment_check_pack" >
+            <action
+                android:id="@+id/action_checkPackFragment_to_packFragment"
+                app:destination="@id/packFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/packFragment"
+            android:name="com.example.raczakupsecond.screens.packs.pack.PackFragment"
+            android:label="fragment_pack"
+            tools:layout="@layout/fragment_pack" />
     </navigation>
 </navigation>

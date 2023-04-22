@@ -1,5 +1,9 @@
 package com.example.domain.models.shop
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ProductParamsDomain(
     val title: String = "",
     val price: Double = 0.0,
@@ -24,4 +28,4 @@ data class ProductParamsDomain(
     val racCoefficientBenefit: Double = 0.0,
     val racCategoryBenefit: String = "",
     val shopId: Int = 0
-)
+) : Parcelable

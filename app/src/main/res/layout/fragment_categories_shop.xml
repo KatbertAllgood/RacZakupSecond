@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.categories.CategoriesShopFragment"
+    tools:context=".screens.shop.categories.CategoriesShopFragment"
     android:orientation="vertical">
 
     <com.example.raczakupsecond.view.ToolbarViewShop

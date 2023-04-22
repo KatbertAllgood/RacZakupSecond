@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".screens.packs.pack.PackFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/packFragment_button_back"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+
+            android:text="@string/back"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="8dp" />
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="2dp"-->
+<!--            android:background="@color/black"-->
+<!--            android:layout_alignParentBottom="@id/packFragment_button_back" />-->
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_left_30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:background="@drawable/shape_rectangle_green_rounded_right_30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <TextView
+                    android:id="@+id/packFragment_tv_first_recycler"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
+
+                    android:gravity="center"
+                    android:text="@string/products_protein"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+
+                    android:background="@drawable/shape_rectangle_light_gray_rounded_top_10dp"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/packFragment_recycler_protein"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="15dp"
+
+
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/packFragment_tv_first_recycler" />
+
+                <TextView
+                    android:id="@+id/packFragment_tv_second_recycler"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="15dp"
+
+                    android:gravity="center"
+                    android:text="@string/products_energy"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+
+                    android:background="@drawable/shape_rectangle_light_gray_rounded_top_10dp"
+
+                    app:layout_constraintTop_toBottomOf="@id/packFragment_recycler_protein"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/packFragment_recycler_energy"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="15dp"
+
+                    android:padding="15dp"
+
+                    android:layout_marginHorizontal="15dp"
+                    android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/packFragment_tv_second_recycler" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="18dp"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:text="@string/info_pack"
+                android:fontFamily="@font/roboto_bold"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="@string/statistic_pack"
+                android:fontFamily="@font/roboto"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp">
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_oval_green"
+                    android:layout_marginEnd="8dp"
+
+                    app:layout_constraintEnd_toStartOf="@id/packFragment_tv_proteins"
+                    app:layout_constraintTop_toTopOf="@id/packFragment_tv_proteins"
+                    app:layout_constraintBottom_toBottomOf="@id/packFragment_tv_proteins"
+                    />
+
+                <TextView
+                    android:id="@+id/packFragment_tv_proteins"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="Белки (?? г)"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintEnd_toStartOf="@id/packFragment_tv_fats"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_oval_yellow"
+                    android:layout_marginEnd="8dp"
+
+                    app:layout_constraintEnd_toStartOf="@id/packFragment_tv_fats"
+                    app:layout_constraintTop_toTopOf="@id/packFragment_tv_fats"
+                    app:layout_constraintBottom_toBottomOf="@id/packFragment_tv_fats"
+                    />
+
+                <TextView
+                    android:id="@+id/packFragment_tv_fats"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="Жиры (?? г)"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintStart_toEndOf="@id/packFragment_tv_proteins"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/shape_oval_blue"
+                    android:layout_marginEnd="8dp"
+
+                    app:layout_constraintEnd_toStartOf="@id/packFragment_tv_carbohydrates"
+                    app:layout_constraintTop_toTopOf="@id/packFragment_tv_carbohydrates"
+                    app:layout_constraintBottom_toBottomOf="@id/packFragment_tv_carbohydrates"
+                    />
+
+                <TextView
+                    android:id="@+id/packFragment_tv_carbohydrates"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="12dp"
+
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="Углеводы (?? г)"
+                    android:fontFamily="@font/roboto"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/packFragment_tv_fats" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:visibility="visible"
+
+                android:id="@+id/pieChart"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

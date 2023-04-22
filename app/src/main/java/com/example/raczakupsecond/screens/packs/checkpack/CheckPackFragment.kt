@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentCheckPackBinding
@@ -27,14 +29,12 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        viewModel.getFamily(requireArguments().getInt("familyId").toString())
-//        viewModel.changeDaysLiveData(requireArguments().getInt("days"))
-
         viewModel.apply {
             getFamily(requireArguments().getInt("familyId").toString())
             changeDaysLiveData(requireArguments().getInt("days"))
             changeBudgetLiveData(requireArguments().getInt("budget"))
-            //TODO(shop, address)
+            getAddress(requireArguments().getInt("addressId").toString())
+            //TODO(shop)
         }
 
     }
@@ -42,7 +42,17 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.buttonCheckPackTakeBasket.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_checkPackFragment_to_packFragment,
+                bundleOf(
+                    "familyId" to requireArguments().getInt("familyId").toString(),
+                    "days" to requireArguments().getInt("days"),
+                    "budget" to requireArguments().getInt("budget"),
+                    "addressId" to requireArguments().getInt("addressId").toString()
+                )
+            )
+        }
     }
 
     override fun onResume() {
@@ -95,6 +105,21 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_premium)
                     }
                 }
+            }
+        }
+
+        viewModel.getAddressLiveData().observe(viewLifecycleOwner) {
+
+            with(binding) {
+                tvCheckPackAddressTitle.text = it.name.toString()
+                tvCheckPackAddress.text = getString(R.string.address_in_item,
+                    it.city,
+                    it.street,
+                    it.house_number,
+                    it.entrance,
+                    it.floor,
+                    it.apartment
+                )
             }
         }
 

@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.categories
+package com.example.raczakupsecond.screens.shop.categories
 
 import android.net.Uri
 import android.os.Bundle

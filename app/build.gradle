@@ -40,6 +40,9 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
 
+    //Pie Chart для построения диаграммы
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
     //Yandex Maps
     implementation 'com.yandex.android:maps.mobile:4.2.2-full'
 

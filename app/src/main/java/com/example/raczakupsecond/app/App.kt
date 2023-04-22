@@ -16,6 +16,7 @@ class App : Application() {
         private lateinit var app: App
         private lateinit var networkRepository: NetworkRepository
         private lateinit var sharedPreferencesRepository: SharedPreferencesRepository
+        private lateinit var networkLoaderRepository: NetworkLoaderRepository
 
         fun getNetworkRepository(): NetworkRepository {
             return networkRepository
@@ -24,6 +25,10 @@ class App : Application() {
         fun getSharedPreferencesRepository(): SharedPreferencesRepository {
             return sharedPreferencesRepository
         }
+
+        fun getNetworkLoaderRepositoty(): NetworkLoaderRepository {
+            return networkLoaderRepository
+        }
     }
 
     override fun onCreate() {
@@ -31,7 +36,10 @@ class App : Application() {
         app = this
         val applicationContext = app.applicationContext
         networkRepository = NetworkRepositoryImpl()
+        networkLoaderRepository = NetworkLoaderRepositoryImpl(applicationContext)
         sharedPreferencesRepository = SharedPreferencesRepositoryImpl(applicationContext)
+
+
         MapKitFactory.setApiKey(Constants.API_MAP_KEY)
 
         RxJavaPlugins.setErrorHandler { e ->

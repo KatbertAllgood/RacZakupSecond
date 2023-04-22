@@ -1,10 +1,15 @@
 package com.example.raczakupsecond.screens.packs.checkpack
 
+import android.content.Context
+import android.location.Address
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.addresses.AddressParamsDomain
 import com.example.domain.models.families.NewFamilyDomain
 import com.example.domain.models.families.NewMemberDomain
+import com.example.domain.usecase.address.GetAddressUseCase
 import com.example.domain.usecase.families.GetFamilyUseCase
 import com.example.raczakupsecond.app.App
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -67,6 +72,36 @@ class CheckPackFragmentVM : ViewModel() {
 
     //endregion
 
-    //region
+    //region Address section
+
+    private val getAddressUseCase = GetAddressUseCase(networkRepository)
+
+//    private val addressTitleLiveData = MutableLiveData<String>()
+//    fun getAddressTitleLiveData() : LiveData<AddressParamsDomain> = addressTitleLiveData
+
+//    fun changeAddressTitleLiveData(title: String) { addressTitleLiveData.value = title }
+
+    private val addressLiveData = MutableLiveData<AddressParamsDomain>()
+    fun getAddressLiveData() : LiveData<AddressParamsDomain> = addressLiveData
+
+    fun getAddress(
+        addressId: String
+    ) {
+        getAddressUseCase.invoke(addressId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<AddressParamsDomain>() {
+                override fun onSuccess(t: AddressParamsDomain) {
+                    addressLiveData.value = t
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d("GET_ADDRESS_ERROR", e.message.toString())
+                }
+
+            })
+    }
+
+    //endregion
 
 }

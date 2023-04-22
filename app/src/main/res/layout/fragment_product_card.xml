@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.shop.productcard.ProductCardFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/productFragment_image"
+
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                tools:src="@drawable/shape_oval_green"
+                android:background="@drawable/shape_profile_background_for_data_holders"
+
+                android:padding="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginHorizontal="20dp" />
+
+            <TextView
+                android:id="@+id/productFragment_tv_composition"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+
+                tools:text="Макаронные изделия"
+                android:fontFamily="@font/roboto"
+                android:textSize="24sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/productFragment_tv_title"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="3dp"
+
+                tools:text="Barilla Conghiglie Rigate"
+                android:fontFamily="@font/roboto"
+                android:textSize="24sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/productFragment_tv_weigh"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="3dp"
+
+                tools:text="250 гр."
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="26sp"
+                android:textColor="@color/gray_text" />
+
+            <TextView
+                android:id="@+id/productFragment_tv_price"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"
+
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_rectanle_green_for_price"
+
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="20dp"
+
+                tools:text="599₽"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="28sp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+
+                android:text="@string/description"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="20sp"
+                android:textColor="#1CB522" />
+
+            <TextView
+                android:id="@+id/productFragment_tv_description"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="5dp"
+
+                tools:text="Для производства макаронных изделий Conchiglie Rigate бренда Barilla используется очищенная вода и мука из твердых сортов пшеницы. Благодаря высококачественным ингредиентам паста не слипается и не требует промывания. Продукт очень питательный, надолго дарит чувство сытости и заряжает энергией. Особая форма конкилье ригате в виде ракушек позволяет лучше раскрыть вкус различных соусов, например, сливочного, рыбного или карбонара."
+                android:fontFamily="@font/roboto"
+                android:textSize="20sp"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+
+                android:text="@string/add_to_cart"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="72dp"
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_profile_frag_button" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
