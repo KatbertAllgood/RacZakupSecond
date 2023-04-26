@@ -13,107 +13,73 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 
+
 class TokenAuthenticator : Authenticator {
     private val networkRepository = NetworkRepositoryImpl()
     private val refreshUseCase = RefreshUseCase(networkRepository)
 
     override fun authenticate(route: Route?, response: Response): Request? {
+        val accessToken = ApplicationPreferences.getAccess ?: ""
+        if (!isRequestWithAccessToken(response) || accessToken == null || accessToken == "") {
+            return null
+        }
+        synchronized (this) {
+            val newAccessToken = ApplicationPreferences.getAccess ?: ""
+            val newRefreshToken = ApplicationPreferences.getRefresh ?: ""
 
-        refreshUseCase.invoke()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableSingleObserver<RefreshResponseDomain>() {
-                override fun onSuccess(t: RefreshResponseDomain) {
+            if (accessToken != newAccessToken) {
 
-                    ApplicationPreferences.getAccess = t.accessToken
-                    ApplicationPreferences.getRefresh = t.refreshToken
+                ApplicationPreferences.getAccess = newAccessToken
+                ApplicationPreferences.getRefresh = newRefreshToken
 
-                    Log.d("AuthenticatorRefresh", "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
-                }
-                override fun onError(e: Throwable) {
-                    Log.d("AuthenticatorRefresh", e.message.toString())
-                }
+                return newRequestWithAccessToken(
+                    response.request,
+                    newAccessToken,
+                    newRefreshToken
+                )
+            }
 
-            })
+            var updatedAccessToken = ""
+            var updatedRefreshToken = ""
 
-        val accessToken: String = ApplicationPreferences.getAccess ?: ""
-        val refreshToken: String = ApplicationPreferences.getRefresh ?: ""
+            refreshUseCase.invoke()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DisposableSingleObserver<RefreshResponseDomain>() {
+                    override fun onSuccess(t: RefreshResponseDomain) {
 
-        return response.request.newBuilder()
+                        updatedAccessToken = t.accessToken
+                        updatedRefreshToken = t.refreshToken
+
+                        ApplicationPreferences.getAccess = t.accessToken
+                        ApplicationPreferences.getRefresh = t.refreshToken
+
+                        Log.d("AuthenticatorRefresh", "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
+                    }
+                    override fun onError(e: Throwable) {
+                        Log.d("AuthenticatorRefresh", e.message.toString())
+                    }
+                })
+
+            return newRequestWithAccessToken(
+                response.request,
+                updatedAccessToken,
+                updatedRefreshToken
+            )
+        }
+    }
+
+    private fun isRequestWithAccessToken(response: Response) : Boolean {
+        val header: String? = response.request.header("Authorization")
+        return (header != null) && (header.startsWith("Bearer"))
+    }
+
+    private fun newRequestWithAccessToken(
+        request: Request, accessToken: String, refreshToken: String
+    ) : Request {
+        return request.newBuilder()
             .addHeader("Authorization", "Bearer $accessToken")
             .addHeader("Cookie", "refreshToken=$refreshToken")
             .build()
-
     }
 }
-
-
-
-
-//        val token = ApplicationPreferences.getAccess ?: ""
-//
-//        synchronized(this) {
-//            var newToken = ""
-//
-//            refreshUseCase.invoke()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(object : DisposableSingleObserver<RefreshResponseDomain>() {
-//                    override fun onSuccess(t: RefreshResponseDomain) {
-//
-//                        newToken = t.accessToken
-//
-//                    }
-//                    override fun onError(e: Throwable) {
-//                        Log.d("AuthenticatorRefresh", e.message.toString())
-//                    }
-//
-//                })
-//
-//            if(response.request.header("Authorization") != null){
-//
-//                if(newToken != token){
-//                    return response.request
-//                        .newBuilder()
-//                        .removeHeader("Authorization")
-//                        .addHeader("Authorization", "Bearer $newToken")
-//                        .build()
-//                }
-//
-//                val updatedToken = ApplicationPreferences.getRefresh ?: ""
-//
-//            }
-//
-//
-//
-//        }
-//
-//        if(!response.request.header("Authorization").equals(ApplicationPreferences.getAccess)) {
-//            Log.d("REFRESH", "TRIED")
-//            return null
-//        }
-//
-//        refreshUseCase.invoke()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(object : DisposableSingleObserver<RefreshResponseDomain>() {
-//                override fun onSuccess(t: RefreshResponseDomain) {
-//
-//                    ApplicationPreferences.getAccess = t.accessToken
-//                    ApplicationPreferences.getRefresh = t.refreshToken
-//
-//                    Log.d("AuthenticatorRefresh", "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
-//                }
-//                override fun onError(e: Throwable) {
-//                    Log.d("AuthenticatorRefresh", e.message.toString())
-//                }
-//
-//            })
-//
-//        val accessToken: String = ApplicationPreferences.getAccess ?: ""
-//        val refreshToken: String = ApplicationPreferences.getRefresh ?: ""
-//
-//        return response.request.newBuilder()
-//            .addHeader("Authorization", "Bearer $accessToken")
-//            .addHeader("Cookie", "refreshToken=$refreshToken")
-//            .build()
