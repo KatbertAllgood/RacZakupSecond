@@ -28,6 +28,8 @@ import io.reactivex.schedulers.Schedulers
 
 class AddressFragmentVM : ViewModel() {
 
+    private val TAG = AddressFragmentVM::class.simpleName
+
     private val networkRepository = App.getNetworkRepository()
 
     private val createAddressUseCase = CreateAddressUseCase(networkRepository)
@@ -41,8 +43,8 @@ class AddressFragmentVM : ViewModel() {
     private val editingPointLiveData = MutableLiveData<Point>()
     fun getEditingPointLiveData() : LiveData<Point> = editingPointLiveData
 
-//    private val addressParamsToUpdateLiveData = MutableLiveData<AddressParamsDomain>()
-//    fun getAddressParamsToUpdateLiveData(): LiveData<AddressParamsDomain> = addressParamsToUpdateLiveData
+
+    //region UI
 
     private val cityLiveData = MutableLiveData<String>()
     fun getCityLiveData() : LiveData<String> = cityLiveData
@@ -92,12 +94,18 @@ class AddressFragmentVM : ViewModel() {
         commentLiveData.value = comment
     }
 
+    //endregion
+
+    //region not UI
+
+    private var geoResponse : ResponseGeoDomain = ResponseGeoDomain()
+    fun getGeoResponse() = geoResponse
+
+    //endregion
+
     private val queryResponseResultLiveData = MutableLiveData<String>()
     fun getQueryResponseResultLiveData() : LiveData<String> = queryResponseResultLiveData
 
-//    private val coordinatesResponseLiveData = MutableLiveData<List<ResponseGeoCoordinatesDomain>>()
-//    fun getCoordinatesResponse() : LiveData<List<ResponseGeoCoordinatesDomain>> =
-//        coordinatesResponseLiveData
 
     fun getAddress() {
         getAddressUseCase.invoke(editingAddressId)
@@ -111,10 +119,10 @@ class AddressFragmentVM : ViewModel() {
 
                     setCityLiveData(t.city.toString())
                     setStreetLiveData(t.street.toString())
-                    setBuildingLiveData(t.house_number.toString())
+                    setBuildingLiveData(t.house.toString())
                     setEntranceLiveData(t.entrance.toString())
                     setFloorLiveData(t.floor.toString())
-                    setFlatLiveData(t.apartment.toString())
+                    setFlatLiveData(t.flat.toString())
                     setTitleLiveData(t.name.toString())
                     setCommentLiveData(t.comment.toString())
 
@@ -125,7 +133,7 @@ class AddressFragmentVM : ViewModel() {
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("GET_ADDRESS_ERROR", e.message.toString())
+                    Log.d(TAG, "GET_ADDRESS_ERROR: ${ e.message.toString() }")
                 }
 
             })
@@ -139,11 +147,11 @@ class AddressFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<AddressParamsDomain>() {
                 override fun onSuccess(t: AddressParamsDomain) {
-                    Log.d("CREATE_ADDRESS", t.id.toString())
+                    Log.d(TAG, "CREATE_ADDRESS_SUCCESS: ${t.id}")
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("CREATE_ADDRESS_ERROR", e.message.toString())
+                    Log.d(TAG, "CREATE_ADDRESS_ERROR: ${ e.message.toString() }")
                 }
 
             })
@@ -161,11 +169,11 @@ class AddressFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<AddressParamsDomain>() {
                 override fun onSuccess(t: AddressParamsDomain) {
-                    Log.d("UPDATE_ADDRESS", t.id.toString())
+                    Log.d(TAG, "UPDATE_ADDRESS_SUCCESS: ${ t.id.toString() }")
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("UPDATE_ADDRESS_ERROR", e.message.toString())
+                    Log.d(TAG, "UPDATE_ADDRESS_ERROR: ${ e.message.toString() }")
                 }
 
             })
@@ -180,9 +188,8 @@ class AddressFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<List<ResponseGeoCoordinatesDomain>>() {
                 override fun onSuccess(t: List<ResponseGeoCoordinatesDomain>) {
-                    Log.d("RESOLVE_COORDINATES", "SUCCESS")
+                    Log.d(TAG, "RESOLVE_COORDINATES: SUCCESS")
 
-                    Log.d("RESOLVE_COORDINATES_TEST", t[0].data.toString())
                     if (t[0].data.city == null
                         && t[0].data.region_type_full.toString() == "город") {
                         setCityLiveData(t[0].data.region.toString())
@@ -206,10 +213,12 @@ class AddressFragmentVM : ViewModel() {
                         setBuildingLiveData(t[0].data.house.toString())
                     }
 
+                    geoResponse = t[0].data
+
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("RESOLVE_COORDINATES_ERROR", e.message.toString())
+                    Log.d(TAG, "RESOLVE_COORDINATES_ERROR: ${ e.message.toString() }")
                 }
 
             })
@@ -224,7 +233,7 @@ class AddressFragmentVM : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableSingleObserver<ResponseGeoDomain>() {
                 override fun onSuccess(t: ResponseGeoDomain) {
-                    Log.d("RESOLVE_QUERY", t.toString())
+                    Log.d(TAG, "RESOLVE_QUERY: SUCCESS")
 
                     if (t.city == null
                         && t.region_type_full.toString() == "город") {
@@ -257,10 +266,12 @@ class AddressFragmentVM : ViewModel() {
                     if(t.result.toString() != null && t.result.toString() != "") {
                         queryResponseResultLiveData.value = t.result.toString()
                     }
+
+                    geoResponse = t
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("RESOLVE_QUERY_ERROR", e.message.toString())
+                    Log.d(TAG, "RESOLVE_QUERY_ERROR: ${ e.message.toString() }")
                 }
 
             })

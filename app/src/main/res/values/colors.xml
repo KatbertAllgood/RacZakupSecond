@@ -63,6 +63,13 @@
     <color name="proteins">#94DD4D</color>
     <color name="fats">#FFC93E</color>
     <color name="carbohydrates">#3CD0FA</color>
+    <color name="prot_color">#EF8CFF</color>
+    <color name="prot_color_back">#33EF8CFF</color>
+    <color name="fat_color">#E12CFF</color>
+    <color name="fat_color_back">#33E12CFF</color>
+    <color name="carb_color">#9100A9</color>
+    <color name="carb_color_back">#339100A9</color>
+    <color name="kcal_color">#5F036D</color>
 
     <!-- АДРЕС -->
     <color name="f5f5f5">#F5F5F5</color>

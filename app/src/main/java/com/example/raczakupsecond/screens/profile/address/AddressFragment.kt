@@ -50,6 +50,10 @@ class AddressFragment : Fragment(R.layout.fragment_address),
     private lateinit var binding : FragmentAddressBinding
     private val viewModel : AddressFragmentVM by viewModels()
 
+    private val TAG = AddressFragment::class.simpleName
+
+    private var addressParams = AddressParamsRequestDomain()
+
     private lateinit var mode: String
 
     private lateinit var currentPosition: Point
@@ -180,14 +184,14 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                     etAddressfragmentFlat,
                     etAddressfragmentEntrance
                 ).forEach {
-                    Log.d("CHECK_EDIT_TEXT", it.text.toString())
+                    Log.d(TAG, "CHECK_EDIT_TEXT: ${it.text.toString()}")
 //                    if (it.text == null || it.text.toString() == "" || it.text.isEmpty()) {
 //                        it.error = "Необходимо заполнить"
 //                        isEmpty = true
 //                    } else isEmpty = false
                 }
 
-                Log.d("IS_EMPTY", isEmpty.toString())
+                Log.d(TAG, "IS_EMPTY: ${isEmpty.toString()}")
 
                 if (!isEmpty) {
 
@@ -262,27 +266,53 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
             binding.apply {
 
-
-                val addressParams = AddressParamsRequestDomain(
-                    name = etAddressfragmentAddressTitle.text.toString(),
-                    country = "",
-                    region = "",
-                    district = "",
-                    city = etAddressfragmentCity.text.toString(),
-                    locality = "",
-                    street = etAddressfragmentStreet.text.toString(),
-                    house_number = etAddressfragmentBuilding.text.toString(),
-                    corpus = "",
-                    apartment = etAddressfragmentFlat.text.toString(),
-                    entrance = etAddressfragmentEntrance.text.toString(),
-                    floor = etAddressfragmentFloor.text.toString(),
-                    comment = etAddressfragmentAddressComment.text.toString(),
-                    postal_code = "1111",
-                    lat = currentPosition.latitude,
+                addressParams.apply {
+                    name = etAddressfragmentAddressTitle.text.toString()
+                    country = viewModel.getGeoResponse().country ?: ""
+                    federal_district = viewModel.getGeoResponse().federal_district ?: ""
+                    region = viewModel.getGeoResponse().region ?: ""
+                    region_type_full = viewModel.getGeoResponse().region_type_full ?: ""
+                    city = etAddressfragmentCity.text.toString()
+                    city_type_full = viewModel.getGeoResponse().city_type_full ?: ""
+                    city_area = viewModel.getGeoResponse().city_area ?: ""
+                    settlement = viewModel.getGeoResponse().settlement ?: ""
+                    settlement_type_full = viewModel.getGeoResponse().settlement_type_full ?: ""
+                    street = etAddressfragmentStreet.text.toString()
+                    street_type_full = viewModel.getGeoResponse().street_type_full ?: ""
+                    house = etAddressfragmentBuilding.text.toString()
+                    house_type_full = viewModel.getGeoResponse().house_type_full ?: ""
+                    block = viewModel.getGeoResponse().block ?: ""
+                    block_type_full =  viewModel.getGeoResponse().block_type_full ?: ""
+                    flat = etAddressfragmentFlat.text.toString()
+                    entrance = etAddressfragmentEntrance.text.toString()
+                    floor = etAddressfragmentFloor.text.toString()
+                    beltway_hit = viewModel.getGeoResponse().beltway_hit ?: ""
+                    comment = etAddressfragmentAddressComment.text.toString()
+                    postal_code = viewModel.getGeoResponse().postal_code ?: ""
+                    lat = currentPosition.latitude
                     lon = currentPosition.longitude
-                )
+                }
 
-                Log.d("ADDRESS_PARAMS", addressParams.toString())
+
+
+//                val addressParams = AddressParamsRequestDomain(
+//                    name = etAddressfragmentAddressTitle.text.toString(),
+//                    country = "",
+//                    federal_district = "",
+//
+//                    city = etAddressfragmentCity.text.toString(),
+//                    street = etAddressfragmentStreet.text.toString(),
+//                    house = etAddressfragmentBuilding.text.toString(),
+//                    flat = etAddressfragmentFlat.text.toString(),
+//                    entrance = etAddressfragmentEntrance.text.toString(),
+//                    floor = etAddressfragmentFloor.text.toString(),
+//                    comment = etAddressfragmentAddressComment.text.toString(),
+//                    postal_code = "1111",
+//                    lat = currentPosition.latitude,
+//                    lon = currentPosition.longitude
+//                )
+
+                Log.d(TAG, "ADDRESS_PARAMS: ${addressParams.toString()}")
 
                 if (mode == Constants.CREATE_MODE) {
 
@@ -346,6 +376,8 @@ class AddressFragment : Fragment(R.layout.fragment_address),
 
                 getCityLiveData().observe(viewLifecycleOwner) {
                     etAddressfragmentCity.setText(it)
+
+                    Log.d(TAG, getCityLiveData().value.toString())
                 }
 
                 getStreetLiveData().observe(viewLifecycleOwner) {
@@ -478,7 +510,7 @@ class AddressFragment : Fragment(R.layout.fragment_address),
                 if (location != null) {
                     currentPosition = Point(location.latitude, location.longitude)
                     currentZoom = 17.0F
-                    Log.d("CURRENT_LOCATION", "${location.latitude}, ${location.longitude}")
+                    Log.d(TAG, "CURRENT_LOCATION: ${location.latitude}, ${location.longitude}")
                     binding.mapview.map.move(
                         CameraPosition(currentPosition, currentZoom, 0.0f, 0.0f),
                         Animation(Animation.Type.SMOOTH, 2F),

@@ -32,7 +32,7 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
         viewModel.apply {
             getFamily(requireArguments().getInt("familyId").toString())
             changeDaysLiveData(requireArguments().getInt("days"))
-            changeBudgetLiveData(requireArguments().getInt("budget"))
+            changeBudgetLiveData(requireArguments().getString("budget").toString())
             getAddress(requireArguments().getInt("addressId").toString())
             //TODO(shop)
         }
@@ -48,7 +48,7 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
                 bundleOf(
                     "familyId" to requireArguments().getInt("familyId").toString(),
                     "days" to requireArguments().getInt("days"),
-                    "budget" to requireArguments().getInt("budget"),
+                    "budget" to requireArguments().getString("budget"),
                     "addressId" to requireArguments().getInt("addressId").toString()
                 )
             )
@@ -87,19 +87,19 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
         viewModel.getBudgetLiveData().observe(viewLifecycleOwner) {
 
             when (it) {
-                0 -> {
+                "0" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.eco_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_eco)
                     }
                 }
-                1 -> {
+                "1" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.standard_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_standard)
                     }
                 }
-                2 -> {
+                "2" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.premium_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_premium)
@@ -115,10 +115,10 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
                 tvCheckPackAddress.text = getString(R.string.address_in_item,
                     it.city,
                     it.street,
-                    it.house_number,
+                    it.house,
                     it.entrance,
                     it.floor,
-                    it.apartment
+                    it.flat
                 )
             }
         }

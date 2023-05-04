@@ -65,10 +65,10 @@ class CheckPackFragmentVM : ViewModel() {
 
     //region Budget section
 
-    private val budgetLiveData = MutableLiveData<Int>()
+    private val budgetLiveData = MutableLiveData<String>()
     fun getBudgetLiveData() = budgetLiveData
 
-    fun changeBudgetLiveData(budgetId: Int) { budgetLiveData.value = budgetId }
+    fun changeBudgetLiveData(budgetId: String) { budgetLiveData.value = budgetId }
 
     //endregion
 

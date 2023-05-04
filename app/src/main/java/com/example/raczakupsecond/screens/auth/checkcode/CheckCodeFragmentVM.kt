@@ -23,6 +23,8 @@ class CheckCodeFragmentVM : ViewModel() {
 
     private val responseSuccess = MutableLiveData<Boolean>()
 
+    private val TAG = CheckCodeFragmentVM::class.simpleName
+
     fun getResponseSuccess(): LiveData<Boolean> {
         return responseSuccess
     }
@@ -57,10 +59,11 @@ class CheckCodeFragmentVM : ViewModel() {
     private fun setTokens(t: CodeResponseDomain) {
         val accessToken = t.accessToken
         ApplicationPreferences.getAccess = accessToken
-        Log.d("INTERCEPTORPREFFF", ApplicationPreferences.getAccess ?: "non")
+        Log.d(TAG, ApplicationPreferences.getAccess ?: "non")
 //        updatePreferenceUseCase.invoke(Constants.ACCESS_TOKEN, accessToken)
         val refreshToken = t.refreshToken
         ApplicationPreferences.getRefresh = refreshToken
+        Log.d(TAG, "access token: $accessToken\nrefresh token: $refreshToken")
 //        updatePreferenceUseCase.invoke(Constants.REFRESH_TOKEN, refreshToken)
     }
 }

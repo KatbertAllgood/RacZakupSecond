@@ -115,8 +115,24 @@
     <string name="next">Далее</string>
     <string name="address_in_item">г. %s,\nул. %s,\nдом %s, подъезд %s, этаж %s, квартира %s</string>
 
-    <string name="products_protein">Продукты с высоким содержанием белка</string>
-    <string name="products_energy">Продукты, которые наполняют нас энергией</string>
+    <string name="products_energy">racEnergy</string>
+    <string name="products_power">racPower</string>
+    <string name="products_oil">racOil</string>
+    <string name="products_other">racOther</string>
+    <string name="products_user">userProducts</string>
+
+    <string name="price_two_dots">Цена:</string>
+
+    <string name="proteins_letter">Б</string>
+    <string name="fats_letter">Ж</string>
+    <string name="carbohydrates_letter">У</string>
+
+    <string name="proteins_value">Белки (%s г)</string>
+    <string name="fats_value">Жиры (%s г)</string>
+    <string name="carbs_value">Углеводы (%s г)</string>
+
+    <string name="kcal">Ккал:</string>
+
     <string name="info_pack">Информация о закупке</string>
     <string name="statistic_pack">Сводка потребления питательных веществ</string>
 
@@ -151,7 +167,7 @@
     <string name="hint_floor">Этаж</string>
     <string name="hint_flat">Квартира</string>
     <string name="hint_address_title">Название (\"офис\", \"дом\" и т.п.)</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="maxHeight">185</string>
 
 </resources>

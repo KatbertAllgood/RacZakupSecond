@@ -43,18 +43,18 @@ class ProfileFragmentAddressesAdapter(
             addressItemAddress.text = context.resources.getString(R.string.address_in_item,
                 address.city,
                 address.street,
-                address.house_number,
+                address.house,
                 address.entrance,
                 address.floor,
-                address.apartment
+                address.flat
             )
             addressItemHiddenAddress.text = context.resources.getString(R.string.address_in_item,
                 address.city,
                 address.street,
-                address.house_number,
+                address.house,
                 address.entrance,
                 address.floor,
-                address.apartment
+                address.flat
             )
 
             closeHidden.setOnClickListener {

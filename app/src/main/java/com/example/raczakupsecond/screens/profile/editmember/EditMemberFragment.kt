@@ -80,7 +80,7 @@ class EditMemberFragment : Fragment(R.layout.fragment_edit_member) {
                 binding.buttonEditGroupDelete.visibility = View.GONE
                 binding.buttonEditGroupConfirm.text = getString(R.string.add_member)
 
-                binding.editTextEditedHeight.setText("185")
+                binding.editTextEditedHeight.setText(getString(R.string.maxHeight))
                 binding.editTextEditedWeight.setText("100")
                 viewModel.calculateImt(100, 185)
             }

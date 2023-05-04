@@ -1,12 +1,10 @@
 package com.example.raczakupsecond.app
 
 import android.app.Application
-import android.util.Log
 import com.example.data.repository.*
 import com.example.domain.repository.*
 import com.example.domain.utils.Constants
 import com.yandex.mapkit.MapKitFactory
-import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -26,7 +24,7 @@ class App : Application() {
             return sharedPreferencesRepository
         }
 
-        fun getNetworkLoaderRepositoty(): NetworkLoaderRepository {
+        fun getNetworkLoaderRepository(): NetworkLoaderRepository {
             return networkLoaderRepository
         }
     }

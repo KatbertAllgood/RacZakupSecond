@@ -18,6 +18,8 @@ class TokenAuthenticator : Authenticator {
     private val networkRepository = NetworkRepositoryImpl()
     private val refreshUseCase = RefreshUseCase(networkRepository)
 
+    private val TAG = TokenAuthenticator::class.simpleName
+
     override fun authenticate(route: Route?, response: Response): Request? {
         val accessToken = ApplicationPreferences.getAccess ?: ""
         if (!isRequestWithAccessToken(response) || accessToken == null || accessToken == "") {
@@ -54,10 +56,10 @@ class TokenAuthenticator : Authenticator {
                         ApplicationPreferences.getAccess = t.accessToken
                         ApplicationPreferences.getRefresh = t.refreshToken
 
-                        Log.d("AuthenticatorRefresh", "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
+                        Log.d(TAG, "a:${t.accessToken}\nr:${t.refreshToken}\nr:${t.data.userDto.role}")
                     }
                     override fun onError(e: Throwable) {
-                        Log.d("AuthenticatorRefresh", e.message.toString())
+                        Log.d(TAG, e.message.toString())
                     }
                 })
 

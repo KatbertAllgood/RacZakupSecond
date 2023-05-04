@@ -23,6 +23,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var binding : FragmentProfileBinding
     private val viewModel : ProfileFragmentVM by viewModels()
 
+    private val TAG = ProfileFragment::class.simpleName
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -88,7 +90,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         viewModel.getAllAddressesLiveData().observe(viewLifecycleOwner) {
-//            Log.d("ADDRESSES", it.toString())
+            Log.d(TAG, "ADDRESSES: ${it.toString()}")
 
             val addressAdapter = ProfileFragmentAddressesAdapter(it, requireContext())
 

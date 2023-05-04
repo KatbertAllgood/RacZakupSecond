@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_auth">
+    app:startDestination="@id/startFragment">
 
-    <navigation android:id="@+id/navigation_auth"
-        app:startDestination="@id/startFragment">
         <fragment
             android:id="@+id/startFragment"
             android:name="com.example.raczakupsecond.screens.start.StartFragment"
@@ -30,9 +28,6 @@
                 android:id="@+id/action_loginFragment_to_checkCodeFragment"
                 app:destination="@id/checkCodeFragment" />
         </fragment>
-    </navigation>
-    <navigation android:id="@+id/navigation_shop"
-        app:startDestination="@id/categoriesShopFragment">
         <fragment
             android:id="@+id/categoriesShopFragment"
             android:name="com.example.raczakupsecond.screens.shop.categories.CategoriesShopFragment"
@@ -49,9 +44,6 @@
                 app:uri="raczakup://internal_navigation_productCardFragment" />
 
         </fragment>
-    </navigation>
-    <navigation android:id="@+id/navigation_profile"
-        app:startDestination="@id/profileFragment">
         <fragment
             android:id="@+id/profileFragment"
             android:name="com.example.raczakupsecond.screens.profile.profilepage.ProfileFragment"
@@ -94,9 +86,6 @@
                 android:id="@+id/deeplink_addressFragment"
                 app:uri="raczakup://internal_navigation_addressFragment" />
         </fragment>
-    </navigation>
-    <navigation android:id="@+id/navigation_packs"
-        app:startDestination="@id/myPacksFragment">
         <fragment
             android:id="@+id/myPacksFragment"
             android:name="com.example.raczakupsecond.screens.packs.mypacks.MyPacksFragment"
@@ -114,6 +103,9 @@
             <action
                 android:id="@+id/action_editPackFragment_to_checkPackFragment"
                 app:destination="@id/checkPackFragment" />
+            <action
+                android:id="@+id/action_editPackFragment_to_addressFragment"
+                app:destination="@id/addressFragment" />
         </fragment>
         <fragment
             android:id="@+id/checkPackFragment"
@@ -128,6 +120,9 @@
             android:id="@+id/packFragment"
             android:name="com.example.raczakupsecond.screens.packs.pack.PackFragment"
             android:label="fragment_pack"
-            tools:layout="@layout/fragment_pack" />
-    </navigation>
+            tools:layout="@layout/fragment_pack" >
+            <action
+                android:id="@+id/action_packFragment_to_productCardFragment"
+                app:destination="@id/productCardFragment" />
+        </fragment>
 </navigation>

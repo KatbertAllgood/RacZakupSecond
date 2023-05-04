@@ -4,5 +4,5 @@ import com.example.domain.models.shop.ProductParamsDomain
 
 data class HealthySetParamsResponseDomain(
     val status: String = "",
-    val data: List<ProductParamsDomain> = listOf()
+    val data: List<HealthySetParamsGroupsDomain> = listOf()
 )

@@ -44,7 +44,7 @@ class CheckCodeFragment : Fragment(R.layout.fragment_check_code) {
                 when (it) {
                     true -> {
                         ApplicationPreferences.getPhoneNubmer = phoneNumber
-                        findNavController().navigate(R.id.navigation_shop)
+                        findNavController().navigate(R.id.categoriesShopFragment)
                     }
                     false -> {
                         val toast : Toast = Toast.makeText(

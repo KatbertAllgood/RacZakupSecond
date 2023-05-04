@@ -81,7 +81,7 @@
 
                 android:layout_gravity="center"
 
-                android:background="@drawable/shape_rectanle_green_for_price"
+                android:background="@drawable/shape_rectangle_green_for_price"
 
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="20dp"

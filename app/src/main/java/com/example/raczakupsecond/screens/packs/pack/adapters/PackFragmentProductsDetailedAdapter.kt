@@ -8,11 +8,11 @@ import com.example.domain.models.shop.ProductParamsDomain
 import com.example.domain.usecase.networkloader.DownloadAndSetImageUseCase
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
-import com.example.raczakupsecond.databinding.ItemProductHealthySetBinding
+import com.example.raczakupsecond.databinding.ItemProductHealthySetDetailedBinding
 
-class PackFragmentProductsAdapter(
+class PackFragmentProductsDetailedAdapter(
     private val productsList: List<ProductParamsDomain>
-) : RecyclerView.Adapter<PackFragmentProductsAdapter.ProductHolder>() {
+) : RecyclerView.Adapter<PackFragmentProductsDetailedAdapter.ProductHolder>() {
 
     private val networkLoaderRepository = App.getNetworkLoaderRepository()
     private val downloadAndSetImageUseCase = DownloadAndSetImageUseCase(networkLoaderRepository)
@@ -20,14 +20,14 @@ class PackFragmentProductsAdapter(
     var onItemClick : ((ProductParamsDomain) -> Unit)? = null
 
     inner class ProductHolder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = ItemProductHealthySetBinding.bind(item)
+        private val binding = ItemProductHealthySetDetailedBinding.bind(item)
 
         fun bind(product: ProductParamsDomain) = with(binding) {
 
             listOf(
-                itemProductHealthySetCarbsProgress,
-                itemProductHealthySetFatsProgress,
-                itemProductHealthySetProteinsProgress
+                itemProductHealthySetDetailedCarbohydratesProgress,
+                itemProductHealthySetDetailedFatsProgress,
+                itemProductHealthySetDetailedProteinsProgress
             ).forEach {
                 var max = 0
 
@@ -37,35 +37,33 @@ class PackFragmentProductsAdapter(
                     }
                 }
 
+//                it.max = product.weigh.toInt()
                 it.max = max
             }
 
-            binding.itemProductHealthySetTitle.text = product.title
+            downloadAndSetImageUseCase.invoke(product.image, itemProductHealthySetDetailedImage)
 
-            downloadAndSetImageUseCase.invoke(product.image, binding.itemProductHealthySetImage)
+            itemProductHealthySetDetailedTitle.text = product.title
 
-            itemProductHealthySetCarbsProgress.progress = product.carbohydrates.toInt()
-            itemProductHealthySetFatsProgress.progress = product.fats.toInt()
-            itemProductHealthySetProteinsProgress.progress = product.proteins.toInt()
+            itemProductHealthySetDetailedCarbohydratesProgress.progress = product.carbohydrates.toInt()
+            itemProductHealthySetDetailedFatsProgress.progress = product.fats.toInt()
+            itemProductHealthySetDetailedProteinsProgress.progress = product.proteins.toInt()
 
-            itemProductHealthySetWeighValue.text = product.weigh + " г"
+            itemProductHealthySetDetailedFatsValue.text = "${product.fats.toString()} г"
+            itemProductHealthySetDetailedCarbohydratesValue.text = "${product.carbohydrates.toString()} г"
+            itemProductHealthySetDetailedProteinsValue.text = "${product.proteins.toString()} г"
 
-            itemProductHealthySetFatsValue.text = "${product.fats.toInt()} г"
-            itemProductHealthySetCarbsValue.text = "${product.carbohydrates.toInt()} г"
-            itemProductHealthySetProteinsValue.text = "${product.proteins.toInt()} г"
+            itemProductHealthySetDetailedPriceValue.text = "${product.price.toString()} ₽"
 
-            itemProductHealthySetPrice.text = "${product.price.toString()} ₽"
-
-            itemProductHealthySetKcalValue.text = "${product.energyValue.toInt()} ккал"
+            itemProductHealthySetDetailedKcalValue.text = product.energyValue.toString()
 
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(
-                R.layout.item_product_healthy_set,
+                R.layout.item_product_healthy_set_detailed,
                 parent,
                 false
             )
@@ -84,7 +82,6 @@ class PackFragmentProductsAdapter(
             onItemClick?.invoke(product)
             notifyDataSetChanged()
         }
-
     }
 
 }

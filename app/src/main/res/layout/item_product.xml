@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/item_product_image"
+
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            tools:src="@drawable/shape_red_button"
+
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_product_tv_price"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+
+            android:background="@drawable/shape_rectangle_green_for_price"
+
+            android:layout_marginTop="-10dp"
+            android:layout_marginEnd="-15dp"
+
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+
+            tools:text="599₽"
+            android:fontFamily="@font/roboto"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintTop_toBottomOf="@id/item_product_image"
+            app:layout_constraintEnd_toEndOf="@id/item_product_image" />
+
+        <TextView
+            android:id="@+id/item_product_tv_title"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="18dp"
+
+            tools:text="Творог"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toEndOf="@id/item_product_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_product_tv_weigh"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="12dp"
+
+            tools:text="135 г"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toEndOf="@id/item_product_tv_title"
+            app:layout_constraintTop_toTopOf="@id/item_product_tv_title"
+            app:layout_constraintBottom_toBottomOf="@id/item_product_tv_title"/>
+
+        <TextView
+            android:id="@+id/item_product_tv_proteins_letter"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="3dp"
+
+            tools:text="Б"
+            android:fontFamily="@font/roboto"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_title" />
+
+        <TextView
+            android:id="@+id/item_product_tv_proteins"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="5dp"
+
+            tools:text="13 г"
+            android:fontFamily="@font/roboto"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintTop_toTopOf="@id/item_product_tv_proteins_letter"
+            app:layout_constraintStart_toEndOf="@id/item_product_tv_proteins_letter"
+            app:layout_constraintBottom_toBottomOf="@id/item_product_tv_proteins_letter" />
+
+        <TextView
+            android:id="@+id/item_product_tv_fats"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="3dp"
+
+            tools:text="Ж 1,5 г"
+            android:fontFamily="@font/roboto"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_proteins"
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_proteins" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
