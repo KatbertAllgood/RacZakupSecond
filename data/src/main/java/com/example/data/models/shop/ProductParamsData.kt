@@ -3,6 +3,8 @@ package com.example.data.models.shop
 import com.google.gson.annotations.SerializedName
 
 data class ProductParamsData(
+    @SerializedName("id")
+    val id: Int = 0,
     @SerializedName("title")
     val title: String = "",
     @SerializedName("price")
@@ -48,5 +50,7 @@ data class ProductParamsData(
     @SerializedName("racCategoryBenefit")
     val racCategoryBenefit: String = "",
     @SerializedName("shopId")
-    val shopId: Int = 0
+    val shopId: Int = 0,
+    @SerializedName("amount")
+    val amount: Int = 0
 )

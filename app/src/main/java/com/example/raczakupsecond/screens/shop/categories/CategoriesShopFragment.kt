@@ -45,79 +45,9 @@ class CategoriesShopFragment : Fragment(R.layout.fragment_categories_shop) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val networkRepository = App.getNetworkRepository()
-        val createHealthySetParamsUseCase = CreateHealthySetParamsUseCase(networkRepository)
-        val resolveCoordinatesUseCase = ResolveCoordinatesUseCase(networkRepository)
-        val resolveQueryUseCase = ResolveQueryUseCase(networkRepository)
+        binding.constLayoutCategoryMilk.setOnClickListener {
 
-        binding.constLayoutCategoryFrozen.setOnClickListener {
-
-            createHealthySetParamsUseCase.invoke(
-                HealthySetParamsRequestDomain(0, 0, "тест", 0)
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableSingleObserver<HealthySetParamsResponseDomain>() {
-                    override fun onSuccess(t: HealthySetParamsResponseDomain) {
-                        Log.d("HEALTHY_SET", t.toString())
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("HEALTHY_SET_ERROR", e.message.toString())
-                    }
-
-                })
-
-            resolveCoordinatesUseCase.invoke(
-                RequestCoordinatesDomain(55.8646, 37.3954)
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableSingleObserver<List<ResponseGeoCoordinatesDomain>>() {
-                    override fun onSuccess(t: List<ResponseGeoCoordinatesDomain>) {
-                        Log.d("COORDINATES", t.toString())
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("ERROR_COORDINATES", e.message.toString())
-                    }
-
-                })
-
-            resolveQueryUseCase.invoke(
-                RequestQueryDomain("летчика грицевца 8")
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableSingleObserver<ResponseGeoDomain>() {
-                    override fun onSuccess(t: ResponseGeoDomain) {
-                        Log.d("QUERY", t.toString())
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("ERROR_COORDINATES", e.message.toString())
-                    }
-
-                })
-        }
-
-        binding.constLayoutCategoryMeat.setOnClickListener {
-
-            resolveCoordinatesUseCase.invoke(
-                RequestCoordinatesDomain(55.8646, 37.3954)
-            )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : DisposableSingleObserver<List<ResponseGeoCoordinatesDomain>>() {
-                    override fun onSuccess(t: List<ResponseGeoCoordinatesDomain>) {
-                        Log.d("COORDINATES_TEST", t[0].data.toString())
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.d("ERROR_COORDINATES", e.message.toString())
-                    }
-
-                })
+            findNavController().navigate(R.id.action_categoriesShopFragment_to_productsListFragment)
 
         }
 

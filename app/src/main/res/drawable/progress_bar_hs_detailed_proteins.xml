@@ -8,7 +8,7 @@
             <solid android:color="@color/prot_color_back" />
 
             <corners
-                android:radius="0dp"/>
+                android:radius="2dp"/>
 
         </shape>
 
@@ -21,7 +21,7 @@
             <shape android:shape="rectangle">
 
                 <corners
-                    android:radius="0dp"/>
+                    android:radius="2dp"/>
 
                 <solid android:color="@color/prot_color" />
 

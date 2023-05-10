@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProductParamsDomain(
+    val id: Int = 0,
     val title: String = "",
     val price: Double = 0.0,
     val categoryId: Int = 0,
@@ -27,5 +28,6 @@ data class ProductParamsDomain(
     val image: String = "",
     val racCoefficientBenefit: Double = 0.0,
     val racCategoryBenefit: String = "",
-    val shopId: Int = 0
+    val shopId: Int = 0,
+    val amount: Int = 0
 ) : Parcelable

@@ -33,6 +33,11 @@
     <color name="category_drinks">#ffe5b4</color>
     <color name="category_nuts_dried">#FFC0C0</color>
 
+    <!-- СПИСОК ПРОДУКТОВ -->
+    <color name="item_products_list_background_color">#349DD5A1</color>
+    <color name="button_to_cart_in_products_list">#1F7725</color>
+    <color name="price_to_cart_in_products_list">#9F28A7</color>
+
     <!-- ПРОФИЛЬ -->
     <color name="gray_for_profile_holders">#ECECEC</color>
     <color name="hint_color_edit_text">#898989</color>

@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.packs.pack.adapters
+package com.example.raczakupsecond.screens.packs.pack.packdetailed.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +10,9 @@ import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
 import com.example.raczakupsecond.databinding.ItemProductHealthySetDetailedBinding
 
-class PackFragmentProductsDetailedAdapter(
+class PackDetailedFragmentProductsAdapter(
     private val productsList: List<ProductParamsDomain>
-) : RecyclerView.Adapter<PackFragmentProductsDetailedAdapter.ProductHolder>() {
+) : RecyclerView.Adapter<PackDetailedFragmentProductsAdapter.ProductHolder>() {
 
     private val networkLoaderRepository = App.getNetworkLoaderRepository()
     private val downloadAndSetImageUseCase = DownloadAndSetImageUseCase(networkLoaderRepository)
@@ -25,7 +25,7 @@ class PackFragmentProductsDetailedAdapter(
         fun bind(product: ProductParamsDomain) = with(binding) {
 
             listOf(
-                itemProductHealthySetDetailedCarbohydratesProgress,
+                itemProductHealthySetDetailedCarbsProgress,
                 itemProductHealthySetDetailedFatsProgress,
                 itemProductHealthySetDetailedProteinsProgress
             ).forEach {
@@ -37,25 +37,32 @@ class PackFragmentProductsDetailedAdapter(
                     }
                 }
 
-//                it.max = product.weigh.toInt()
                 it.max = max
             }
 
-            downloadAndSetImageUseCase.invoke(product.image, itemProductHealthySetDetailedImage)
 
-            itemProductHealthySetDetailedTitle.text = product.title
+            itemProductHealthySetDetailedTvTitle.text = product.title
 
-            itemProductHealthySetDetailedCarbohydratesProgress.progress = product.carbohydrates.toInt()
+            downloadAndSetImageUseCase.invoke(product.image, binding.itemProductHealthySetDetailedImage)
+
+            itemProductHealthySetDetailedCarbsProgress.progress = product.carbohydrates.toInt()
             itemProductHealthySetDetailedFatsProgress.progress = product.fats.toInt()
             itemProductHealthySetDetailedProteinsProgress.progress = product.proteins.toInt()
 
-            itemProductHealthySetDetailedFatsValue.text = "${product.fats.toString()} г"
-            itemProductHealthySetDetailedCarbohydratesValue.text = "${product.carbohydrates.toString()} г"
-            itemProductHealthySetDetailedProteinsValue.text = "${product.proteins.toString()} г"
+            itemProductHealthySetDetailedTvWeigh.text = product.weigh + " г"
 
-            itemProductHealthySetDetailedPriceValue.text = "${product.price.toString()} ₽"
+            itemProductHealthySetDetailedFatsValue.text = "${product.fats.toInt()} г"
+            itemProductHealthySetDetailedCarbsValue.text = "${product.carbohydrates.toInt()} г"
+            itemProductHealthySetDetailedProteinsValue.text = "${product.proteins.toInt()} г"
 
-            itemProductHealthySetDetailedKcalValue.text = product.energyValue.toString()
+            itemProductHealthySetDetailedTvPrice.text = "${product.price} ₽"
+
+            itemProductHealthySetDetailedKcalValue.text = "${product.energyValue.toInt()} ккал"
+
+            itemProductHealthySetDetailedTvAmount.text = product.amount.toString()
+
+            val amountedPrice = product.price * product.amount
+            itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
 
         }
     }

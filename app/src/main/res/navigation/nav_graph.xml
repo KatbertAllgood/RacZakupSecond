@@ -32,7 +32,11 @@
             android:id="@+id/categoriesShopFragment"
             android:name="com.example.raczakupsecond.screens.shop.categories.CategoriesShopFragment"
             android:label="fragment_categories_shop"
-            tools:layout="@layout/fragment_categories_shop" />
+            tools:layout="@layout/fragment_categories_shop" >
+            <action
+                android:id="@+id/action_categoriesShopFragment_to_productsListFragment"
+                app:destination="@id/productsListFragment" />
+        </fragment>
         <fragment
             android:id="@+id/productCardFragment"
             android:name="com.example.raczakupsecond.screens.shop.productcard.ProductCardFragment"
@@ -118,11 +122,24 @@
         </fragment>
         <fragment
             android:id="@+id/packFragment"
-            android:name="com.example.raczakupsecond.screens.packs.pack.PackFragment"
+            android:name="com.example.raczakupsecond.screens.packs.pack.defaultpack.PackFragment"
             android:label="fragment_pack"
             tools:layout="@layout/fragment_pack" >
             <action
                 android:id="@+id/action_packFragment_to_productCardFragment"
                 app:destination="@id/productCardFragment" />
+            <action
+                android:id="@+id/action_packFragment_to_packDetailedFragment"
+                app:destination="@id/packDetailedFragment" />
         </fragment>
+    <fragment
+        android:id="@+id/productsListFragment"
+        android:name="com.example.raczakupsecond.screens.shop.productslist.ProductsListFragment"
+        android:label="fragment_products_list"
+        tools:layout="@layout/fragment_products_list" />
+    <fragment
+        android:id="@+id/packDetailedFragment"
+        android:name="com.example.raczakupsecond.screens.packs.pack.packdetailed.PackDetailedFragment"
+        android:label="fragment_pack_detailed"
+        tools:layout="@layout/fragment_pack_detailed" />
 </navigation>

@@ -121,7 +121,7 @@
     <string name="products_other">racOther</string>
     <string name="products_user">userProducts</string>
 
-    <string name="price_two_dots">Цена:</string>
+    <string name="price_two_dots">Цена: %s</string>
 
     <string name="proteins_letter">Б</string>
     <string name="fats_letter">Ж</string>
@@ -169,5 +169,7 @@
     <string name="hint_address_title">Название (\"офис\", \"дом\" и т.п.)</string>
 
     <string name="maxHeight">185</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -6,5 +6,5 @@ data class HealthySetParamsResponseData(
     @SerializedName("status")
     val status: String = "",
     @SerializedName("data")
-    val data: List<HealthySetParamsGroupsData> = listOf()
+    val data: HealthySetParamsData = HealthySetParamsData()
 )

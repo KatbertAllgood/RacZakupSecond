@@ -4,65 +4,76 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="150dp">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/item_product_image"
 
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            tools:src="@drawable/shape_red_button"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
 
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/shape_red_button" />
 
-        <TextView
-            android:id="@+id/item_product_tv_price"
+<!--        <TextView-->
+<!--            android:id="@+id/item_product_tv_price"-->
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
 
-            android:layout_gravity="center"
+<!--            android:layout_gravity="center"-->
 
-            android:background="@drawable/shape_rectangle_green_for_price"
+<!--            android:background="@drawable/shape_rectangle_green_for_price"-->
 
-            android:layout_marginTop="-10dp"
-            android:layout_marginEnd="-15dp"
+<!--            android:layout_marginTop="-10dp"-->
+<!--            android:layout_marginEnd="-15dp"-->
+<!--            android:layout_marginBottom="12dp"-->
 
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="20dp"
+<!--            android:paddingVertical="10dp"-->
+<!--            android:paddingHorizontal="20dp"-->
 
-            tools:text="599₽"
-            android:fontFamily="@font/roboto"
-            android:textSize="16sp"
-            android:textColor="@color/black"
+<!--            tools:text="599₽"-->
+<!--            android:fontFamily="@font/roboto_bold"-->
+<!--            android:textSize="12sp"-->
+<!--            android:textColor="@color/price_to_cart_in_products_list"-->
 
-            app:layout_constraintTop_toBottomOf="@id/item_product_image"
-            app:layout_constraintEnd_toEndOf="@id/item_product_image" />
+<!--            app:layout_constraintTop_toBottomOf="@id/item_product_image"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/item_product_image"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
 
         <TextView
             android:id="@+id/item_product_tv_title"
 
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
 
+            android:layout_marginStart="20dp"
             android:layout_marginTop="14dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginEnd="12dp"
 
-            tools:text="Творог"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
-            android:textSize="20sp"
+
+            android:maxLines="1"
             android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
 
             app:layout_constraintStart_toEndOf="@id/item_product_image"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Творог" />
 
         <TextView
             android:id="@+id/item_product_tv_weigh"
@@ -70,16 +81,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="12dp"
+            android:layout_marginBottom="5dp"
 
             tools:text="135 г"
             android:fontFamily="@font/roboto_bold"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textColor="@color/black"
 
-            app:layout_constraintStart_toEndOf="@id/item_product_tv_title"
-            app:layout_constraintTop_toTopOf="@id/item_product_tv_title"
-            app:layout_constraintBottom_toBottomOf="@id/item_product_tv_title"/>
+            app:layout_constraintStart_toStartOf="@id/button_add_to_cart"
+            app:layout_constraintBottom_toTopOf="@id/button_add_to_cart"
+            app:layout_constraintEnd_toEndOf="@id/button_add_to_cart"/>
 
         <TextView
             android:id="@+id/item_product_tv_proteins_letter"
@@ -87,11 +98,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
 
-            tools:text="Б"
+            android:text="@string/proteins_letter"
             android:fontFamily="@font/roboto"
-            android:textSize="18sp"
+            android:textSize="13sp"
             android:textColor="@color/black"
 
             app:layout_constraintStart_toStartOf="@id/item_product_tv_title"
@@ -103,11 +114,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="12dp"
 
             tools:text="13 г"
             android:fontFamily="@font/roboto"
-            android:textSize="18sp"
+            android:textSize="13sp"
             android:textColor="@color/black"
 
             app:layout_constraintTop_toTopOf="@id/item_product_tv_proteins_letter"
@@ -115,21 +126,144 @@
             app:layout_constraintBottom_toBottomOf="@id/item_product_tv_proteins_letter" />
 
         <TextView
+            android:id="@+id/item_product_tv_fats_letter"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="2dp"
+
+            android:text="@string/fats_letter"
+            android:fontFamily="@font/roboto"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_proteins_letter"
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_proteins_letter" />
+
+        <TextView
             android:id="@+id/item_product_tv_fats"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="2dp"
 
-            tools:text="Ж 1,5 г"
+            tools:text="13 г"
             android:fontFamily="@font/roboto"
-            android:textSize="20sp"
+            android:textSize="13sp"
             android:textColor="@color/black"
 
-            app:layout_constraintStart_toStartOf="@id/item_product_tv_proteins"
-            app:layout_constraintTop_toBottomOf="@id/item_product_tv_proteins" />
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_proteins"
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_proteins" />
 
+        <TextView
+            android:id="@+id/item_product_tv_carbs_letter"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="2dp"
+
+            android:text="@string/carbohydrates_letter"
+            android:fontFamily="@font/roboto"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_fats_letter"
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_fats_letter" />
+
+        <TextView
+            android:id="@+id/item_product_tv_carbs"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="2dp"
+
+            tools:text="13 г"
+            android:fontFamily="@font/roboto"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_fats"
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_fats" />
+
+        <TextView
+            android:id="@+id/item_product_tv_kcal"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="2dp"
+
+            android:fontFamily="@font/roboto"
+            android:text="@string/kcal"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+
+            app:layout_constraintStart_toStartOf="@id/item_product_tv_carbs_letter"
+            app:layout_constraintTop_toBottomOf="@id/item_product_tv_carbs_letter" />
+
+        <TextView
+            android:id="@+id/item_product_tv_kcal_value"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="8dp"
+
+            tools:text="245"
+            android:fontFamily="@font/roboto"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toEndOf="@id/item_product_tv_kcal"
+            app:layout_constraintBottom_toBottomOf="@id/item_product_tv_kcal"
+            app:layout_constraintTop_toTopOf="@id/item_product_tv_kcal" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_add_to_cart"
+
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+
+            android:text="@string/add_to_cart"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/button_to_cart_in_products_list"
+            android:textSize="11sp"
+
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="12dp"
+
+            android:layout_gravity="center"
+
+            android:background="@drawable/shape_to_cart_in_products_list"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/item_product_tv_price"
+
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+
+            android:background="@drawable/shape_sticker_for_price"
+
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/item_product_image"
+            app:layout_constraintStart_toStartOf="@+id/item_product_image"
+            app:layout_constraintTop_toBottomOf="@+id/item_product_image"
+            tools:text="599₽" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

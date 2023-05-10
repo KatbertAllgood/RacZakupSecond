@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.packs.pack.adapters
+package com.example.raczakupsecond.screens.packs.pack.defaultpack.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -24,40 +24,9 @@ class PackFragmentProductsAdapter(
 
         fun bind(product: ProductParamsDomain) = with(binding) {
 
-            listOf(
-                itemProductHealthySetCarbsProgress,
-                itemProductHealthySetFatsProgress,
-                itemProductHealthySetProteinsProgress
-            ).forEach {
-                var max = 0
+            downloadAndSetImageUseCase.invoke(product.image, itemProductHealthySetImage)
 
-                for (i in listOf(product.carbohydrates, product.fats, product.proteins)) {
-                    if (i > max) {
-                        max = i.toInt()
-                    }
-                }
-
-                it.max = max
-            }
-
-            binding.itemProductHealthySetTitle.text = product.title
-
-            downloadAndSetImageUseCase.invoke(product.image, binding.itemProductHealthySetImage)
-
-            itemProductHealthySetCarbsProgress.progress = product.carbohydrates.toInt()
-            itemProductHealthySetFatsProgress.progress = product.fats.toInt()
-            itemProductHealthySetProteinsProgress.progress = product.proteins.toInt()
-
-            itemProductHealthySetWeighValue.text = product.weigh + " г"
-
-            itemProductHealthySetFatsValue.text = "${product.fats.toInt()} г"
-            itemProductHealthySetCarbsValue.text = "${product.carbohydrates.toInt()} г"
-            itemProductHealthySetProteinsValue.text = "${product.proteins.toInt()} г"
-
-            itemProductHealthySetPrice.text = "${product.price.toString()} ₽"
-
-            itemProductHealthySetKcalValue.text = "${product.energyValue.toInt()} ккал"
-
+            itemProductHealthySetTitle.text = product.title
         }
 
     }

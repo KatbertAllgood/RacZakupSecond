@@ -5,9 +5,6 @@
     android:viewportWidth="40"
     android:viewportHeight="40">
     <path
-        android:fillColor="#FFEEEEEE"
-        android:pathData="M0 20c0-11.05 8.95-20 20-20h0c11.05 0 20 8.95 20 20v0c0 11.05-8.95 20-20 20h0c-11.05 0-20-8.95-20-20z"/>
-    <path
-        android:fillColor="#993C3C43"
+        android:fillColor="@color/button_to_cart_in_products_list"
         android:pathData="M20 10c0.95 0 1.72 0.72 1.81 1.64v0.18 6.36h6.37c1 0 1.82 0.82 1.82 1.82 0 0.95-0.72 1.72-1.64 1.81h-0.18-6.36v6.37c0 1-0.82 1.82-1.82 1.82-0.95 0-1.72-0.72-1.81-1.64v-0.18-6.36h-6.37C10.82 21.82 10 21 10 20c0-0.95 0.72-1.72 1.64-1.81h0.18 6.36v-6.37c0-1 0.82-1.82 1.82-1.82Z"/>
 </vector>

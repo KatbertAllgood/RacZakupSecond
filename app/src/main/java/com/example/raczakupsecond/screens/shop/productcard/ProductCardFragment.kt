@@ -27,32 +27,32 @@ class ProductCardFragment : Fragment(R.layout.fragment_product_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setProductParamsLiveData(ProductParamsDomain(
-            requireArguments().getString("title").toString(),
-            requireArguments().getDouble("price"),
-            requireArguments().getInt("categoryId"),
-            requireArguments().getString("manufacturer").toString(),
-            requireArguments().getString("brand").toString(),
-            requireArguments().getString("country").toString(),
-            requireArguments().getString("fraction").toString(),
-            requireArguments().getString("weigh").toString(),
-            requireArguments().getDouble("pricePerKgMl"),
-            requireArguments().getString("composition").toString(),
-            requireArguments().getDouble("energyValue"),
-            requireArguments().getDouble("fats"),
-            requireArguments().getDouble("proteins"),
-            requireArguments().getDouble("carbohydrates"),
-            requireArguments().getString("storageConditions").toString(),
-            requireArguments().getInt("storageTemperatureMin"),
-            requireArguments().getInt("storageTemperatureMax"),
-            requireArguments().getInt("storageLife"),
-            requireArguments().getString("description").toString(),
-            requireArguments().getString("image").toString(),
-            requireArguments().getDouble("racCoefficientBenefit"),
-            requireArguments().getString("racCategoryBenefit").toString(),
-            requireArguments().getInt("shopId"),
-
-        ))
+//        viewModel.setProductParamsLiveData(ProductParamsDomain(
+//            requireArguments().getString("title").toString(),
+//            requireArguments().getDouble("price"),
+//            requireArguments().getInt("categoryId"),
+//            requireArguments().getString("manufacturer").toString(),
+//            requireArguments().getString("brand").toString(),
+//            requireArguments().getString("country").toString(),
+//            requireArguments().getString("fraction").toString(),
+//            requireArguments().getString("weigh").toString(),
+//            requireArguments().getDouble("pricePerKgMl"),
+//            requireArguments().getString("composition").toString(),
+//            requireArguments().getDouble("energyValue"),
+//            requireArguments().getDouble("fats"),
+//            requireArguments().getDouble("proteins"),
+//            requireArguments().getDouble("carbohydrates"),
+//            requireArguments().getString("storageConditions").toString(),
+//            requireArguments().getInt("storageTemperatureMin"),
+//            requireArguments().getInt("storageTemperatureMax"),
+//            requireArguments().getInt("storageLife"),
+//            requireArguments().getString("description").toString(),
+//            requireArguments().getString("image").toString(),
+//            requireArguments().getDouble("racCoefficientBenefit"),
+//            requireArguments().getString("racCategoryBenefit").toString(),
+//            requireArguments().getInt("shopId"),
+//
+//        ))
 
     }
 

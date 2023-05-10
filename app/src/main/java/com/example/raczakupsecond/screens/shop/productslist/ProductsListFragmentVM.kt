@@ -1,4 +1,4 @@
-package com.example.raczakupsecond.screens.packs.pack
+package com.example.raczakupsecond.screens.shop.productslist
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class PackFragmentVM : ViewModel() {
+class ProductsListFragmentVM : ViewModel() {
 
     private val networkRepository = App.getNetworkRepository()
     private val createHealthySetParamsUseCase = CreateHealthySetParamsUseCase(networkRepository)
@@ -39,4 +39,5 @@ class PackFragmentVM : ViewModel() {
 
             })
     }
+
 }

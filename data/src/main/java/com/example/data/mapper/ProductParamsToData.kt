@@ -7,6 +7,7 @@ class ProductParamsToData(
     private val productParamsDomain: ProductParamsDomain
 ) {
     fun toData() = ProductParamsData(
+        productParamsDomain.id,
         productParamsDomain.title,
         productParamsDomain.price,
         productParamsDomain.categoryId,
@@ -30,5 +31,6 @@ class ProductParamsToData(
         productParamsDomain.racCoefficientBenefit,
         productParamsDomain.racCategoryBenefit,
         productParamsDomain.shopId,
+        productParamsDomain.amount
     )
 }
