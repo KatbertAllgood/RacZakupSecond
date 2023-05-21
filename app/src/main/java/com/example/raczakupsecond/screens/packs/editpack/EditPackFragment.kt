@@ -202,7 +202,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySetBudget("eco")
+            viewModel.changeHealthySetBudget("small")
         }
 
         binding.llBudgetStandard.setOnClickListener {
@@ -216,7 +216,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetPremium
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySetBudget("standart")
+            viewModel.changeHealthySetBudget("normal")
         }
 
         binding.llBudgetPremium.setOnClickListener {
@@ -230,7 +230,7 @@ class EditPackFragment : Fragment(R.layout.fragment_edit_pack) {
                 binding.llBudgetEco
             ).forEach { it.setBackgroundResource(R.drawable.shape_rectangle_fafafa_rounded_5dp) }
 
-            viewModel.changeHealthySetBudget("premium")
+            viewModel.changeHealthySetBudget("big")
         }
 
         binding.buttonBudgetNext.setOnClickListener {

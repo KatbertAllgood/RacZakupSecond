@@ -87,19 +87,19 @@ class CheckPackFragment : Fragment(R.layout.fragment_check_pack) {
         viewModel.getBudgetLiveData().observe(viewLifecycleOwner) {
 
             when (it) {
-                "0" -> {
+                "small" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.eco_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_eco)
                     }
                 }
-                "1" -> {
+                "normal" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.standard_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_standard)
                     }
                 }
-                "2" -> {
+                "big" -> {
                     binding.apply {
                         tvCheckPackBudgetRubs.text = getString(R.string.premium_rub)
                         tvCheckPackBudgetTitle.text = getString(R.string.budget_premium)
