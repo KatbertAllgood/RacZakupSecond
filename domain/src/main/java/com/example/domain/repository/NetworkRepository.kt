@@ -9,6 +9,9 @@ import com.example.domain.models.geo.RequestCoordinatesDomain
 import com.example.domain.models.geo.RequestQueryDomain
 import com.example.domain.models.geo.ResponseGeoCoordinatesDomain
 import com.example.domain.models.geo.ResponseGeoDomain
+import com.example.domain.models.packs.HealthySetParamsAddProductResponseDomain
+import com.example.domain.models.packs.HealthySetParamsAmountOfProductRequestDomain
+import com.example.domain.models.packs.HealthySetParamsRefreshProductResponseDomain
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
 import com.example.domain.models.packs.HealthySetParamsResponseDomain
 import io.reactivex.Single
@@ -88,4 +91,19 @@ interface NetworkRepository {
     fun createHealthySetParams(
         healthySetParams: HealthySetParamsRequestDomain
     ) : Single<HealthySetParamsResponseDomain>
+
+    fun refreshProductInHealthySet(
+        healthySetId: String,
+        productId: String,
+    ) : Single<HealthySetParamsRefreshProductResponseDomain>
+
+    fun addProductToHealthySet(
+        healthySetId: String
+    ) : Single<HealthySetParamsAddProductResponseDomain>
+
+    fun changeAmountOfProductInHealthySet(
+        healthySetId: String,
+        productId: String,
+        amount: HealthySetParamsAmountOfProductRequestDomain
+    ) : Single<HealthySetParamsRefreshProductResponseDomain>
 }

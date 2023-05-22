@@ -9,6 +9,9 @@ import com.example.data.models.geo.RequestCoordinatesData
 import com.example.data.models.geo.RequestQueryData
 import com.example.data.models.geo.ResponseGeoCoordinatesData
 import com.example.data.models.geo.ResponseGeoData
+import com.example.data.models.packs.HealthySetParamsAddProductResponseData
+import com.example.data.models.packs.HealthySetParamsAmountOfProductRequestData
+import com.example.data.models.packs.HealthySetParamsRefreshProductResponseData
 import com.example.data.models.packs.HealthySetParamsRequestData
 import com.example.data.models.packs.HealthySetParamsResponseData
 import io.reactivex.Single
@@ -90,6 +93,24 @@ interface ServerApi {
     fun createHealthySetParams(
         @Body healthySetParams: HealthySetParamsRequestData
     ) : Single<HealthySetParamsResponseData>
+
+    @POST("products/healthy-sets/params/{healthySetId}/refresh/{productId}")
+    fun refreshProductInHealthySet(
+        @Path("healthySetId") healthySetId: String,
+        @Path("productId") productId: String,
+    ) : Single<HealthySetParamsRefreshProductResponseData>
+
+    @POST("products/healthy-sets/params/{healthySetId}/add")
+    fun addProductToHealthySet(
+        @Path("healthySetId") healthySetId: String
+    ) : Single<HealthySetParamsAddProductResponseData>
+
+    @POST("products/healthy-sets/params/{healthySetId}/amount/{productId}")
+    fun changeAmountOfProductInHealthySet(
+        @Path("healthySetId") healthySetId: String,
+        @Path("productId") productId: String,
+        @Body amount: HealthySetParamsAmountOfProductRequestData
+    ) : Single<HealthySetParamsRefreshProductResponseData> //TODO()
 
     //endregion
 

@@ -11,6 +11,9 @@ import com.example.domain.models.geo.RequestCoordinatesDomain
 import com.example.domain.models.geo.RequestQueryDomain
 import com.example.domain.models.geo.ResponseGeoCoordinatesDomain
 import com.example.domain.models.geo.ResponseGeoDomain
+import com.example.domain.models.packs.HealthySetParamsAddProductResponseDomain
+import com.example.domain.models.packs.HealthySetParamsAmountOfProductRequestDomain
+import com.example.domain.models.packs.HealthySetParamsRefreshProductResponseDomain
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
 import com.example.domain.models.packs.HealthySetParamsResponseDomain
 import com.example.domain.repository.NetworkRepository
@@ -204,6 +207,38 @@ class NetworkRepositoryImpl : NetworkRepository{
             HealthySetParamsRequestToData(healthySetParams).toData()
         ).map {
             return@map HealthySetParamsResponseToDomain(it).toDomain()
+        }
+    }
+
+    override fun refreshProductInHealthySet(
+        healthySetId: String,
+        productId: String
+    ): Single<HealthySetParamsRefreshProductResponseDomain> {
+        return NetworkService.retrofitService.refreshProductInHealthySet(
+            healthySetId, productId
+        ).map {
+            return@map HealthySetParamsRefreshProductResponseToDomain(it).toDomain()
+        }
+    }
+
+    override fun addProductToHealthySet(healthySetId: String): Single<HealthySetParamsAddProductResponseDomain> {
+        return NetworkService.retrofitService.addProductToHealthySet(healthySetId)
+            .map {
+                return@map HealthySetParamsAddProductResponseToDomain(it).toDomain()
+            }
+    }
+
+    override fun changeAmountOfProductInHealthySet(
+        healthySetId: String,
+        productId: String,
+        amount: HealthySetParamsAmountOfProductRequestDomain
+    ): Single<HealthySetParamsRefreshProductResponseDomain> {
+        return NetworkService.retrofitService.changeAmountOfProductInHealthySet(
+            healthySetId,
+            productId,
+            HealthySetParamsAmountOfProductRequestToData(amount).toData()
+        ).map {
+            return@map HealthySetParamsRefreshProductResponseToDomain(it).toDomain()
         }
     }
 
