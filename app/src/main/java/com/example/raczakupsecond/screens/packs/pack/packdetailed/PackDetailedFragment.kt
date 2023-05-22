@@ -1,6 +1,8 @@
 package com.example.raczakupsecond.screens.packs.pack.packdetailed
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +17,17 @@ import com.example.raczakupsecond.R
 import com.example.raczakupsecond.databinding.FragmentPackDetailedBinding
 import com.example.raczakupsecond.screens.packs.pack.defaultpack.adapters.PackFragmentProductsAdapter
 import com.example.raczakupsecond.screens.packs.pack.packdetailed.adapters.PackDetailedFragmentProductsAdapter
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
     lateinit var binding : FragmentPackDetailedBinding
     private val viewModel : PackDetailedFragmentVM by viewModels()
+
+    private val TAG = PackDetailedFragment::class.simpleName
+
+    private lateinit var energyProductsAdapter : PackDetailedFragmentProductsAdapter
+    private lateinit var powerProductsAdapter : PackDetailedFragmentProductsAdapter
+    private lateinit var oilProductsAdapter : PackDetailedFragmentProductsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,29 +101,74 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
                 )
             }
 
-            val energyProductsAdapter = PackDetailedFragmentProductsAdapter(it.data.healthySet.racEnergy)
-            val powerProductsAdapter = PackDetailedFragmentProductsAdapter(it.data.healthySet.racPower)
-            val oilProductsAdapter = PackDetailedFragmentProductsAdapter(it.data.healthySet.racOil)
-            val otherProductsAdapter = PackDetailedFragmentProductsAdapter(it.data.healthySet.racOther)
+        }
+
+        viewModel.getEnergyProductsLiveData().observe(viewLifecycleOwner) {
+
+            energyProductsAdapter = PackDetailedFragmentProductsAdapter(it)
+
+            energyProductsAdapter.onRefreshClick = { item ->
+                Log.d(TAG, "REFRESH CLICKED: $item")
+
+                viewModel.refreshProduct(
+                    viewModel.getHealthySetId().toString(),
+                    item.id.toString(),
+                    "energy"
+                )
+//                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
 
             binding.apply {
-
-                listOf(
-                    packDetailedFragmentRecyclerEnergy,
-                    packDetailedFragmentRecyclerPower,
-                    packDetailedFragmentRecyclerOil,
-                    packDetailedFragmentRecyclerOther
-                ).forEach {
-                    it.layoutManager = LinearLayoutManager(requireContext())
-                    it.isNestedScrollingEnabled = false
-                }
-
-
+                packDetailedFragmentRecyclerEnergy.layoutManager =
+                    LinearLayoutManager(requireContext())
+                packDetailedFragmentRecyclerEnergy.isNestedScrollingEnabled = false
                 packDetailedFragmentRecyclerEnergy.adapter = energyProductsAdapter
-                packDetailedFragmentRecyclerPower.adapter = powerProductsAdapter
-                packDetailedFragmentRecyclerOil.adapter = oilProductsAdapter
-                packDetailedFragmentRecyclerOther.adapter = otherProductsAdapter
+            }
+        }
 
+        viewModel.getPowerProductsLiveData().observe(viewLifecycleOwner) {
+
+            powerProductsAdapter = PackDetailedFragmentProductsAdapter(it)
+
+            powerProductsAdapter.onRefreshClick = { item ->
+                Log.d(TAG, "REFRESH CLICKED: $item")
+
+                viewModel.refreshProduct(
+                    viewModel.getHealthySetId().toString(),
+                    item.id.toString(),
+                    "power"
+                )
+//                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
+
+            binding.apply {
+                packDetailedFragmentRecyclerPower.layoutManager =
+                    LinearLayoutManager(requireContext())
+                packDetailedFragmentRecyclerPower.isNestedScrollingEnabled = false
+                packDetailedFragmentRecyclerPower.adapter = powerProductsAdapter
+            }
+        }
+
+        viewModel.getOilProductsLiveData().observe(viewLifecycleOwner) {
+
+            oilProductsAdapter = PackDetailedFragmentProductsAdapter(it)
+
+            oilProductsAdapter.onRefreshClick = { item ->
+                Log.d(TAG, "REFRESH CLICKED: $item")
+
+                viewModel.refreshProduct(
+                    viewModel.getHealthySetId().toString(),
+                    item.id.toString(),
+                    "oil"
+                )
+//                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
+
+            binding.apply {
+                packDetailedFragmentRecyclerOil.layoutManager =
+                    LinearLayoutManager(requireContext())
+                packDetailedFragmentRecyclerOil.isNestedScrollingEnabled = false
+                packDetailedFragmentRecyclerOil.adapter = oilProductsAdapter
             }
         }
 

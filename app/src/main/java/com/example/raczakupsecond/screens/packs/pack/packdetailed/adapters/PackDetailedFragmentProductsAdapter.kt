@@ -1,28 +1,42 @@
 package com.example.raczakupsecond.screens.packs.pack.packdetailed.adapters
 
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.models.packs.HealthySetParamsRefreshProductResponseDomain
 import com.example.domain.models.shop.ProductParamsDomain
 import com.example.domain.usecase.networkloader.DownloadAndSetImageUseCase
+import com.example.domain.usecase.packs.RefreshProductInHealthySetUseCase
 import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
 import com.example.raczakupsecond.databinding.ItemProductHealthySetDetailedBinding
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class PackDetailedFragmentProductsAdapter(
     private val productsList: List<ProductParamsDomain>
 ) : RecyclerView.Adapter<PackDetailedFragmentProductsAdapter.ProductHolder>() {
 
-    private val networkLoaderRepository = App.getNetworkLoaderRepository()
-    private val downloadAndSetImageUseCase = DownloadAndSetImageUseCase(networkLoaderRepository)
+    private val TAG = PackDetailedFragmentProductsAdapter::class.simpleName
 
     var onItemClick : ((ProductParamsDomain) -> Unit)? = null
+    var onRefreshClick : ((ProductParamsDomain) -> Unit)? = null
+
+    private lateinit var view : View
 
     inner class ProductHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemProductHealthySetDetailedBinding.bind(item)
 
-        fun bind(product: ProductParamsDomain) = with(binding) {
+        private val networkLoaderRepository = App.getNetworkLoaderRepository()
+        private val downloadAndSetImageUseCase = DownloadAndSetImageUseCase(networkLoaderRepository)
+
+        fun initialize(product: ProductParamsDomain)  = with(binding){
 
             listOf(
                 itemProductHealthySetDetailedCarbsProgress,
@@ -39,7 +53,6 @@ class PackDetailedFragmentProductsAdapter(
 
                 it.max = max
             }
-
 
             itemProductHealthySetDetailedTvTitle.text = product.title
 
@@ -65,10 +78,20 @@ class PackDetailedFragmentProductsAdapter(
             itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
 
         }
+
+        fun bind(product: ProductParamsDomain) = with(binding) {
+
+            initialize(product)
+
+            itemProductHealthySetDetailedReroll.setOnClickListener {
+                onRefreshClick?.invoke(product)
+
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
-        val view = LayoutInflater.from(parent.context)
+        view = LayoutInflater.from(parent.context)
             .inflate(
                 R.layout.item_product_healthy_set_detailed,
                 parent,
@@ -90,5 +113,4 @@ class PackDetailedFragmentProductsAdapter(
             notifyDataSetChanged()
         }
     }
-
 }
