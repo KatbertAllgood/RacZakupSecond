@@ -27,6 +27,7 @@ class PackDetailedFragmentProductsAdapter(
 
     var onItemClick : ((ProductParamsDomain) -> Unit)? = null
     var onRefreshClick : ((ProductParamsDomain) -> Unit)? = null
+    var onAmountChanged : ((String, String) -> Unit)? = null //productId, amount
 
     private lateinit var view : View
 
@@ -87,6 +88,36 @@ class PackDetailedFragmentProductsAdapter(
                 onRefreshClick?.invoke(product)
 
             }
+
+            itemProductHealthySetDetailedButtonAmountPlus.setOnClickListener {
+
+                val oldAmount = itemProductHealthySetDetailedTvAmount.text.toString().toInt()
+                val newAmount = oldAmount + 1
+
+                itemProductHealthySetDetailedTvAmount.text = newAmount.toString()
+
+                val amountedPrice = product.price * newAmount
+                itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
+
+                onAmountChanged?.invoke(product.id.toString(), newAmount.toString())
+            }
+
+            itemProductHealthySetDetailedButtonAmountMinus.setOnClickListener {
+
+                val oldAmount = itemProductHealthySetDetailedTvAmount.text.toString().toInt()
+
+                if (oldAmount > 0) {
+
+                    val newAmount = oldAmount - 1
+
+                    itemProductHealthySetDetailedTvAmount.text = newAmount.toString()
+
+                    val amountedPrice = product.price * newAmount
+                    itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
+
+                    onAmountChanged?.invoke(product.id.toString(), newAmount.toString())
+                }
+            }
         }
     }
 
@@ -107,10 +138,10 @@ class PackDetailedFragmentProductsAdapter(
     override fun onBindViewHolder(holder: ProductHolder, position: Int) {
         holder.bind(productsList[position])
 
-        val product = productsList[position]
-        holder.itemView.setOnClickListener {
-            onItemClick?.invoke(product)
-            notifyDataSetChanged()
-        }
+//        val product = productsList[position]
+//        holder.itemView.setOnClickListener {
+//            onItemClick?.invoke(product)
+//            notifyDataSetChanged()
+//        }
     }
 }

@@ -6,10 +6,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.domain.models.packs.HealthySetParamsAddProductResponseDomain
+import com.example.domain.models.packs.HealthySetParamsAmountOfProductRequestDomain
 import com.example.domain.models.packs.HealthySetParamsRefreshProductResponseDomain
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
 import com.example.domain.models.packs.HealthySetParamsResponseDomain
 import com.example.domain.models.shop.ProductParamsDomain
+import com.example.domain.usecase.packs.AddProductToHealthySetUseCase
+import com.example.domain.usecase.packs.ChangeAmountOfProductInHealthySetUseCase
 import com.example.domain.usecase.packs.CreateHealthySetParamsUseCase
 import com.example.domain.usecase.packs.RefreshProductInHealthySetUseCase
 import com.example.raczakupsecond.app.App
@@ -32,6 +36,9 @@ class PackDetailedFragmentVM : ViewModel() {
     private val createHealthySetParamsUseCase = CreateHealthySetParamsUseCase(networkRepository)
     private val refreshProductInHealthySetUseCase =
         RefreshProductInHealthySetUseCase(networkRepository)
+    private val changeAmountOfProductInHealthySetUseCase =
+        ChangeAmountOfProductInHealthySetUseCase(networkRepository)
+    private val addProductToHealthySetUseCase = AddProductToHealthySetUseCase(networkRepository)
 
     private val healthySetParamsLiveData = MutableLiveData<HealthySetParamsResponseDomain>()
     fun getHealthySetParamsLiveData() : LiveData<HealthySetParamsResponseDomain> =
@@ -156,6 +163,83 @@ class PackDetailedFragmentVM : ViewModel() {
 
                 override fun onError(e: Throwable) {
                     Log.d(TAG, "REFRESH_PRODUCT_ERROR: ${e.message}")
+                }
+
+            })
+    }
+
+    fun addProduct(
+        healthySetId: String,
+        productType: String
+    ) {
+        addProductToHealthySetUseCase.invoke(healthySetId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<HealthySetParamsAddProductResponseDomain>() {
+                override fun onSuccess(t: HealthySetParamsAddProductResponseDomain) {
+                    Log.d(TAG, "SUCCESS: ADDED_PRODUCT: ${t.data.addProduct}")
+
+                    when (productType) {
+                        "energy" -> {
+
+                            val productsList : MutableList<ProductParamsDomain> =
+                                energyProductsLiveData.value!!.toMutableList()
+
+                            productsList.add(t.data.addProduct)
+
+                            energyProductsLiveData.value = productsList
+                        }
+                        "power" -> {
+
+                            val productsList : MutableList<ProductParamsDomain> =
+                                powerProductsLiveData.value!!.toMutableList()
+
+                            productsList.add(t.data.addProduct)
+
+                            powerProductsLiveData.value = productsList
+                        }
+                        "oil" -> {
+
+                            val productsList : MutableList<ProductParamsDomain> =
+                                oilProductsLiveData.value!!.toMutableList()
+
+                            productsList.add(t.data.addProduct)
+
+                            oilProductsLiveData.value = productsList
+                        }
+                    }
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d(TAG, "ADD_PRODUCT_ERROR: ${e.message}")
+                }
+
+            })
+    }
+
+    fun changeAmountOfProduct(
+        healthySetId: String,
+        productId: String,
+        amount: Int
+    ) {
+        val requestBodyAmount =
+            HealthySetParamsAmountOfProductRequestDomain(amount)
+
+        changeAmountOfProductInHealthySetUseCase
+            .invoke(
+                healthySetId,
+                productId,
+                requestBodyAmount
+            )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableSingleObserver<HealthySetParamsRefreshProductResponseDomain>() {
+                override fun onSuccess(t: HealthySetParamsRefreshProductResponseDomain) {
+                    Log.d(TAG, "SUCCESS: NEW_AMOUNT: ${t.data.refreshProduct.amount}")
+                }
+
+                override fun onError(e: Throwable) {
+                    Log.d(TAG, "CHANGE_AMOUNT_ERROR: ${e.message}")
                 }
 
             })

@@ -37,6 +37,34 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.packDetailedFragmentButtonAddEnergy.setOnClickListener {
+
+            viewModel.addProduct(
+                viewModel.getHealthySetId().toString(),
+                "energy"
+            )
+        }
+
+        binding.packDetailedFragmentButtonAddPower.setOnClickListener {
+
+            viewModel.addProduct(
+                viewModel.getHealthySetId().toString(),
+                "power"
+            )
+        }
+
+        binding.packDetailedFragmentButtonAddOil.setOnClickListener {
+
+            viewModel.addProduct(
+                viewModel.getHealthySetId().toString(),
+                "oil"
+            )
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -116,6 +144,14 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
                     "energy"
                 )
 //                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
+
+            energyProductsAdapter.onAmountChanged = { productId, amount ->
+                viewModel.changeAmountOfProduct(
+                    viewModel.getHealthySetId().toString(),
+                    productId,
+                    amount.toInt()
+                )
             }
 
             binding.apply {

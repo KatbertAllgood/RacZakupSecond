@@ -95,23 +95,45 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packDetailedFragment_recycler_energy"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packDetailedFragment_recycler_energy"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_tv_first_recycler" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packDetailedFragment_button_add_energy"/>
+
+                        <ImageView
+                            android:id="@+id/packDetailedFragment_button_add_energy"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_recycler_energy"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/packDetailedFragment_tv_second_recycler"
@@ -135,23 +157,45 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packDetailedFragment_recycler_power"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packDetailedFragment_recycler_power"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_tv_second_recycler" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packDetailedFragment_button_add_power" />
+
+                        <ImageView
+                            android:id="@+id/packDetailedFragment_button_add_power"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_recycler_power"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/packDetailedFragment_tv_third_recycler"
@@ -175,23 +219,47 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packDetailedFragment_recycler_oil"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        android:layout_height="wrap_content">
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packDetailedFragment_recycler_oil"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_tv_third_recycler" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
+
+
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packDetailedFragment_button_add_oil" />
+
+                        <ImageView
+                            android:id="@+id/packDetailedFragment_button_add_oil"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packDetailedFragment_recycler_oil"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                     <TextView
                         android:id="@+id/packDetailedFragment_tv_fourth_recycler"
