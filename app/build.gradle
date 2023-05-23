@@ -40,6 +40,9 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
 
+    //Coroutines for RxJava2
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.6.4"
+
     //Pie Chart для построения диаграммы
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
