@@ -27,7 +27,7 @@ class PackDetailedFragmentProductsAdapter(
 
     var onItemClick : ((ProductParamsDomain) -> Unit)? = null
     var onRefreshClick : ((ProductParamsDomain) -> Unit)? = null
-    var onAmountChanged : ((String, String) -> Unit)? = null //productId, amount
+    var onAmountChanged : ((String, String, Int) -> Unit)? = null //productId, amount
 
     private lateinit var view : View
 
@@ -99,7 +99,9 @@ class PackDetailedFragmentProductsAdapter(
                 val amountedPrice = product.price * newAmount
                 itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
 
-                onAmountChanged?.invoke(product.id.toString(), newAmount.toString())
+                Log.d(TAG, "PRODUCT_ID: ${product.id}")
+
+                onAmountChanged?.invoke(product.id.toString(), newAmount.toString(), oldAmount)
             }
 
             itemProductHealthySetDetailedButtonAmountMinus.setOnClickListener {
@@ -115,7 +117,9 @@ class PackDetailedFragmentProductsAdapter(
                     val amountedPrice = product.price * newAmount
                     itemProductHealthySetDetailedTvAmountedPrice.text = "${amountedPrice} ₽"
 
-                    onAmountChanged?.invoke(product.id.toString(), newAmount.toString())
+                    Log.d(TAG, "PRODUCT_ID: ${product.id}")
+
+                    onAmountChanged?.invoke(product.id.toString(), newAmount.toString(), oldAmount)
                 }
             }
         }

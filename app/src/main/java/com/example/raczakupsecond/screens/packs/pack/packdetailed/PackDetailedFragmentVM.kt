@@ -1,8 +1,11 @@
 package com.example.raczakupsecond.screens.packs.pack.packdetailed
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +19,7 @@ import com.example.domain.usecase.packs.AddProductToHealthySetUseCase
 import com.example.domain.usecase.packs.ChangeAmountOfProductInHealthySetUseCase
 import com.example.domain.usecase.packs.CreateHealthySetParamsUseCase
 import com.example.domain.usecase.packs.RefreshProductInHealthySetUseCase
+import com.example.raczakupsecond.R
 import com.example.raczakupsecond.app.App
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -60,13 +64,32 @@ class PackDetailedFragmentVM : ViewModel() {
 
     //endregion
 
-//    private val refreshedProductParamsLiveData = MutableLiveData<ProductParamsDomain>()
-//    fun getRefreshedProductParamsLiveData() : LiveData<ProductParamsDomain> = refreshedProductParamsLiveData
+    private val allProteins = MutableLiveData<Int>()
+    fun getAllProteins() : LiveData<Int> = allProteins
 
-//    lateinit var itemView : View //TODO()
+
+    //region rac params
+
+//    private val allProteins = MutableLiveData<Int>()
+    private val allFats = MutableLiveData<Int>()
+    private val allCarbs = MutableLiveData<Int>()
+    private val allPrice = MutableLiveData<Double>()
+
+    @SuppressLint("StaticFieldLeak")
+    private lateinit var pieChart: PieChart
+
+//    fun getAllProteins() : LiveData<Int> = allProteins
+    fun getAllFats() : LiveData<Int> = allFats
+    fun getAllCarbs() : LiveData<Int> = allCarbs
+    fun getAllPrice() : LiveData<Double> = allPrice
+    fun setPieChart(t: PieChart) {
+        pieChart = t
+    }
+    //endregion
 
     fun createHealthySet(
-        healthySetParams: HealthySetParamsRequestDomain
+        healthySetParams: HealthySetParamsRequestDomain,
+        context: Context
     ) {
         createHealthySetParamsUseCase
             .invoke(healthySetParams)
@@ -75,7 +98,32 @@ class PackDetailedFragmentVM : ViewModel() {
             .subscribe(object : DisposableSingleObserver<HealthySetParamsResponseDomain>() {
                 override fun onSuccess(t: HealthySetParamsResponseDomain) {
                     healthySetParamsLiveData.value = t
+
                     healthySetId = t.data.healthySetId
+
+                    allProteins.value = t.data.healthySet.racParams.proteins
+                    allFats.value = t.data.healthySet.racParams.fats
+                    allCarbs.value = t.data.healthySet.racParams.carbohydrates
+
+                    var allPriceCount = 0.0
+
+                    listOf(
+                        t.data.healthySet.racEnergy,
+                        t.data.healthySet.racPower,
+                        t.data.healthySet.racOil,
+                    ).forEach{
+                        for (i in it){
+                            allPriceCount += i.price * i.amount
+                        }
+                    }
+
+                    allPrice.value = allPriceCount
+
+                    initPieChart(
+                        context.resources.getColor(R.color.proteins),
+                        context.resources.getColor(R.color.fats),
+                        context.resources.getColor(R.color.carbohydrates)
+                    )
 
                     energyProductsLiveData.value = t.data.healthySet.racEnergy
                     powerProductsLiveData.value = t.data.healthySet.racPower
@@ -92,7 +140,8 @@ class PackDetailedFragmentVM : ViewModel() {
     fun refreshProduct(
         healthySetId: String,
         productId: String,
-        productType: String
+        productType: String,
+        context: Context
     ) {
 
         refreshProductInHealthySetUseCase
@@ -103,7 +152,6 @@ class PackDetailedFragmentVM : ViewModel() {
                 DisposableSingleObserver<HealthySetParamsRefreshProductResponseDomain>() {
                 override fun onSuccess(t: HealthySetParamsRefreshProductResponseDomain) {
                     Log.d(TAG, "REFRESH_PRODUCT_SUCCESS: ${t.status}")
-//                    refreshedProductParamsLiveData.value = t.data.refreshProduct
 
                     when (productType) {
                         "energy" -> {
@@ -114,6 +162,17 @@ class PackDetailedFragmentVM : ViewModel() {
 
                             for (i in productsList.indices) {
                                 if (productsList[i].id == productId.toInt()) {
+
+                                    val oldAmountedPrice = productsList[i].price *
+                                            productsList[i].amount
+
+                                    val newAmountedPrice = t.data.refreshProduct.price *
+                                            t.data.refreshProduct.amount
+
+                                    val newPrice = allPrice.value!! - oldAmountedPrice +
+                                            newAmountedPrice
+
+                                    allPrice.value = newPrice
 
                                     Collections.replaceAll(productsList, productsList[i], t.data.refreshProduct)
                                 }
@@ -132,6 +191,17 @@ class PackDetailedFragmentVM : ViewModel() {
                             for (i in productsList.indices) {
                                 if (productsList[i].id == productId.toInt()) {
 
+                                    val oldAmountedPrice = productsList[i].price *
+                                            productsList[i].amount
+
+                                    val newAmountedPrice = t.data.refreshProduct.price *
+                                            t.data.refreshProduct.amount
+
+                                    val newPrice = allPrice.value!! - oldAmountedPrice +
+                                            newAmountedPrice
+
+                                    allPrice.value = newPrice
+
                                     Collections.replaceAll(productsList, productsList[i], t.data.refreshProduct)
                                 }
                             }
@@ -149,6 +219,17 @@ class PackDetailedFragmentVM : ViewModel() {
                             for (i in productsList.indices) {
                                 if (productsList[i].id == productId.toInt()) {
 
+                                    val oldAmountedPrice = productsList[i].price *
+                                            productsList[i].amount
+
+                                    val newAmountedPrice = t.data.refreshProduct.price *
+                                            t.data.refreshProduct.amount
+
+                                    val newPrice = allPrice.value!! - oldAmountedPrice +
+                                            newAmountedPrice
+
+                                    allPrice.value = newPrice
+
                                     Collections.replaceAll(productsList, productsList[i], t.data.refreshProduct)
                                 }
                             }
@@ -158,6 +239,16 @@ class PackDetailedFragmentVM : ViewModel() {
                             oilProductsLiveData.value = productsList
                         }
                     }
+
+                    allProteins.value = t.data.racParams.proteins
+                    allFats.value = t.data.racParams.fats
+                    allCarbs.value = t.data.racParams.carbohydrates
+
+                    initPieChart(
+                        context.resources.getColor(R.color.proteins),
+                        context.resources.getColor(R.color.fats),
+                        context.resources.getColor(R.color.carbohydrates)
+                    )
 
                 }
 
@@ -170,7 +261,8 @@ class PackDetailedFragmentVM : ViewModel() {
 
     fun addProduct(
         healthySetId: String,
-        productType: String
+        productType: String,
+        context: Context
     ) {
         addProductToHealthySetUseCase.invoke(healthySetId)
             .subscribeOn(Schedulers.io())
@@ -208,6 +300,19 @@ class PackDetailedFragmentVM : ViewModel() {
                             oilProductsLiveData.value = productsList
                         }
                     }
+
+                    val newAmountedPrice = t.data.addProduct.price * t.data.addProduct.amount
+                    allPrice.value = allPrice.value!! + newAmountedPrice
+
+                    allProteins.value = t.data.racParams.proteins
+                    allFats.value = t.data.racParams.fats
+                    allCarbs.value = t.data.racParams.carbohydrates
+
+                    initPieChart(
+                        context.resources.getColor(R.color.proteins),
+                        context.resources.getColor(R.color.fats),
+                        context.resources.getColor(R.color.carbohydrates)
+                    )
                 }
 
                 override fun onError(e: Throwable) {
@@ -220,7 +325,9 @@ class PackDetailedFragmentVM : ViewModel() {
     fun changeAmountOfProduct(
         healthySetId: String,
         productId: String,
-        amount: Int
+        amount: Int,
+        oldAmount: Int,
+        context: Context
     ) {
         val requestBodyAmount =
             HealthySetParamsAmountOfProductRequestDomain(amount)
@@ -236,6 +343,30 @@ class PackDetailedFragmentVM : ViewModel() {
             .subscribe(object : DisposableSingleObserver<HealthySetParamsRefreshProductResponseDomain>() {
                 override fun onSuccess(t: HealthySetParamsRefreshProductResponseDomain) {
                     Log.d(TAG, "SUCCESS: NEW_AMOUNT: ${t.data.refreshProduct.amount}")
+
+                    Log.d(TAG, "OLD_AMOUNT: $oldAmount, NEW_AMOUNT: $amount")
+                    Log.d(TAG, "PRICE: ${t.data.refreshProduct.price}")
+                    Log.d(TAG, "PRODUCT_ID: ${t.data.refreshProduct.id}")
+
+                    val oldAmountedPrice = t.data.refreshProduct.price * oldAmount
+                    val newAmountedPrice = t.data.refreshProduct.price * amount
+
+                    Log.d(TAG, "__ALL PRICE: ${allPrice.value}\nOLD AMOUNTED PRICE: ${oldAmountedPrice}, \n" +
+                            "NEW AMOUNTED PRICE: ${newAmountedPrice}")
+
+                    allPrice.value = allPrice.value!! - oldAmountedPrice + newAmountedPrice
+
+                    Log.d(TAG, "NEW ALL PRICE: ${allPrice.value}")
+
+                    allProteins.value = t.data.racParams.proteins
+                    allFats.value = t.data.racParams.fats
+                    allCarbs.value = t.data.racParams.carbohydrates
+
+                    initPieChart(
+                        context.resources.getColor(R.color.proteins),
+                        context.resources.getColor(R.color.fats),
+                        context.resources.getColor(R.color.carbohydrates)
+                    )
                 }
 
                 override fun onError(e: Throwable) {
@@ -245,11 +376,7 @@ class PackDetailedFragmentVM : ViewModel() {
             })
     }
 
-    fun initPieChart(
-        pieChart: PieChart,
-        proteins: Float,
-        fats: Float,
-        carbs: Float,
+    private fun initPieChart(
         proteinsColor: Int,
         fatsColor: Int,
         carbsColor: Int
@@ -299,9 +426,9 @@ class PackDetailedFragmentVM : ViewModel() {
         // on below line we are creating array list and
         // adding data to it to display in pie chart
         val entries: ArrayList<PieEntry> = ArrayList()
-        entries.add(PieEntry(fats))
-        entries.add(PieEntry(carbs))
-        entries.add(PieEntry(proteins))
+        entries.add(PieEntry(allFats.value!!.toFloat()))
+        entries.add(PieEntry(allCarbs.value!!.toFloat()))
+        entries.add(PieEntry(allProteins.value!!.toFloat()))
 
         // on below line we are setting pie data set
         val dataSet = PieDataSet(entries, "Mobile OS")

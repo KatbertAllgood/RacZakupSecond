@@ -110,7 +110,7 @@ interface ServerApi {
         @Path("healthySetId") healthySetId: String,
         @Path("productId") productId: String,
         @Body amount: HealthySetParamsAmountOfProductRequestData
-    ) : Single<HealthySetParamsRefreshProductResponseData> //TODO()
+    ) : Single<HealthySetParamsRefreshProductResponseData>
 
     //endregion
 

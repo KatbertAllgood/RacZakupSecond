@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.models.packs.HealthySetParamsRequestDomain
@@ -40,11 +41,18 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setPieChart(binding.pieChart)
+
+        binding.packDetailedFragmentButtonOfferDelivery.setOnClickListener {
+            findNavController().navigate(R.id.action_packDetailedFragment_to_kartFragment)
+        }
+
         binding.packDetailedFragmentButtonAddEnergy.setOnClickListener {
 
             viewModel.addProduct(
                 viewModel.getHealthySetId().toString(),
-                "energy"
+                "energy",
+                requireContext()
             )
         }
 
@@ -52,7 +60,8 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
 
             viewModel.addProduct(
                 viewModel.getHealthySetId().toString(),
-                "power"
+                "power",
+                requireContext()
             )
         }
 
@@ -60,7 +69,8 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
 
             viewModel.addProduct(
                 viewModel.getHealthySetId().toString(),
-                "oil"
+                "oil",
+                requireContext()
             )
         }
     }
@@ -70,64 +80,35 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
 
         viewModel.createHealthySet(
             HealthySetParamsRequestDomain(
-            requireArguments().getString("familyId")!!.toInt(),
-            requireArguments().getInt("days"),
-            requireArguments().getString("budget").toString(),
-            requireArguments().getString("addressId")!!.toInt()
+                requireArguments().getString("familyId")!!.toInt(),
+                requireArguments().getInt("days"),
+                requireArguments().getString("budget").toString(),
+                requireArguments().getString("addressId")!!.toInt()
+            ),
+            requireContext()
         )
-        )
 
-        viewModel.getHealthySetParamsLiveData().observe(viewLifecycleOwner) {
+        viewModel.getAllProteins().observe(viewLifecycleOwner) {
+            binding.packDetailedFragmentTvProteins.text =
+                getString(R.string.proteins_value,
+            it.toString())
+        }
 
-            var allProteins = 0
-            var allFats = 0
-            var allCarbs = 0
-            var allPrice = 0.0
+        viewModel.getAllFats().observe(viewLifecycleOwner) {
+            binding.packDetailedFragmentTvFats.text = getString(R.string.fats_value,
+            it.toString())
+        }
 
-            val allProducts: MutableList<ProductParamsDomain> = mutableListOf()
+        viewModel.getAllCarbs().observe(viewLifecycleOwner) {
+            binding.packDetailedFragmentTvCarbohydrates.text = getString(R.string.carbs_value,
+            it.toString())
 
+        }
 
-            for (i in it.data.healthySet.racEnergy) {
-                allProducts.add(i)
-            }
-            for (i in it.data.healthySet.racPower) {
-                allProducts.add(i)
-            }
-            for (i in it.data.healthySet.racOil) {
-                allProducts.add(i)
-            }
-            for (i in it.data.healthySet.racOther) {
-                allProducts.add(i)
-            }
+        viewModel.getAllPrice().observe(viewLifecycleOwner) {
 
-            for (i in allProducts) {
-                allProteins += i.proteins.toInt()
-                allFats += i.fats.toInt()
-                allCarbs += i.carbohydrates.toInt()
-                allPrice += i.price
-            }
-
-            binding.apply {
-
-                packDetailedFragmentTvProteins.text = getString(R.string.proteins_value,
-                    allProteins.toString())
-                packDetailedFragmentTvFats.text = getString(R.string.fats_value, allFats.toString())
-                packDetailedFragmentTvCarbohydrates.text = getString(R.string.carbs_value,
-                    allCarbs.toString())
-                packDetailedFragmentTvAllPrice.text = getString(R.string.price_two_dots,
-                    "$allPrice ₽"
-                )
-
-                viewModel.initPieChart(
-                    pieChart,
-                    allProteins.toFloat(),
-                    allFats.toFloat(),
-                    allCarbs.toFloat(),
-                    resources.getColor(R.color.proteins),
-                    resources.getColor(R.color.fats),
-                    resources.getColor(R.color.carbohydrates)
-                )
-            }
+            binding.packDetailedFragmentTvAllPrice.text = getString(R.string.price_two_dots,
+                it.toString())
 
         }
 
@@ -141,16 +122,19 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
                 viewModel.refreshProduct(
                     viewModel.getHealthySetId().toString(),
                     item.id.toString(),
-                    "energy"
+                    "energy",
+                    requireContext()
                 )
 //                energyProductsAdapter.notifyDataSetChanged() TODO()
             }
 
-            energyProductsAdapter.onAmountChanged = { productId, amount ->
+            energyProductsAdapter.onAmountChanged = { productId, amount, oldAmount ->
                 viewModel.changeAmountOfProduct(
                     viewModel.getHealthySetId().toString(),
                     productId,
-                    amount.toInt()
+                    amount.toInt(),
+                    oldAmount,
+                    requireContext()
                 )
             }
 
@@ -172,9 +156,20 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
                 viewModel.refreshProduct(
                     viewModel.getHealthySetId().toString(),
                     item.id.toString(),
-                    "power"
+                    "power",
+                    requireContext()
                 )
 //                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
+
+            powerProductsAdapter.onAmountChanged = { productId, amount, oldAmount ->
+                viewModel.changeAmountOfProduct(
+                    viewModel.getHealthySetId().toString(),
+                    productId,
+                    amount.toInt(),
+                    oldAmount,
+                    requireContext()
+                )
             }
 
             binding.apply {
@@ -195,9 +190,20 @@ class PackDetailedFragment : Fragment(R.layout.fragment_pack_detailed) {
                 viewModel.refreshProduct(
                     viewModel.getHealthySetId().toString(),
                     item.id.toString(),
-                    "oil"
+                    "oil",
+                    requireContext()
                 )
 //                energyProductsAdapter.notifyDataSetChanged() TODO()
+            }
+
+            oilProductsAdapter.onAmountChanged = { productId, amount, oldAmount ->
+                viewModel.changeAmountOfProduct(
+                    viewModel.getHealthySetId().toString(),
+                    productId,
+                    amount.toInt(),
+                    oldAmount,
+                    requireContext()
+                )
             }
 
             binding.apply {

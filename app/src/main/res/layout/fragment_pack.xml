@@ -49,20 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <View
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/shape_rectangle_green_rounded_left_30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/shape_rectangle_green_rounded_right_30dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -95,23 +81,45 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packFragment_recycler_energy"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packFragment_recycler_energy"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packFragment_tv_first_recycler" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packFragment_button_add_energy"/>
+
+                        <ImageView
+                            android:id="@+id/packFragment_button_add_energy"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packFragment_recycler_energy"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/packFragment_tv_second_recycler"
@@ -135,23 +143,45 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packFragment_recycler_power"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content">
 
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packFragment_recycler_power"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packFragment_tv_second_recycler" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packFragment_button_add_power" />
+
+                        <ImageView
+                            android:id="@+id/packFragment_button_add_power"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packFragment_recycler_power"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/packFragment_tv_third_recycler"
@@ -175,23 +205,46 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/packFragment_recycler_oil"
-
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:paddingVertical="15dp"
-                        android:paddingBottom="10dp"
-                        android:paddingHorizontal="2dp"
+                        android:layout_height="wrap_content">
 
 
-                        android:layout_marginHorizontal="5dp"
-                        android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/packFragment_recycler_oil"
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/packFragment_tv_third_recycler" />
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:paddingVertical="15dp"
+                            android:paddingBottom="10dp"
+                            android:paddingHorizontal="2dp"
+
+
+                            android:layout_marginHorizontal="5dp"
+                            android:background="@drawable/shape_rectangle_light_gray_rounded_bottom_10dp"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/packFragment_button_add_oil" />
+
+                        <ImageView
+                            android:id="@+id/packFragment_button_add_oil"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_gravity="end"
+                            android:layout_marginTop="-15dp"
+                            android:layout_marginEnd="20dp"
+
+                            android:src="@drawable/ic_button_add"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/packFragment_recycler_oil"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/packFragment_tv_fourth_recycler"
@@ -417,8 +470,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="15dp"
 
-                android:layout_marginBottom="100dp"
-
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="5dp"
 
@@ -426,6 +477,50 @@
                 android:text="@string/price_two_dots"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/packFragment_tv_all_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="25dp"
+
+                android:text="@string/weight_two_dots"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_bold"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/packFragment_tv_button_save_and_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="32dp"
+
+                android:layout_gravity="center"
+
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto"
+                android:textSize="17sp"
+                android:text="@string/save_and_continue" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/packFragment_button_offer_delivery"
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+
+                android:text="@string/offer_delivery"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/white"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="72dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_gravity="center"
+
+                android:background="@drawable/shape_profile_frag_button"/>
 
         </LinearLayout>
 

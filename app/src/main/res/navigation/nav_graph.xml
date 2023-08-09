@@ -10,6 +10,9 @@
             android:name="com.example.raczakupsecond.screens.start.StartFragment"
             android:label="fragment_to_auth"
             tools:layout="@layout/fragment_start">
+            <deepLink
+                android:id="@+id/deeplink_startFragment"
+                app:uri="raczakup://internal_navigation_startFragment" />
             <action
                 android:id="@+id/action_toAuthFragment_to_loginFragment"
                 app:destination="@id/loginFragment" />
@@ -131,6 +134,9 @@
             <action
                 android:id="@+id/action_packFragment_to_packDetailedFragment"
                 app:destination="@id/packDetailedFragment" />
+            <action
+                android:id="@+id/action_packFragment_to_kartFragment"
+                app:destination="@id/kartFragment" />
         </fragment>
     <fragment
         android:id="@+id/productsListFragment"
@@ -141,5 +147,14 @@
         android:id="@+id/packDetailedFragment"
         android:name="com.example.raczakupsecond.screens.packs.pack.packdetailed.PackDetailedFragment"
         android:label="fragment_pack_detailed"
-        tools:layout="@layout/fragment_pack_detailed" />
+        tools:layout="@layout/fragment_pack_detailed" >
+        <action
+            android:id="@+id/action_packDetailedFragment_to_kartFragment"
+            app:destination="@id/kartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kartFragment"
+        android:name="com.example.raczakupsecond.screens.kart.KartFragment"
+        android:label="fragment_kart"
+        tools:layout="@layout/fragment_kart" />
 </navigation>

@@ -10,6 +10,7 @@ class HealthySetParamsRefreshedProductToDomain(
         healthySetParamsRefreshedProductData.healthySetId,
         ProductParamsToDomain(
             healthySetParamsRefreshedProductData.refreshProduct
-        ).toDomain()
+        ).toDomain(),
+        RacParamsToDomain(healthySetParamsRefreshedProductData.racParams).toDomain()
     )
 }

@@ -16,7 +16,7 @@
         />
 
     <item
-        android:id="@+id/menu_kart"
+        android:id="@id/kartFragment"
         android:icon="@drawable/ic_bottom_navigation_kart"
         android:title="@string/bottom_navigation_kart"
         android:orderInCategory="3"

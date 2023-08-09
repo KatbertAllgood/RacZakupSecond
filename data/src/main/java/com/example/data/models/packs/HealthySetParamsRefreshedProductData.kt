@@ -7,5 +7,7 @@ data class HealthySetParamsRefreshedProductData(
     @SerializedName("helthySetId")
     val healthySetId: Int = 0,
     @SerializedName("refreshProduct")
-    val refreshProduct: ProductParamsData = ProductParamsData()
+    val refreshProduct: ProductParamsData = ProductParamsData(),
+    @SerializedName("racParams")
+    val racParams: RacParamsData = RacParamsData()
 )

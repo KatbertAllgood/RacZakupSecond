@@ -8,6 +8,30 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- UNIT OF COLORS -->
+
+    <color name="text_primary">#303030</color>
+    <color name="text_secondary">#8D8D8D</color>
+    <color name="text_accent">#94DD4D</color>
+    <color name="text_negative">#D32222</color>
+    <color name="text_warning">#E7830D</color>
+
+    <color name="background_primary">#FFFFFF</color>
+    <color name="background_secondary">#F3F3F3</color>
+    <color name="background_accent">#94DD4D</color>
+    <color name="background_accent_light">#C2FFAD</color>
+
+    <color name="button_primary">#1CB522</color>
+    <color name="button_secondary">#8E8E93</color>
+    <color name="button_negative">#D32222</color>
+
+    <color name="icon_primary">#000000</color>
+    <color name="icon_secondary">#8E8E93</color>
+    <color name="icon_accent">#94DD4D</color>
+
+    <!-- END OF UNIT OF COLORS -->
+
+
     <color name="default_button">#EFF5E5</color>
     <color name="default_text">#484848</color>
     <color name="login_text">#393939</color>
@@ -79,6 +103,10 @@
     <!-- АДРЕС -->
     <color name="f5f5f5">#F5F5F5</color>
     <color name="gray_for_address_item">#8E8E93</color>
+
+    <!-- КОРЗИНА -->
+    <color name="gray_pen">#565656</color>
+    <color name="light_text">#7D7D7D</color>
 
 
 </resources>
