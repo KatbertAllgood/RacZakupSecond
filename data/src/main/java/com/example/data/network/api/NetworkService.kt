@@ -19,7 +19,7 @@ object NetworkService {
         .build()
 
     val retrofitService = Retrofit.Builder()
-        .baseUrl("https://83.220.171.139/api/v1/")
+        .baseUrl("https://server_ip/api/v1/")
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
