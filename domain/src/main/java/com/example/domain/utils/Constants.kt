@@ -3,7 +3,7 @@ package com.example.domain.utils
 object Constants {
 
     // ключ для использования MapKit
-    const val API_MAP_KEY = "d7c27ca8-30de-4c3e-ba18-e4efffce2ede"
+    const val API_MAP_KEY = "key"
 
     const val MALE = "male"
     const val FEMALE = "female"
